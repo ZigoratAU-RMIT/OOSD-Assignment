@@ -4,9 +4,9 @@ package View;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
-
-
-import java.awt.MenuShortcut;
+import javax.swing.JButton;
+import java.awt.BorderLayout;
+import java.awt.Panel;
 
 
 public class View {
@@ -15,7 +15,16 @@ public class View {
 	JMenuBar menuBar;
 	JMenu mnuStart;
 	JMenu mnuPause;
-	JMenu mnuExit;;
+	JMenu mnuExit;
+	private JButton btnNewButton;
+	
+	public JButton getBtnNewButton() {
+		return btnNewButton;
+	}
+
+	public void setBtnNewButton(JButton btnNewButton) {
+		this.btnNewButton = btnNewButton;
+	}
 	
 	public JMenuBar getMenuBar() {
 		return menuBar;
@@ -71,8 +80,13 @@ public class View {
 	private void initialFrame() {
 		frmOodsAssignment = new JFrame();
 		frmOodsAssignment.setTitle("OODS Assignment 1");
-		frmOodsAssignment.setBounds(100, 100, 450, 300);
+		frmOodsAssignment.setBounds(100, 100, 496, 423);
 		frmOodsAssignment.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmOodsAssignment.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		Panel panel = new Panel();
+		frmOodsAssignment.getContentPane().add(panel, BorderLayout.CENTER);
+		btnNewButton = new JButton("New button");
+		panel.add(btnNewButton);
 	}
 	
 	private void initialMenu() {

@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 import Model.Model;
-import Model.Pices;
 import View.View;
 
 public class Controller {
@@ -41,8 +40,8 @@ public class Controller {
 		public void mouseClicked(MouseEvent e) {
 			startClick();
 			}	
-		});
-
+		});		
+		
 		view.getMnuPause().addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -58,6 +57,19 @@ public class Controller {
 				System.exit(0);
 			}	
 		});
+		
+		view.getBtnNewButton().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Big Fight Game was created");
+				sb.append("\nEgale name is: " + model.getBigFightGame().getEgale().getName());
+				sb.append("\nShark name is: " + model.getBigFightGame().getShark().getName());
+				sb.append("\nNumber of Pices are: " + model.getBigFightGame().getPices().length);
+				sb.append("\nPices name is: " + model.getBigFightGame().getPices()[0].getName());
+				JOptionPane.showMessageDialog(null, sb.toString());
+				}	
+			});
 	}
 	
 	private void startClick() {
