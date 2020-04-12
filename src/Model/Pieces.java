@@ -1,8 +1,8 @@
 package Model;
 
-public class Pices extends Animal {
+public class Pieces extends Animal {
 
-	public Pices(String name) {
+	public Pieces(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}

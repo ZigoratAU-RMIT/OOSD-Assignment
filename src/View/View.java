@@ -12,10 +12,10 @@ import java.awt.Panel;
 public class View {
 
 	private JFrame frmOodsAssignment;
-	JMenuBar menuBar;
-	JMenu mnuStart;
-	JMenu mnuPause;
-	JMenu mnuExit;
+	private JMenuBar menuBar;
+	private JMenu mnuStart;
+	private JMenu mnuPause;
+	private JMenu mnuExit;
 	private JButton btnNewButton;
 	
 	public JButton getBtnNewButton() {

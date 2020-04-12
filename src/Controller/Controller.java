@@ -11,8 +11,24 @@ import View.View;
 
 public class Controller {
 
-	private View view;
+	private View view;	
 	private Model model;
+	
+	public View getView() {
+		return view;
+	}
+
+	public void setView(View view) {
+		this.view = view;
+	}
+
+	public Model getModel() {
+		return model;
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
+	}
 	
 	
 	public Controller(View v, Model m) {
