@@ -5,7 +5,21 @@ public abstract class Animal {
 	private String Movement;
 	private String Strength;
 	private String Weakness;
+	private boolean Flying;
 	
+	public Animal(String name, boolean flying) {
+		Name = name;
+		Flying = flying;
+	}
+	
+	public boolean isFlying() {
+		return Flying;
+	}
+
+	public void setFlying(boolean flying) {
+		Flying = flying;
+	}
+
 	public String getMovement() {
 		return Movement;
 	}

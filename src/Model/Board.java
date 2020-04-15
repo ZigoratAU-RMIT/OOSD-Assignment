@@ -1,19 +1,24 @@
 package Model;
 
 public class Board {
-	private int row = 8;
-	private int column = 8;
+	private int Row = 8;
+	private int Column = 8;
 	
+	public Board(int row, int column)
+	{
+		Row = row;
+		Column = column;
+	}
 	public int getRow() {
-		return row;
+		return Row;
 	}
 	public void setRow(int row) {
-		this.row = row;
+		Row = row;
 	}
 	public int getColumn() {
-		return column;
+		return Column;
 	}
 	public void setColumn(int column) {
-		this.column = column;
+		Column = column;
 	}
 }

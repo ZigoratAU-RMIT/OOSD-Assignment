@@ -85,7 +85,7 @@ public class View {
 		frmOodsAssignment.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		Panel panel = new Panel();
 		frmOodsAssignment.getContentPane().add(panel, BorderLayout.CENTER);
-		btnNewButton = new JButton("New button");
+		btnNewButton = new JButton("Show objects Name");
 		panel.add(btnNewButton);
 	}
 	

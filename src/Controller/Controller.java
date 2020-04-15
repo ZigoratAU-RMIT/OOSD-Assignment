@@ -37,7 +37,7 @@ public class Controller {
 		initView();
 	}
 	
-	public void initView() {
+	private void initView() {
 		EventQueue.invokeLater(new Runnable() {
 		public void run() {
 			try {
