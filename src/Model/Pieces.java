@@ -1,10 +1,10 @@
 package Model;
 
-public class Pieces extends Animal {
+public class Pieces{
 
-	public Pieces(String name) {
-		super(name,false);
-		// TODO Auto-generated constructor stub
+	public Pieces(Animal animal) 
+	{
+		
 	}
 
 }

@@ -1,12 +1,9 @@
 package View;
 
 
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JButton;
-import java.awt.BorderLayout;
-import java.awt.Panel;
+import javax.swing.*;
+import java.awt.*;
+import View.board.*;
 
 
 public class View {
@@ -83,10 +80,9 @@ public class View {
 		frmOodsAssignment.setBounds(100, 100, 496, 423);
 		frmOodsAssignment.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmOodsAssignment.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		Panel panel = new Panel();
+		JPanel panel = new Board();
 		frmOodsAssignment.getContentPane().add(panel, BorderLayout.CENTER);
-		btnNewButton = new JButton("Show objects Name");
-		panel.add(btnNewButton);
+		btnNewButton = new JButton("New button");
 	}
 	
 	private void initialMenu() {

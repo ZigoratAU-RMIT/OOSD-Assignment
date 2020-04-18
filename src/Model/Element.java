@@ -1,18 +1,13 @@
 package Model;
 
 public class Element {
-	private String Name;
+	private String name;
 
-	public Element(String name)
-	{
-		Name = name;
-	}
-	
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 }
