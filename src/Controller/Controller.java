@@ -82,7 +82,7 @@ public class Controller {
 				sb.append("\nEgale name is: " + model.getBigFightGame().getEgale().getName());
 				sb.append("\nShark name is: " + model.getBigFightGame().getShark().getName());
 				sb.append("\nNumber of Pices are: " + model.getBigFightGame().getPices().length);
-				sb.append("\nPices name is: " + model.getBigFightGame().getPices()[0].getName());
+//				sb.append("\nPices name is: " + model.getBigFightGame().getPices()[0].getName());
 				JOptionPane.showMessageDialog(null, sb.toString());
 				}	
 			});

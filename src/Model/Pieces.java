@@ -1,10 +1,16 @@
 package Model;
 
-public class Pieces extends Animal {
+import java.awt.*;
+import javax.swing.*;
 
-	public Pieces(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
+public class Pieces 
+
+{
+
+	private Animal animal;
+	public Pieces(Animal animal) 
+	{
+		this.animal = animal;
 	}
 
 }

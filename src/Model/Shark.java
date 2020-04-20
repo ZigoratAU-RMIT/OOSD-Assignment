@@ -6,5 +6,10 @@ public class Shark extends Animal {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void move()
+	{
+		
+	}
 
 }

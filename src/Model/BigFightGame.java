@@ -1,19 +1,19 @@
 package Model;
 
 public class BigFightGame {
-	private Egale egale;
+	private Eagle egale;
 	private Shark shark;
 	private Pieces[] pieces;
 	
-	public BigFightGame(Egale egale, Shark shark, Pieces[] pices) {
+	public BigFightGame(Eagle egale, Shark shark, Pieces[] pieces) {
 		this.egale = egale;
 		this.shark = shark;
-		this.pieces = pices;
+		this.pieces = pieces;
 	}
-	public Egale getEgale() {
+	public Eagle getEgale() {
 		return egale;
 	}
-	public void setEgale(Egale egale) {
+	public void setEgale(Eagle egale) {
 		this.egale = egale;
 	}
 	public Shark getShark() {
@@ -25,7 +25,7 @@ public class BigFightGame {
 	public Pieces[] getPices() {
 		return pieces;
 	}
-	public void setPices(Pieces[] pices) {
-		this.pieces = pices;
+	public void setPices(Pieces[] pieces) {
+		this.pieces = pieces;
 	}
 }
