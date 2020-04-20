@@ -1,10 +1,6 @@
 package Controller;
 
-import java.awt.*;
 import java.awt.event.*;
-
-import javax.swing.*;
-
 import Model.*;
 import View.board.*;
 
@@ -37,5 +33,4 @@ public class ButtonListener implements ActionListener
 			
 		}
 	}
-
 }

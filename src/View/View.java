@@ -13,16 +13,8 @@ public class View {
 	private JMenu mnuStart;
 	private JMenu mnuPause;
 	private JMenu mnuExit;
-	private JButton btnNewButton;
-	
-	public JButton getBtnNewButton() {
-		return btnNewButton;
-	}
-
-	public void setBtnNewButton(JButton btnNewButton) {
-		this.btnNewButton = btnNewButton;
-	}
-	
+	private JPanel board;
+		
 	public JMenuBar getMenuBar() {
 		return menuBar;
 	}
@@ -63,6 +55,14 @@ public class View {
 		this.frmOodsAssignment = frame;
 	}
 
+	public JPanel getBoard() {
+		return board;
+	}
+
+	public void setBoard(JPanel board) {
+		this.board = board;
+	}
+	
 	/**
 	 * Create the application.
 	 */
@@ -80,9 +80,8 @@ public class View {
 		frmOodsAssignment.setBounds(100, 100, 496, 423);
 		frmOodsAssignment.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmOodsAssignment.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		JPanel panel = new Board();
-		frmOodsAssignment.getContentPane().add(panel, BorderLayout.CENTER);
-		btnNewButton = new JButton("New button");
+		board = new Board();
+		frmOodsAssignment.getContentPane().add(board, BorderLayout.CENTER);
 	}
 	
 	private void initialMenu() {
@@ -101,5 +100,4 @@ public class View {
 		mnuExit.setMnemonic('x');
 		menuBar.add(mnuExit);
 	}
-
 }
