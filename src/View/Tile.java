@@ -69,7 +69,7 @@ public class Tile extends JButton
 	
 	public void setEagle()
 	{
-		this.attribute = "eagle";
+		this.attribute = "egale";
 	}
 	
 	public void setShark()

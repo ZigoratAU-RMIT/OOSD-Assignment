@@ -77,13 +77,13 @@ public class Board extends JPanel
 			for(int y = 0;y<column;y++)
 			{
 				int[] islandSet = {0,1};
-				int rand = (int)(Math.random() * islandSet.length - 0.6);
+				int rand = (int)(Math.random() * islandSet.length - 0.3);
 				long start = new Date().getTime();
 				while(new Date().getTime() - start < 10L)
 				{
 					
 				}
-				if(islandSet[rand] == 1)
+				if(islandSet[rand] == 0)
 				{
 					Tile tile = new Tile(true,x+1,y+1);
 					if(!eagles.isEmpty())
@@ -194,6 +194,6 @@ public class Board extends JPanel
 
 	public Tile getSelectedTile()
 	{
-		return (Tile) this.getComponentAt(selectedRow, selectedColumn);
+		return (Tile) this.getComponentAt(selectedRow,selectedColumn);
 	}}
 

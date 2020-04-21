@@ -29,6 +29,8 @@ public class MoveController implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		if(this.pieces != null) {
+			Tile tile = (Tile) e.getSource();
+			if(tile.getAttribute().compareToIgnoreCase("egale")==0)
 		if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) {
 			board.setSelectedRow(tile.getRow());
 			board.setSelectedColumn(tile.getColumn());

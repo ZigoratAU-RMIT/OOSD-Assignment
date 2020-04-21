@@ -1,8 +1,14 @@
 package Controller;
 
+import java.awt.Image;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Paths;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,7 +35,7 @@ public class ButtonListener implements ActionListener
 	{
 		if(this.element != null)
 		{
-			if(tile.getAttribute() == "sharkOcean")
+			if(tile.getAttribute() != "egale")
 			{
 				if(board.getSelectedRow() != -1 && board.getSelectedColumn() != -1) {
 					double x = tile.getRow() - board.getSelectedRow();
@@ -44,7 +50,14 @@ public class ButtonListener implements ActionListener
 ////						setIcon(new ImageIcon(this.getClass().getResource("/images/Ocean.jpg")));
 ////					else
 ////						setIcon(new ImageIcon(this.getClass().getResource("/images/Island.jpg")));
-						JOptionPane.showMessageDialog(null,"OK" + " \n" + tile.getIcon().toString()+"\n"+board.getSelectedTile().getIcon().toString());
+						
+						
+						Icon temp = tile.getIcon();						
+						tile.setIcon(board.getSelectedTile().getIcon());
+						board.getSelectedTile().setIcon(temp);
+						JOptionPane.showMessageDialog(null,"Swapped");
+
+						//JOptionPane.showMessageDialog(null,"OK" + " \n" + tile.getIcon().toString()+"\n"+board.getSelectedTile().getIcon().toString());
 					}
 					else {
 						JOptionPane.showMessageDialog(null,"False");
