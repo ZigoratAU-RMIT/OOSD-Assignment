@@ -8,10 +8,12 @@ public class ButtonListener implements ActionListener
 {
 	private Tile tile;
 	private Pieces piece;
-	public ButtonListener(Tile tile,Pieces piece)
+	private Board board;
+	public ButtonListener(Tile tile,Pieces piece,Board board)
 	{
 		this.tile = tile;
 		this.piece = piece;
+		this.board = board;
 	}
 
 	@Override
@@ -19,18 +21,18 @@ public class ButtonListener implements ActionListener
 	{
 		if(this.piece != null)
 		{
-			if(tile.getAttribute() == "ocean")
+			if(tile.getAttribute() == "sharkOcean")
 			{
-				
+				//maybe need the move function
 			}
-			else
+			else if(tile.getAttribute() == "eagleOcean")
 			{
-				
+				//maybe need the move function
 			}
-		}
-		else
-		{
-			
+			else if(tile.getAttribute() == "eagleIsland")
+			{
+				//maybe need the move function
+			}
 		}
 	}
 }
