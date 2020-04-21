@@ -1,5 +1,6 @@
 package Controller;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -42,6 +43,8 @@ public class Controller {
 		public void run() {
 			try {
 				view.getFrame().setVisible(true);
+				view.getChkTurn().setText("Egale Turn");
+				view.getChkTurn().setBackground(Color.BLUE);
 			} 
 			catch (Exception e) {
 				e.printStackTrace();

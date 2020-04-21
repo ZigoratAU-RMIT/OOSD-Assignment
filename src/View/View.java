@@ -3,7 +3,7 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
-import View.board.*;
+
 
 
 public class View {
@@ -13,7 +13,10 @@ public class View {
 	private JMenu mnuStart;
 	private JMenu mnuPause;
 	private JMenu mnuExit;
+	
 	private JPanel board;
+	private JCheckBoxMenuItem chkTurn;
+	private JMenuItem mntmNewMenuItem;
 		
 	public JMenuBar getMenuBar() {
 		return menuBar;
@@ -80,7 +83,7 @@ public class View {
 		frmOodsAssignment.setBounds(100, 100, 496, 423);
 		frmOodsAssignment.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmOodsAssignment.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		board = new Board();
+		board = new Board(8,8);
 		frmOodsAssignment.getContentPane().add(board, BorderLayout.CENTER);
 	}
 	
@@ -99,5 +102,22 @@ public class View {
 		mnuExit = new JMenu("Exit");
 		mnuExit.setMnemonic('x');
 		menuBar.add(mnuExit);
+		
+		mntmNewMenuItem = new JMenuItem("");
+		menuBar.add(mntmNewMenuItem);
+		
+		chkTurn = new JCheckBoxMenuItem("New check item");
+		chkTurn.setEnabled(false);
+		chkTurn.setBackground(Color.BLUE);
+		chkTurn.setHorizontalAlignment(SwingConstants.CENTER);
+		menuBar.add(chkTurn);
+	}
+
+	public JCheckBoxMenuItem getChkTurn() {
+		return chkTurn;
+	}
+
+	public void setChkTurn(JCheckBoxMenuItem chkTurn) {
+		this.chkTurn = chkTurn;
 	}
 }
