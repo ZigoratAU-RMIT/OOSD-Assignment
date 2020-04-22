@@ -14,7 +14,7 @@ public class View {
 	private JMenu mnuPause;
 	private JMenu mnuExit;
 	
-	private JPanel board;
+	private Board board;
 	private JCheckBoxMenuItem chkTurn;
 	private JMenuItem mntmNewMenuItem;
 		
@@ -58,11 +58,11 @@ public class View {
 		this.frmOodsAssignment = frame;
 	}
 
-	public JPanel getBoard() {
+	public Board getBoard() {
 		return board;
 	}
 
-	public void setBoard(JPanel board) {
+	public void setBoard(Board board) {
 		this.board = board;
 	}
 	

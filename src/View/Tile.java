@@ -1,18 +1,9 @@
 package View;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Paths;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import Entity.*;
+
 
 
 @SuppressWarnings("serial")
