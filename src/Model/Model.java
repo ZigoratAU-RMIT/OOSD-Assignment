@@ -68,22 +68,31 @@ public class Model
 			for(int y = 0;y<8;y++)
 			{
 				int[] islandSet = {0,1};
-				int rand = (int)(Math.random() * islandSet.length - 0.3);
+				int rand = (int)(Math.random() * islandSet.length - 0.6);
 				long start = new Date().getTime();
 				while(new Date().getTime() - start < 10L)
 				{
 					
 				}
-				if(islandSet[rand] == 0)
+				if(islandSet[rand] == 1 || ( x==6 && y==7) || ( x==7 && y==7)|| ( x==7 && y==6))
 				{
 					Tile tile = new Tile(true,x+1,y+1);
-					if(!eagles.isEmpty())
+					if(( x==6 && y==7) || ( x==7 && y==7)|| ( x==7 && y==6))
 					{
-						//Pieces piece = new Pieces(eagles.get(0));
-						//maybe need a kind of picture change here
-						tile.setEagle();
-						setImageToTile(tile,eagles.get(0).getName());
-						eagles.remove(0);
+						if(!eagles.isEmpty())
+						{
+							//Pieces piece = new Pieces(eagles.get(0));
+							//maybe need a kind of picture change here
+							tile.setEagle();
+							setImageToTile(tile,eagles.get(0).getName());
+							eagles.remove(0);
+						}
+						else {
+							//Element element = new Element("island");
+							//maybe need a kind of picture change here
+							tile.setEagleIsland();
+							setImageToTile(tile,"Island");
+						}
 					}
 					else {
 						//Element element = new Element("island");
@@ -93,16 +102,26 @@ public class Model
 					}
 					tiles.add(tile);
 				}
-				else
+				else if(islandSet[rand] == 0 ||( x==0 && y==1) || ( x==0 && y==0)|| ( x==1 && y==0))
 				{
 					Tile tile = new Tile(false,x+1,y+1);
-					if(!sharks.isEmpty())
+					if(( x==0 && y==1) || ( x==0 && y==0)|| ( x==1 && y==0))
 					{
-						//Pieces piece = new Pieces(sharks.get(0));
-						//maybe need a kind of picture change here
-						tile.setShark();
-						setImageToTile(tile,sharks.get(0).getName());
-						sharks.remove(0);
+						if(!sharks.isEmpty())
+						{
+							//Pieces piece = new Pieces(sharks.get(0));
+							//maybe need a kind of picture change here
+							tile.setShark();
+							setImageToTile(tile,sharks.get(0).getName());
+							sharks.remove(0);
+						}
+						else
+						{
+							//Element element = new Element("ocean");
+							//maybe need a kind of picture change here
+							tile.setSharkOcean();
+							setImageToTile(tile,"Ocean");
+						}
 					}
 					else
 					{
