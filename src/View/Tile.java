@@ -11,6 +11,7 @@ public class Tile extends JButton
 {
 	private int row;
 	private int column;
+	private String animal;
 
 	private String attribute;
 	
@@ -87,5 +88,15 @@ public class Tile extends JButton
 
 	public void setColumn(int y) {
 		column = y;
+	}
+	
+	public void setAnimal(String animal)
+	{
+		this.animal = animal;
+	}
+	
+	public String getAnimal()
+	{
+		return this.animal;
 	}
 }

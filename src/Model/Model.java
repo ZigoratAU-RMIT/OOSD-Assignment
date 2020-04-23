@@ -74,7 +74,7 @@ public class Model
 				{
 					
 				}
-				if(islandSet[rand] == 1 || ( x==6 && y==7) || ( x==7 && y==7)|| ( x==7 && y==6))
+				if((islandSet[rand] == 1 || ( x==6 && y==7) || ( x==7 && y==7)|| ( x==7 && y==6)) && !( x==0 && y==1) && !( x==0 && y==0) && !( x==1 && y==0))
 				{
 					Tile tile = new Tile(true,x+1,y+1);
 					if(( x==6 && y==7) || ( x==7 && y==7)|| ( x==7 && y==6))
@@ -85,6 +85,8 @@ public class Model
 							//maybe need a kind of picture change here
 							tile.setEagleIsland();
 							setImageToTile(tile,eagles.get(0).getName());
+//							System.out.println(eagles.get(0).getName());
+							tile.setAnimal(eagles.get(0).getName());
 							eagles.remove(0);
 						}
 						else {
@@ -102,7 +104,7 @@ public class Model
 					}
 					tiles.add(tile);
 				}
-				else if(islandSet[rand] == 0 ||( x==0 && y==1) || ( x==0 && y==0)|| ( x==1 && y==0))
+				else if((islandSet[rand] == 0 ||( x==0 && y==1) || ( x==0 && y==0)|| ( x==1 && y==0)) && !( x==6 && y==7) && !( x==7 && y==7)&& !( x==7 && y==6))
 				{
 					Tile tile = new Tile(false,x+1,y+1);
 					if(( x==0 && y==1) || ( x==0 && y==0)|| ( x==1 && y==0))
@@ -113,6 +115,8 @@ public class Model
 							//maybe need a kind of picture change here
 							tile.setSharkOcean();
 							setImageToTile(tile,sharks.get(0).getName());
+//							System.out.println(sharks.get(0).getName());
+							tile.setAnimal(sharks.get(0).getName());
 							sharks.remove(0);
 						}
 						else
