@@ -24,13 +24,12 @@ public class EgaleMouseActionListener  implements MouseListener
 		else {
 		Tile tile = (Tile) e.getSource();
 		if(tile != null) {
-			if(tile.getAttribute().compareToIgnoreCase("eagleIsland")==0 || tile.getAttribute().compareToIgnoreCase("eagleOcean")==0)
+			if(tile.getAttribute().compareToIgnoreCase("egale")==0)
 				if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) {
-					System.out.println("1");
 					board.setSelectedRow(tile.getRow());
 					board.setSelectedColumn(tile.getColumn());
 					//JOptionPane.showMessageDialog(null,board.getSelectedRow()+","+board.getSelectedColumn());
-				}			
+					}			
 			}		
 		}
 	}

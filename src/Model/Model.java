@@ -21,17 +21,16 @@ import Entity.*;
 public class Model 
 {	
 	private List<Tile> tiles;
-	private Board board;
 	
 	ArrayList<Shark> sharks;
 	ArrayList<Egale> eagles;
 	
 	public Model() {
 		super();
-		initTilesList();
+
 	}
 
-	public void setImageToTile(Tile tileItem,String imageName) {
+	private void setImageToTile(Tile tileItem,String imageName) {
 		try
 		{
 			Image img = ImageIO.read(new FileInputStream(String.format("resources%s%s%s%s", File.separator, "images",File.separator, imageName + ".jpg")));
@@ -49,7 +48,7 @@ public class Model
 		}
 	}
 	
-	public void initTilesList()
+	public void initModel(int row, int column)
 	{
 		tiles = new ArrayList<>();
 		
@@ -64,79 +63,43 @@ public class Model
 		
 
 		
-		for(int x = 0;x<8;x++)
-			for(int y = 0;y<8;y++)
+		for(int x = 0;x<row;x++)
+			for(int y = 0;y<column;y++)
 			{
-				int[] islandSet = {0,1};
-				int rand = (int)(Math.random() * islandSet.length - 0.5);
-				long start = new Date().getTime();
-				while(new Date().getTime() - start < 10L)
-				{
-					
+				int[] islandSet = {0,1,2,3,4};
+				int rand = (int)(Math.random() * islandSet.length - 0.3);
+				Tile tile = new Tile(true,x+1,y+1);
+				switch(islandSet[rand]) {
+				case 0:
+					tile.setIsland();
+					break;
+				case 1:
+					tile.setEagleIsland();
+					break;
+				case 2:
+					tile.setEagleOcean();
+					break;
+				case 3:
+					tile.setOcean();
+					break;
+				case 4:
+					tile.setSharkOcean();
+					break;
 				}
-				if((islandSet[rand] == 1 || ( x==6 && y==7) || ( x==7 && y==7)|| ( x==7 && y==6)) && !( x==0 && y==1) && !( x==0 && y==0) && !( x==1 && y==0))
-				{
-					Tile tile = new Tile(true,x+1,y+1);
-					if(( x==6 && y==7) || ( x==7 && y==7)|| ( x==7 && y==6))
-					{
-						if(!eagles.isEmpty())
-						{
-							//Pieces piece = new Pieces(eagles.get(0));
-							//maybe need a kind of picture change here
-							tile.setEagleIsland();
-							setImageToTile(tile,eagles.get(0).getName());
-//							System.out.println(eagles.get(0).getName());
-							tile.setAnimal(eagles.get(0).getName());
-							eagles.remove(0);
-						}
-						else {
-							//Element element = new Element("island");
-							//maybe need a kind of picture change here
-							tile.setIsland();
-							setImageToTile(tile,"Island");
-						}
-					}
-					else {
-						//Element element = new Element("island");
-						//maybe need a kind of picture change here
-						tile.setIsland();
-						setImageToTile(tile,"Island");
-					}
-					tiles.add(tile);
-				}
-				else if((islandSet[rand] == 0 ||( x==0 && y==1) || ( x==0 && y==0)|| ( x==1 && y==0)) && !( x==6 && y==7) && !( x==7 && y==7)&& !( x==7 && y==6))
-				{
-					Tile tile = new Tile(false,x+1,y+1);
-					if(( x==0 && y==1) || ( x==0 && y==0)|| ( x==1 && y==0))
-					{
-						if(!sharks.isEmpty())
-						{
-							//Pieces piece = new Pieces(sharks.get(0));
-							//maybe need a kind of picture change here
-							tile.setSharkOcean();
-							setImageToTile(tile,sharks.get(0).getName());
-//							System.out.println(sharks.get(0).getName());
-							tile.setAnimal(sharks.get(0).getName());
-							sharks.remove(0);
-						}
-						else
-						{
-							//Element element = new Element("ocean");
-							//maybe need a kind of picture change here
-							tile.setOcean();
-							setImageToTile(tile,"Ocean");
-						}
-					}
-					else
-					{
-						//Element element = new Element("ocean");
-						//maybe need a kind of picture change here
-						tile.setOcean();
-						setImageToTile(tile,"Ocean");
-					}
-					tiles.add(tile);
-				}
+				setImageToTile(tile,tile.getAttribute());
+
+				tiles.add(tile);
 			}
+		//Arrange eagle at the top left of the board
+		for(int x = 0;x<3;x++) {
+			tiles.get(x).setEagle();
+			setImageToTile(tiles.get(x),eagles.get(x).getName());
+		}
+		//Arrange sharks at the bottom of the board
+		for(int x = 0;x<3;x++) {
+			tiles.get(tiles.size() - x - 1).setShark();
+			setImageToTile(tiles.get(tiles.size() - x - 1),sharks.get(x).getName());			
+		}
 	}
 
 	

@@ -7,9 +7,10 @@ public class App {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		Model m = new Model();
-		View v = new View();
-		Controller c = new Controller(v ,m);
-		c.initController();
+		View view = new View();
+		Model model = new Model();
+		model.initModel(view.getBoard().getRow(),view.getBoard().getColumn());
+		Controller controller = new Controller(view ,model);
+		controller.initController();
 	}
 }

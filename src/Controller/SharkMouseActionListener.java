@@ -24,7 +24,7 @@ public class SharkMouseActionListener  implements MouseListener
 		else {
 		Tile tile = (Tile) e.getSource();
 		if(tile != null) {
-			if(tile.getAttribute().compareToIgnoreCase("sharkOcean")==0)
+			if(tile.getAttribute().compareToIgnoreCase("shark")==0)
 				if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) {
 					board.setSelectedRow(tile.getRow());
 					board.setSelectedColumn(tile.getColumn());

@@ -11,7 +11,6 @@ public class Tile extends JButton
 {
 	private int row;
 	private int column;
-	private String animal;
 
 	private String attribute;
 	
@@ -34,13 +33,13 @@ public class Tile extends JButton
 	
 	public void setIsland()
 	{
-		this.attribute = "island";
+		attribute = "island";
 		setBackground(Color.GRAY);
 	}
 	
 	public void setOcean()
 	{
-		this.attribute = "ocean";
+		attribute = "ocean";
 		setBackground(Color.BLUE);
 	}
 	
@@ -61,7 +60,7 @@ public class Tile extends JButton
 	
 	public void setEagle()
 	{
-		this.attribute = "eagle";
+		this.attribute = "egale";
 	}
 	
 	public void setShark()
@@ -88,15 +87,5 @@ public class Tile extends JButton
 
 	public void setColumn(int y) {
 		column = y;
-	}
-	
-	public void setAnimal(String animal)
-	{
-		this.animal = animal;
-	}
-	
-	public String getAnimal()
-	{
-		return this.animal;
 	}
 }

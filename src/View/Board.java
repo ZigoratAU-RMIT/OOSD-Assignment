@@ -1,17 +1,8 @@
 package View;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.*;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import Controller.*;
-import Entity.*;
 
 
 
