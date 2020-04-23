@@ -31,7 +31,7 @@ public class Model
 		initTilesList();
 	}
 
-	private void setImageToTile(Tile tileItem,String imageName) {
+	public void setImageToTile(Tile tileItem,String imageName) {
 		try
 		{
 			Image img = ImageIO.read(new FileInputStream(String.format("resources%s%s%s%s", File.separator, "images",File.separator, imageName + ".jpg")));
@@ -49,7 +49,7 @@ public class Model
 		}
 	}
 	
-	private void initTilesList()
+	public void initTilesList()
 	{
 		tiles = new ArrayList<>();
 		
@@ -68,7 +68,7 @@ public class Model
 			for(int y = 0;y<8;y++)
 			{
 				int[] islandSet = {0,1};
-				int rand = (int)(Math.random() * islandSet.length - 0.6);
+				int rand = (int)(Math.random() * islandSet.length - 0.5);
 				long start = new Date().getTime();
 				while(new Date().getTime() - start < 10L)
 				{
@@ -83,21 +83,21 @@ public class Model
 						{
 							//Pieces piece = new Pieces(eagles.get(0));
 							//maybe need a kind of picture change here
-							tile.setEagle();
+							tile.setEagleIsland();
 							setImageToTile(tile,eagles.get(0).getName());
 							eagles.remove(0);
 						}
 						else {
 							//Element element = new Element("island");
 							//maybe need a kind of picture change here
-							tile.setEagleIsland();
+							tile.setIsland();
 							setImageToTile(tile,"Island");
 						}
 					}
 					else {
 						//Element element = new Element("island");
 						//maybe need a kind of picture change here
-						tile.setEagleIsland();
+						tile.setIsland();
 						setImageToTile(tile,"Island");
 					}
 					tiles.add(tile);
@@ -111,7 +111,7 @@ public class Model
 						{
 							//Pieces piece = new Pieces(sharks.get(0));
 							//maybe need a kind of picture change here
-							tile.setShark();
+							tile.setSharkOcean();
 							setImageToTile(tile,sharks.get(0).getName());
 							sharks.remove(0);
 						}
@@ -119,7 +119,7 @@ public class Model
 						{
 							//Element element = new Element("ocean");
 							//maybe need a kind of picture change here
-							tile.setSharkOcean();
+							tile.setOcean();
 							setImageToTile(tile,"Ocean");
 						}
 					}
@@ -127,7 +127,7 @@ public class Model
 					{
 						//Element element = new Element("ocean");
 						//maybe need a kind of picture change here
-						tile.setSharkOcean();
+						tile.setOcean();
 						setImageToTile(tile,"Ocean");
 					}
 					tiles.add(tile);

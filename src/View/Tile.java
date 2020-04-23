@@ -33,13 +33,13 @@ public class Tile extends JButton
 	
 	public void setIsland()
 	{
-		attribute = "island";
+		this.attribute = "island";
 		setBackground(Color.GRAY);
 	}
 	
 	public void setOcean()
 	{
-		attribute = "ocean";
+		this.attribute = "ocean";
 		setBackground(Color.BLUE);
 	}
 	
@@ -60,7 +60,7 @@ public class Tile extends JButton
 	
 	public void setEagle()
 	{
-		this.attribute = "egale";
+		this.attribute = "eagle";
 	}
 	
 	public void setShark()

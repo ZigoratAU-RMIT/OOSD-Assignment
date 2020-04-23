@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collections;
+
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 import Model.Model;
@@ -33,42 +35,65 @@ public class Controller {
 		this.model = model;
 	}
 	
-	private void updateBoard() {
+	private void updateBoard() 
+	{
 		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view.getBoard());
 		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view.getBoard());
 
 		int item = 0;
 		Tile tile;
 		for(int x = 0;x<8;x++)
-			for(int y = 0;y<8;y++) {
+		{
+			for(int y = 0;y<8;y++) 
+			{
 				tile = model.getTiles().get(item++);
 				String attribute = tile.getAttribute();
-				if(attribute.compareToIgnoreCase("egale") == 0)
+				if(attribute.compareToIgnoreCase("eagleIsland") == 0 || attribute.compareToIgnoreCase("eagleOcean") == 0)
+				{
 					tile.addMouseListener(egaleMouseActionListener);
-				else if(attribute.compareToIgnoreCase("shark") == 0)
+				}
+				else if(attribute.compareToIgnoreCase("sharkOcean") == 0)
+				{
 					tile.addMouseListener(sharkMouseActionListener);
+
+				}
 				else
-					tile.addMouseListener(new MouseAdapter() {
+				{
+					tile.addMouseListener(new MouseAdapter()
+					{
 						@Override
-						public void mouseClicked(MouseEvent e) {							
+						public void mouseClicked(MouseEvent e) 
+						{							
 							Tile tileItem = (Tile) e.getSource();
-							if(tileItem != null) {
-								if(!view.getBoard().isEagleSharkTurn()) {
-									if(tileItem.getAttribute().compareToIgnoreCase("egale") != 0)
-										doSwapEgale(tileItem);									
+							if(tileItem != null) 
+							{
+								if(!view.getBoard().isEagleSharkTurn()) 
+								{
+									if(tileItem.getAttribute().compareToIgnoreCase("eagleIsland") != 0 ||
+									tileItem.getAttribute().compareToIgnoreCase("eagleOcean") != 0)
+									{
+										doSwapEgale(tileItem);													
+									}
 								}
-								else {
-									if(tileItem.getAttribute().compareToIgnoreCase("shark") != 0)
+								else 
+								{
+//									System.out.println("yeah!");
+									if(tileItem.getAttribute().compareToIgnoreCase("sharkOcean") != 0)
+									{
 										doSwapShark(tileItem);									
 									}
-								}							
+								}
 							}	
-						});		
-				view.getBoard().add(tile);
+						}
+					});
 				}		
+				view.getBoard().add(tile);
+			}		
+		}
 	}
 	
-	public Controller(View v, Model m) {
+	public Controller(View v, Model m) 
+	{
 		view = v;
 		model = m;
 		initView();
@@ -116,11 +141,27 @@ public class Controller {
 				
 				int source = ((x1 - 1) * 8) + (y1 - 1);
 				int destination = ((x2 - 1) * 8) + (y2 - 1);
-				model.getTiles().get(source).setRow(x2);
-				model.getTiles().get(source).setColumn(y2);
-				model.getTiles().get(destination).setRow(x1);
-				model.getTiles().get(destination).setColumn(y1);
-				Collections.swap(model.getTiles(), source, destination); 
+								
+				if(model.getTiles().get(destination).getAttribute().equalsIgnoreCase("eagleIsland") == true)
+				{
+					Icon destinationIcon = model.getTiles().get(destination).getIcon();
+					model.getTiles().get(source).setIcon(destinationIcon);
+					model.setImageToTile(model.getTiles().get(destination), "Island");
+
+				}
+				else if(model.getTiles().get(destination).getAttribute().equalsIgnoreCase("eagleOcean") == true)
+				{
+					Icon destinationIcon = model.getTiles().get(destination).getIcon();
+					model.getTiles().get(source).setIcon(destinationIcon);
+					model.setImageToTile(model.getTiles().get(destination), "Ocean");
+				}
+			
+				
+//				model.getTiles().get(source).setRow(x2);
+//				model.getTiles().get(source).setColumn(y2);
+//				model.getTiles().get(destination).setRow(x1);
+//				model.getTiles().get(destination).setColumn(y1);
+//				Collections.swap(model.getTiles(), source, destination); 
 				view.getBoard().removeAll();
 				updateBoard();
 				view.getBoard().validate();
@@ -149,11 +190,21 @@ public class Controller {
 				
 				int source = ((x1 - 1) * 8) + (y1 - 1);
 				int destination = ((x2 - 1) * 8) + (y2 - 1);
-				model.getTiles().get(source).setRow(x2);
-				model.getTiles().get(source).setColumn(y2);
-				model.getTiles().get(destination).setRow(x1);
-				model.getTiles().get(destination).setColumn(y1);
-				Collections.swap(model.getTiles(), source, destination); 
+//				System.out.println(x1 + " , " + y1 + " , " + x2 + " , " + y2 + " , " + source + " , " + destination);
+				
+				if(model.getTiles().get(destination).getAttribute().equalsIgnoreCase("sharkOcean") == true)
+				{
+					Icon destinationIcon = model.getTiles().get(destination).getIcon();
+					model.getTiles().get(source).setIcon(destinationIcon);
+					model.setImageToTile(model.getTiles().get(destination), "Ocean");
+//					System.out.println(x1 + " , " + y1 + " , " + x2 + " , " + y2 + " , " + source + " , " + destination);
+				}
+				
+//				model.getTiles().get(source).setRow(x2);
+//				model.getTiles().get(source).setColumn(y2);
+//				model.getTiles().get(destination).setRow(x1);
+//				model.getTiles().get(destination).setColumn(y1);
+//				Collections.swap(model.getTiles(), source, destination); 
 				view.getBoard().removeAll();
 				updateBoard();
 				view.getBoard().validate();
