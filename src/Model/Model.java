@@ -64,7 +64,7 @@ public class Model
 			for(int y = 0;y<column;y++)
 			{
 				int[] islandSet = {0,1,2,3,4};
-				int rand = (int)(Math.random() * islandSet.length - 0.3);
+				int rand = (int)(Math.random() * islandSet.length);
 				Tile tile = new Tile("",x+1,y+1);
 				switch(islandSet[rand]) {
 				case 0:
@@ -88,7 +88,8 @@ public class Model
 				tiles.add(tile);
 			}
 		//Arrange eagle at the top left of the board
-		ArrayList<Integer> numbers = new ArrayList<Integer>();   
+		ArrayList<Integer> numbers = new ArrayList<Integer>();  
+		ArrayList<Integer> numberList = new ArrayList<Integer>();
 		for(int x = 0;x<3;x++) {
 			//Generate random number for different location
 			Random randomGenerator = new Random();
@@ -97,7 +98,7 @@ public class Model
 			    int random = randomGenerator .nextInt(row);
 			    if (!numbers.contains(random)) {
 			        numbers.add(random);
-			    }
+			        }
 			}
 			tiles.get(numbers.get(x)).setEagle();
 			tiles.get(numbers.get(x)).setName(eagles.get(x).getName());
@@ -109,15 +110,18 @@ public class Model
 			Random randomGenerator = new Random();
 			while (numbers.size() < 3) {
 
-			    int random = randomGenerator .nextInt(row);
-			    if (!numbers.contains(random)) {
+			    int random = randomGenerator .nextInt(9);
+			    if (!numbers.contains(random) && !numberList.contains(random)) {
 			        numbers.add(random);
 			    }
 			}
 			int location = tiles.size() - numbers.get(x) - 1;
 			tiles.get(location).setShark();
 			tiles.get(location).setName(sharks.get(x).getName());
-			setImageToTile(tiles.get(location),sharks.get(x).getName());			
+			setImageToTile(tiles.get(location),sharks.get(x).getName());
+			numberList.add(numbers.get(0));
+			numberList.add(numbers.get(1));
+			numberList.add(numbers.get(2));
 		}
 	}
 
