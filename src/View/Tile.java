@@ -11,24 +11,15 @@ public class Tile extends JButton
 {
 	private int row;
 	private int column;
-
 	private String attribute;
-	
-	public Tile(boolean isIsland,int row, int column)
+	private String name;
+
+	public Tile(String name,int row, int column)
 	{	
 		this.row = row;
 		this.column = column;
+		this.name = name;
 		setOpaque(true);
-		if(isIsland)
-		{
-			attribute = "island";
-			setBackground(Color.GRAY);
-		}
-		else
-		{
-			attribute = "ocean";
-			setBackground(Color.BLUE);
-		}
 	}
 	
 	public void setIsland()
@@ -87,5 +78,13 @@ public class Tile extends JButton
 
 	public void setColumn(int y) {
 		column = y;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

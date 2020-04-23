@@ -28,6 +28,7 @@ public class SharkMouseActionListener  implements MouseListener
 				if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) {
 					board.setSelectedRow(tile.getRow());
 					board.setSelectedColumn(tile.getColumn());
+					board.setSelectedname(tile.getName());
 					}
 			}
 		}		

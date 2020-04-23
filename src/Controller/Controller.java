@@ -14,24 +14,6 @@ public class Controller {
 
 	private View view;	
 	private Model model;
-	private EgaleMouseActionListener egaleMouseActionListener;
-	private SharkMouseActionListener sharkMouseActionListener;
-	
-	public View getView() {
-		return view;
-	}
-
-	public void setView(View view) {
-		this.view = view;
-	}
-
-	public Model getModel() {
-		return model;
-	}
-
-	public void setModel(Model model) {
-		this.model = model;
-	}
 	
 	private void updateBoard() {
 		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view.getBoard());
@@ -55,11 +37,11 @@ public class Controller {
 							if(tileItem != null) {
 								if(!view.getBoard().isEagleSharkTurn()) {
 									if(tileItem.getAttribute().compareToIgnoreCase("egale") != 0)
-										doSwapEgale(tileItem);									
+										doMovement(true,tileItem);									
 								}
 								else {
 									if(tileItem.getAttribute().compareToIgnoreCase("shark") != 0)
-										doSwapShark(tileItem);									
+										doMovement(false,tileItem);									
 									}
 								}							
 							}	
@@ -103,45 +85,39 @@ public class Controller {
 		}
 	}
 	
-	public void doSwapEgale(Tile tileItem) {
+	private boolean checkMovement(boolean EagleOrShark,double x, double y) {
+		boolean result = false;
+		if(EagleOrShark) {
+			//find the eagle name for selecting different movement.
+			if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getEagles().get(0).getName()) == 0)
+				result = (Math.abs(x) == 1 && Math.abs(y) == 3) || (Math.abs(x) == 3 && Math.abs(y) == 1);
+			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getEagles().get(1).getName()) == 0)
+				result = (Math.abs(x) == 2 && Math.abs(y) == 3) || (Math.abs(x) == 3 && Math.abs(y) == 2);
+			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getEagles().get(2).getName()) == 0)
+				result = (Math.abs(x) == 3 && Math.abs(y) == 3) || (Math.abs(x) == 3 && Math.abs(y) == 3);
+		}
+		else {
+			//find the shark name for selecting different movement.
+			if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getSharks().get(0).getName()) == 0)
+				result = Math.abs(x) ==  Math.abs(y);
+			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getSharks().get(1).getName()) == 0)
+				result = (Math.abs(x) == 0 ) ||( Math.abs(y) == 0);
+			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getSharks().get(2).getName()) == 0)
+				result = (Math.abs(x) ==  Math.abs(y)) || ( (Math.abs(x) == 0 ) ||( Math.abs(y) == 0));			
+		}
+		return result;
+	}
+	
+	public void doMovement(boolean EagleOrShark,Tile tileItem) {
 		if(view.getBoard().getSelectedRow() != -1 && view.getBoard().getSelectedColumn() != -1) {
+			//calculate distance
 			double x = tileItem.getRow() - view.getBoard().getSelectedRow();
 			double y = tileItem.getColumn() - view.getBoard().getSelectedColumn();
-			if((Math.abs(x) == 1 && Math.abs(y) == 2) || (Math.abs(x) == 2 && Math.abs(y) == 1)) {
-				
-				int x1 = tileItem.getRow();
-				int y1 = tileItem.getColumn();
-				int x2 = view.getBoard().getSelectedRow() ;
-				int y2 = view.getBoard().getSelectedColumn();
-				
-				int source = ((x1 - 1) * 8) + (y1 - 1);
-				int destination = ((x2 - 1) * 8) + (y2 - 1);
-				model.getTiles().get(source).setRow(x2);
-				model.getTiles().get(source).setColumn(y2);
-				model.getTiles().get(destination).setRow(x1);
-				model.getTiles().get(destination).setColumn(y1);
-				Collections.swap(model.getTiles(), source, destination); 
-				view.getBoard().removeAll();
-				updateBoard();
-				view.getBoard().validate();
-				changeTurn();
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(null,"Egale movement is wrong");
-			}
-			view.getBoard().setSelectedRow(-1);
-			view.getBoard().setSelectedColumn(-1);
 			
-		}		
-	}
-	
-	public void doSwapShark(Tile tileItem) {
-		if(view.getBoard().getSelectedRow() != -1 && view.getBoard().getSelectedColumn() != -1) {
-			double x = tileItem.getRow() - view.getBoard().getSelectedRow();
-			double y = tileItem.getColumn() - view.getBoard().getSelectedColumn();
-			if(Math.abs(x) ==  Math.abs(y)) {
+			boolean isMoveAllowed = checkMovement(EagleOrShark,x,y);
+			if(isMoveAllowed) {
 				
+				//find source and destination location in the board
 				int x1 = tileItem.getRow();
 				int y1 = tileItem.getColumn();
 				int x2 = view.getBoard().getSelectedRow() ;
@@ -161,18 +137,18 @@ public class Controller {
 			}
 			else
 			{
-				JOptionPane.showMessageDialog(null,"Shark movement is wrong");
+				if(EagleOrShark)
+					JOptionPane.showMessageDialog(null,"Egale movement is wrong");
+				else
+					JOptionPane.showMessageDialog(null,"Shark movement is wrong");
 			}
 			view.getBoard().setSelectedRow(-1);
-			view.getBoard().setSelectedColumn(-1);
+			view.getBoard().setSelectedColumn(-1);			
 		}		
 	}
+
 	
-	public void initController() {
-		
-		egaleMouseActionListener = new EgaleMouseActionListener(view.getBoard());
-		sharkMouseActionListener = new SharkMouseActionListener(view.getBoard());
-		
+	public void initController() {		
 		view.getMnuStart().addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -207,21 +183,20 @@ public class Controller {
 		else
 			view.getMnuPause().setText("Pause");
 	}
-
-	public EgaleMouseActionListener getEgaleMouseActionListener() {
-		return egaleMouseActionListener;
-	}
-
-	public void setEgaleMouseActionListener(EgaleMouseActionListener egaleMouseActionListener) {
-		this.egaleMouseActionListener = egaleMouseActionListener;
-	}
-
-	public SharkMouseActionListener getSharkMouseActionListener() {
-		return sharkMouseActionListener;
-	}
-
-	public void setSharkMouseActionListener(SharkMouseActionListener sharkMouseActionListener) {
-		this.sharkMouseActionListener = sharkMouseActionListener;
-	}
 	
+	public View getView() {
+		return view;
+	}
+
+	public void setView(View view) {
+		this.view = view;
+	}
+
+	public Model getModel() {
+		return model;
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
+	}
 }

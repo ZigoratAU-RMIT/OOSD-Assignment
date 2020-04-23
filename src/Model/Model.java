@@ -6,12 +6,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
+import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
 
 
 import View.*;
@@ -21,9 +19,8 @@ import Entity.*;
 public class Model 
 {	
 	private List<Tile> tiles;
-	
-	ArrayList<Shark> sharks;
-	ArrayList<Egale> eagles;
+	private ArrayList<Shark> sharks;
+	private ArrayList<Egale> eagles;
 	
 	public Model() {
 		super();
@@ -68,7 +65,7 @@ public class Model
 			{
 				int[] islandSet = {0,1,2,3,4};
 				int rand = (int)(Math.random() * islandSet.length - 0.3);
-				Tile tile = new Tile(true,x+1,y+1);
+				Tile tile = new Tile("",x+1,y+1);
 				switch(islandSet[rand]) {
 				case 0:
 					tile.setIsland();
@@ -91,14 +88,36 @@ public class Model
 				tiles.add(tile);
 			}
 		//Arrange eagle at the top left of the board
+		ArrayList<Integer> numbers = new ArrayList<Integer>();   
 		for(int x = 0;x<3;x++) {
-			tiles.get(x).setEagle();
-			setImageToTile(tiles.get(x),eagles.get(x).getName());
+			//Generate random number for different location
+			Random randomGenerator = new Random();
+			while (numbers.size() < 3) {
+
+			    int random = randomGenerator .nextInt(row);
+			    if (!numbers.contains(random)) {
+			        numbers.add(random);
+			    }
+			}
+			tiles.get(numbers.get(x)).setEagle();
+			tiles.get(numbers.get(x)).setName(eagles.get(x).getName());
+			setImageToTile(tiles.get(numbers.get(x)),eagles.get(x).getName());
 		}
 		//Arrange sharks at the bottom of the board
 		for(int x = 0;x<3;x++) {
-			tiles.get(tiles.size() - x - 1).setShark();
-			setImageToTile(tiles.get(tiles.size() - x - 1),sharks.get(x).getName());			
+			numbers.clear();  
+			Random randomGenerator = new Random();
+			while (numbers.size() < 3) {
+
+			    int random = randomGenerator .nextInt(row);
+			    if (!numbers.contains(random)) {
+			        numbers.add(random);
+			    }
+			}
+			int location = tiles.size() - numbers.get(x) - 1;
+			tiles.get(location).setShark();
+			tiles.get(location).setName(sharks.get(x).getName());
+			setImageToTile(tiles.get(location),sharks.get(x).getName());			
 		}
 	}
 
@@ -107,8 +126,23 @@ public class Model
 		return tiles;
 	}
 
-
 	public void setTiles(List<Tile> tiles) {
 		this.tiles = tiles;
 	}	
+	
+	public ArrayList<Shark> getSharks() {
+		return sharks;
+	}
+
+	public void setSharks(ArrayList<Shark> sharks) {
+		this.sharks = sharks;
+	}
+
+	public ArrayList<Egale> getEagles() {
+		return eagles;
+	}
+
+	public void setEagles(ArrayList<Egale> eagles) {
+		this.eagles = eagles;
+	}
 }
