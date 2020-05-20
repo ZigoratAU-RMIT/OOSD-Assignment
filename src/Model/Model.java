@@ -11,7 +11,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-
+import Configuration.ApplicationConfiguration;
 import View.*;
 import Entity.*;
 
@@ -21,9 +21,11 @@ public class Model
 	private List<Tile> tiles;
 	private ArrayList<Shark> sharks;
 	private ArrayList<Egale> eagles;
-	
+	private ApplicationConfiguration applicationConfiguration;
+
 	public Model() {
 		super();
+		applicationConfiguration = new ApplicationConfiguration();
 
 	}
 
@@ -45,7 +47,7 @@ public class Model
 		}
 	}
 	
-	public void initModel(int row, int column)
+	public void initModel(int boardRows, int boardColumns)
 	{
 		tiles = new ArrayList<>();
 		
@@ -60,8 +62,8 @@ public class Model
 		
 
 		
-		for(int x = 0;x<row;x++)
-			for(int y = 0;y<column;y++)
+		for(int x = 0;x<boardRows;x++)
+			for(int y = 0;y<boardColumns;y++)
 			{
 				int[] islandSet = {0,1,2,3,4};
 				int rand = (int)(Math.random() * islandSet.length);
@@ -95,7 +97,7 @@ public class Model
 			Random randomGenerator = new Random();
 			while (numbers.size() < 3) {
 
-			    int random = randomGenerator .nextInt(row);
+			    int random = randomGenerator .nextInt(boardRows);
 			    if (!numbers.contains(random)) {
 			        numbers.add(random);
 			        }
@@ -148,5 +150,13 @@ public class Model
 
 	public void setEagles(ArrayList<Egale> eagles) {
 		this.eagles = eagles;
+	}
+	
+	public ApplicationConfiguration getApplicationConfiguration() {
+		return applicationConfiguration;
+	}
+
+	public void setApplicationConfiguration(ApplicationConfiguration applicationConfiguration) {
+		this.applicationConfiguration = applicationConfiguration;
 	}
 }

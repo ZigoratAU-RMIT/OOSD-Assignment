@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collections;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import Model.Model;
@@ -15,14 +16,43 @@ public class Controller {
 	private View view;	
 	private Model model;
 	
-	private void updateBoard() {
+	public Controller(View v, Model m) {
+		model = m;
+		m.getApplicationConfiguration().ReadApplicationConfiguration();
+		
+		view = v;
+		v.getBoard().setRow(m.getApplicationConfiguration().getBoardRows());
+		v.getBoard().setColumn(m.getApplicationConfiguration().getBoardColumns());
+		v.getBoard().initBoard();
+		
+		m.initModel(v.getBoard().getRow(),v.getBoard().getColumn());	
+		
+		initView();
+		showBoard();
+	}
+	
+	public void initView() {
+		EventQueue.invokeLater(new Runnable() {
+		public void run() {
+			try {
+				view.getFrame().setVisible(true);
+				changeTurn();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	private void showBoard() {
 		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view.getBoard());
 		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view.getBoard());
 
 		int item = 0;
 		Tile tile;
-		for(int x = 0;x<8;x++)
-			for(int y = 0;y<8;y++) {
+		for(int x = 0;x<view.getBoard().getRow();x++)
+			for(int y = 0;y<view.getBoard().getColumn();y++) {
 				tile = model.getTiles().get(item++);
 				String attribute = tile.getAttribute();
 				if(attribute.compareToIgnoreCase("egale") == 0)
@@ -49,28 +79,6 @@ public class Controller {
 				view.getBoard().add(tile);
 				}		
 	}
-	
-	public Controller(View v, Model m) {
-		view = v;
-		model = m;
-		initView();
-		updateBoard();
-	}
-	
-	public void initView() {
-		EventQueue.invokeLater(new Runnable() {
-		public void run() {
-			try {
-				view.getFrame().setVisible(true);
-				changeTurn();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-				}
-			}
-		});
-	}
-	
 	
 	public void changeTurn() {
 		if(view.getBoard().isEagleSharkTurn()) {
@@ -131,7 +139,7 @@ public class Controller {
 				model.getTiles().get(destination).setColumn(y1);
 				Collections.swap(model.getTiles(), source, destination); 
 				view.getBoard().removeAll();
-				updateBoard();
+				showBoard();
 				view.getBoard().validate();
 				changeTurn();
 			}
@@ -166,11 +174,47 @@ public class Controller {
 		view.getMnuExit().addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			int result = JOptionPane.showConfirmDialog(null, "Do you want to exit?");
-			if(result == 0)
-				System.exit(0);
+			doExit();
 			}	
 		});
+		
+		view.getMnuBoardOptions().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				boardOptionsClick(); 	
+			}
+		});
+
+	}
+	
+	private void doExit() {
+		int result = JOptionPane.showConfirmDialog(null, "Do you want to exit?");
+		if(result == 0) {
+				model.getApplicationConfiguration().WriteApplicationConfiguration(this);
+				System.exit(0);
+			}
+	}
+	
+	private void boardOptionsClick() {
+		try {
+			BoardOptions dialog = new BoardOptions(view.getBoard().getRow(),view.getBoard().getColumn());
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setModal(true);
+			dialog.setVisible(true);
+			if(view.getBoard().getRow() != dialog.getRows()) {
+				view.getBoard().setRow(dialog.getRows());
+				view.getBoard().setColumn(dialog.getColumns());
+				view.getBoard().updateBoard();
+				model.initModel(view.getBoard().getRow(),view.getBoard().getColumn());
+				view.getBoard().removeAll();
+				showBoard();
+				view.getBoard().validate();
+				JOptionPane.showMessageDialog(null,"Board was changed and game was rested.");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
 	}
 	
 	private void startClick() {

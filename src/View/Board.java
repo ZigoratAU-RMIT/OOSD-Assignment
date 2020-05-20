@@ -48,14 +48,24 @@ public class Board extends JPanel
 		this.column = column;
 	}
 
-	public Board(int row, int column) {
-		this.row = row;
-		this.column = column;
+	public Board() {
+	}
+	
+	public void initBoard() {
 		setLayout(new GridLayout(row,column));
 		selectedRow = -1;
 		selectedColumn = -1;
 		eagleSharkTurn = true;
-		selectedname = "";
+		selectedname = "";		
+	}
+	
+	public void updateBoard() {
+		this.removeAll();
+		setLayout(new GridLayout(row,column));
+		selectedRow = -1;
+		selectedColumn = -1;
+		eagleSharkTurn = true;
+		selectedname = "";		
 	}
 	
 	public boolean isEagleSharkTurn() {

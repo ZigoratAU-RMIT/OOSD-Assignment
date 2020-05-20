@@ -5,11 +5,11 @@ import View.View;
 public class App {
 	/**
 	 * Launch the application.
+	 * @throws IOException 
 	 */
 	public static void main(String[] args) {
-		View view = new View();
 		Model model = new Model();
-		model.initModel(view.getBoard().getRow(),view.getBoard().getColumn());
+		View view = new View();
 		Controller controller = new Controller(view ,model);
 		controller.initController();
 	}

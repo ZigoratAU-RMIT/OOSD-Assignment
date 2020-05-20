@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Settings>
+	<Board>
+		<Rows>8</Rows>
+		<Column>8</Column>
+	</Board>
+    <Identity>
+        <JobNumber>1234567</JobNumber>
+        <SimulationName>MyTest</SimulationName>
+    </Identity>
+    <PreProcessing >
+        <Tolerance>0.01</Tolerance>
+    </PreProcessing >
+    <PreprocessedInputData>
+        <PreChewedThing></PreChewedThing>
+        <OtherThing></OtherThing>
+    </PreprocessedInputData>
+    <Setup>
+        <DomainExtent>
+            <XMin>260</XMin>
+            <XMax>290</XMax>
+            <YMin>523</YMin>
+            <YMax>565</YMax>
+        </DomainExtent>
+        <Directions>
+            <Direction Index = "1">0</Direction>
+            <Direction Index = "2">10</Direction>
+            <Direction Index = "3">20</Direction>
+            <Direction Index = "4">30</Direction>
+        </Directions>
+    </Setup>
+</Settings>

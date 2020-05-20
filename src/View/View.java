@@ -6,6 +6,8 @@ import java.awt.*;
 
 
 
+
+
 public class View {
 
 	private JFrame frmOodsAssignment;
@@ -17,7 +19,17 @@ public class View {
 	private Board board;
 	private JCheckBoxMenuItem chkTurn;
 	private JMenuItem mntmNewMenuItem;
+	private JMenu mnuOptions;
+	
 		
+	public JMenu getMnuBoardOptions() {
+		return mnuOptions;
+	}
+
+	public void setMnuBoardOptions(JMenu mnuOptions) {
+		this.mnuOptions = mnuOptions;
+	}
+
 	public JMenuBar getMenuBar() {
 		return menuBar;
 	}
@@ -83,7 +95,7 @@ public class View {
 		frmOodsAssignment.setBounds(100, 100, 496, 423);
 		frmOodsAssignment.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmOodsAssignment.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		board = new Board(8,8);
+		board = new Board();//8,8);
 		frmOodsAssignment.getContentPane().add(board, BorderLayout.CENTER);
 	}
 	
@@ -98,6 +110,9 @@ public class View {
 		mnuPause = new JMenu("Pause");
 		mnuPause.setMnemonic('P');
 		menuBar.add(mnuPause);
+		
+		mnuOptions = new JMenu("BoardOptions");
+		menuBar.add(mnuOptions);
 		
 		mnuExit = new JMenu("Exit");
 		mnuExit.setMnemonic('x');
