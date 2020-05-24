@@ -28,7 +28,6 @@ public class EgaleMouseActionListener  implements MouseListener
 		else {
 		Tile tile = (Tile) e.getSource();
 		if(tile != null) {
-			JOptionPane.showMessageDialog(null,tile.getAttribute());
 			 if(Arrays.asList(eagles).contains(tile.getAttribute()))
 			//if(tile.getAttribute().compareToIgnoreCase("egale")==0)
 				if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) {

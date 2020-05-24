@@ -56,6 +56,14 @@ public class Model
 				String name = applicationConfiguration.getTilesList().get(item);
 				Tile tile = new Tile(name,x+1,y+1);
 				setImageToTile(tile,tile.getAttribute());
+				if(isContaingEagle(name)) {
+					ChangeEgaleBehaviour itemEgale = new ChangeEgaleBehaviour(eagles(),tile);
+					itemEgale.selectItem(tile.getAttribute());
+				}
+				if(isContaingShark(name)) {
+					ChangeEgaleBehaviour itemShark = new ChangeEgaleBehaviour(sharks(),tile);
+					itemShark.selectItem(tile.getAttribute());
+				}
 				tiles.add(tile);
 				item++;
 			}		
@@ -80,9 +88,6 @@ public class Model
 			loadGame();
 			return;
 		}
-		
-		
-
 		
 		for(int x = 0;x<boardRows;x++)
 			for(int y = 0;y<boardColumns;y++)
@@ -127,6 +132,7 @@ public class Model
 			tiles.get(numbers.get(x)).setEagle();
 			tiles.get(numbers.get(x)).setName(eagles.get(x).getName());
 			tiles.get(numbers.get(x)).setAttribute(eagles.get(x).getName());
+			ChangeEgaleBehaviour item = new ChangeEgaleBehaviour(eagles(),tiles.get(numbers.get(x)));
 			setImageToTile(tiles.get(numbers.get(x)),eagles.get(x).getName());
 		}
 		//Arrange sharks at the bottom of the board
