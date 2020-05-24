@@ -1,9 +1,11 @@
 package Controller;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
+
+
 
 import View.Board;
 import View.Tile;
@@ -11,9 +13,11 @@ import View.Tile;
 public class EgaleMouseActionListener  implements MouseListener 
 {
 	private Board board;
+	private String[] eagles;
 	
-	public EgaleMouseActionListener(Board board) {
+	public EgaleMouseActionListener(Board board,String[] eagles) {
 		this.setBoard(board);
+		this.eagles = eagles;
 	}
 
 	@Override
@@ -24,7 +28,9 @@ public class EgaleMouseActionListener  implements MouseListener
 		else {
 		Tile tile = (Tile) e.getSource();
 		if(tile != null) {
-			if(tile.getAttribute().compareToIgnoreCase("egale")==0)
+			JOptionPane.showMessageDialog(null,tile.getAttribute());
+			 if(Arrays.asList(eagles).contains(tile.getAttribute()))
+			//if(tile.getAttribute().compareToIgnoreCase("egale")==0)
 				if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) {
 					board.setSelectedRow(tile.getRow());
 					board.setSelectedColumn(tile.getColumn());

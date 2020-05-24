@@ -2,6 +2,7 @@ package Controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
@@ -11,9 +12,11 @@ import View.Tile;
 public class SharkMouseActionListener  implements MouseListener 
 {
 	private Board board;
+	private String[] sharks;
 	
-	public SharkMouseActionListener(Board board) {
+	public SharkMouseActionListener(Board board, String[] sharks) {
 		this.setBoard(board);
+		this.sharks = sharks;
 	}
 
 	@Override
@@ -24,7 +27,8 @@ public class SharkMouseActionListener  implements MouseListener
 		else {
 		Tile tile = (Tile) e.getSource();
 		if(tile != null) {
-			if(tile.getAttribute().compareToIgnoreCase("shark")==0)
+			//if(tile.getAttribute().compareToIgnoreCase("shark")==0)
+			if(Arrays.asList(sharks).contains(tile.getAttribute()))
 				if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) {
 					board.setSelectedRow(tile.getRow());
 					board.setSelectedColumn(tile.getColumn());

@@ -46,8 +46,8 @@ public class Controller {
 	}
 	
 	private void showBoard() {
-		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view.getBoard());
-		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view.getBoard());
+		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view.getBoard(),model.eagles());
+		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view.getBoard(),model.sharks());
 
 		int item = 0;
 		Tile tile;
@@ -55,9 +55,9 @@ public class Controller {
 			for(int y = 0;y<view.getBoard().getColumn();y++) {
 				tile = model.getTiles().get(item++);
 				String attribute = tile.getAttribute();
-				if(attribute.compareToIgnoreCase("egale") == 0)
+				if(model.isContaingEagle(attribute) )// attribute.compareToIgnoreCase("egale") == 0)
 					tile.addMouseListener(egaleMouseActionListener);
-				else if(attribute.compareToIgnoreCase("shark") == 0)
+				else if(model.isContaingShark(attribute))// attribute.compareToIgnoreCase("shark") == 0)
 					tile.addMouseListener(sharkMouseActionListener);
 				else
 					tile.addMouseListener(new MouseAdapter() {

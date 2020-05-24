@@ -5,9 +5,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 import Controller.Controller;
+import View.Tile;
 
 public class ApplicationConfiguration {
 	
@@ -16,8 +22,11 @@ public class ApplicationConfiguration {
 	private int boardRows;
 	private int boardColumns;
 	private boolean gameTurn;
+	private List<String> tilesList = new ArrayList<>();
 	
 	
+
+
 
 	public ApplicationConfiguration() {		
 	    try {
@@ -36,6 +45,10 @@ public class ApplicationConfiguration {
 	        boardRows = Integer.parseInt(prop.getProperty("boardRows","8"));	      	
 	        boardColumns = Integer.parseInt(prop.getProperty("boardColumns","8"));	
 	        gameTurn = Boolean.parseBoolean(prop.getProperty("gameTurn","false"));	
+	        String board = prop.getProperty("board","");
+	        if(board.length() > 0)
+	        //tilesList = Arrays.asList(prop.getProperty("board","").split(","));	
+	        tilesList = new LinkedList<>(Arrays.asList(prop.getProperty("board","").split(",")));
 	        } catch (IOException ex) {
 	        ex.printStackTrace();
 	    } finally {
@@ -56,8 +69,12 @@ public class ApplicationConfiguration {
             // set the properties value
             prop.setProperty("boardRows", String.valueOf(controller.getView().getBoard().getRow()));	      	
 	        prop.setProperty("boardColumns",String.valueOf(controller.getView().getBoard().getColumn()));	
-	        prop.setProperty("gameTurn",String.valueOf(controller.getView().getBoard().isEagleSharkTurn()));	
-
+	        prop.setProperty("gameTurn",String.valueOf(controller.getView().getBoard().isEagleSharkTurn()));
+	        tilesList.removeAll(tilesList);
+	        for(int i=0; i<controller.getModel().getTiles().size(); i++) {
+	        	tilesList.add(controller.getModel().getTiles().get(i).getAttribute());	        
+	        }
+	        prop.setProperty("board", String.join(",", tilesList));
             // save properties to project root folder
             prop.store(output, null);
 
@@ -92,4 +109,11 @@ public class ApplicationConfiguration {
 		this.gameTurn = gameTurn;
 	}
 
+	public List<String> getTilesList() {
+		return tilesList;
+	}
+
+	public void setTilesList(List<String> tilesList) {
+		this.tilesList = tilesList;
+	}
 }

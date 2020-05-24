@@ -19,6 +19,7 @@ public class Tile extends JButton
 		this.row = row;
 		this.column = column;
 		this.name = name;
+		this.attribute = name;
 		setOpaque(true);
 	}
 	
@@ -64,6 +65,11 @@ public class Tile extends JButton
 		return this.attribute;
 	}
 
+	public void setAttribute(String attribute)
+	{
+		this.attribute = attribute;
+	}
+	
 	public int getRow() {
 		return row;
 	}

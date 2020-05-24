@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import Configuration.ApplicationConfiguration;
 import View.*;
@@ -47,6 +48,20 @@ public class Model
 		}
 	}
 	
+	private void loadGame() {
+		int item = 0;
+		for(int x = 0;x< applicationConfiguration.getBoardRows();x++)
+			for(int y = 0;y<applicationConfiguration.getBoardColumns();y++)
+			{
+				String name = applicationConfiguration.getTilesList().get(item);
+				Tile tile = new Tile(name,x+1,y+1);
+				setImageToTile(tile,tile.getAttribute());
+				tiles.add(tile);
+				item++;
+			}		
+	}
+	
+	
 	public void initModel(int boardRows, int boardColumns)
 	{
 		tiles = new ArrayList<>();
@@ -59,6 +74,13 @@ public class Model
 		eagles.add(new Egale("Bateleur"));
 		eagles.add(new Egale("Bald"));
 		eagles.add(new Egale("Black"));
+
+		if(applicationConfiguration.getTilesList().size() > 0) {
+			JOptionPane.showMessageDialog(null,"Loading game");
+			loadGame();
+			return;
+		}
+		
 		
 
 		
@@ -104,6 +126,7 @@ public class Model
 			}
 			tiles.get(numbers.get(x)).setEagle();
 			tiles.get(numbers.get(x)).setName(eagles.get(x).getName());
+			tiles.get(numbers.get(x)).setAttribute(eagles.get(x).getName());
 			setImageToTile(tiles.get(numbers.get(x)),eagles.get(x).getName());
 		}
 		//Arrange sharks at the bottom of the board
@@ -120,7 +143,8 @@ public class Model
 			int location = tiles.size() - numbers.get(x) - 1;
 			tiles.get(location).setShark();
 			tiles.get(location).setName(sharks.get(x).getName());
-			setImageToTile(tiles.get(location),sharks.get(x).getName());
+			tiles.get(location).setAttribute(sharks.get(x).getName());
+			setImageToTile(tiles.get(location),sharks.get(x).getName());		
 			numberList.add(numbers.get(0));
 			numberList.add(numbers.get(1));
 			numberList.add(numbers.get(2));
@@ -158,5 +182,35 @@ public class Model
 
 	public void setApplicationConfiguration(ApplicationConfiguration applicationConfiguration) {
 		this.applicationConfiguration = applicationConfiguration;
+	}
+	
+	public boolean isContaingEagle(String eagleName) {
+		for(int i=0; i< eagles.size(); i++)
+			if(eagles.get(i).getName().compareToIgnoreCase(eagleName) == 0) {
+				return true;
+			}
+		return false;
+	}
+
+	public boolean isContaingShark(String sharkName) {
+		for(int i=0; i< sharks.size(); i++)
+			if(sharks.get(i).getName().compareToIgnoreCase(sharkName) == 0) {
+				return true;
+			}
+		return false;
+	}
+	
+	public String[] eagles() {
+		String[] items = new String[eagles.size()];
+		for(int i=0; i< eagles.size(); i++)
+			items[i] = eagles.get(i).getName();
+		return items;
+	}
+
+	public String[] sharks() {
+		String[] items = new String[sharks.size()];
+		for(int i=0; i< sharks.size(); i++)
+			items[i] = sharks.get(i).getName();
+		return items;
 	}
 }
