@@ -55,9 +55,10 @@ public class Controller {
 			for(int y = 0;y<view.getBoard().getColumn();y++) {
 				tile = model.getTiles().get(item++);
 				String attribute = tile.getAttribute();
-				if(model.isContaingEagle(attribute) )// attribute.compareToIgnoreCase("egale") == 0)
+				if(model.isContaingEagle(attribute)) {
 					tile.addMouseListener(egaleMouseActionListener);
-				else if(model.isContaingShark(attribute))// attribute.compareToIgnoreCase("shark") == 0)
+				}
+				else if(model.isContaingShark(attribute))
 					tile.addMouseListener(sharkMouseActionListener);
 				else
 					tile.addMouseListener(new MouseAdapter() {

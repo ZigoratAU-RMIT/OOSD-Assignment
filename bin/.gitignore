@@ -1,6 +1,6 @@
-/View/
-/Controller/
-/Model/
-/test.class
-/Settings.xml
+/App.class
 /Configuration/
+/Controller/
+/Entity/
+/Model/
+/View/

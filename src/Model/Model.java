@@ -57,11 +57,11 @@ public class Model
 				Tile tile = new Tile(name,x+1,y+1);
 				setImageToTile(tile,tile.getAttribute());
 				if(isContaingEagle(name)) {
-					ChangeEgaleBehaviour itemEgale = new ChangeEgaleBehaviour(eagles(),tile);
+					ChangeBehaviour itemEgale = new ChangeBehaviour(eagles(),tile);
 					itemEgale.selectItem(tile.getAttribute());
 				}
 				if(isContaingShark(name)) {
-					ChangeEgaleBehaviour itemShark = new ChangeEgaleBehaviour(sharks(),tile);
+					ChangeBehaviour itemShark = new ChangeBehaviour(sharks(),tile);
 					itemShark.selectItem(tile.getAttribute());
 				}
 				tiles.add(tile);
@@ -132,7 +132,7 @@ public class Model
 			tiles.get(numbers.get(x)).setEagle();
 			tiles.get(numbers.get(x)).setName(eagles.get(x).getName());
 			tiles.get(numbers.get(x)).setAttribute(eagles.get(x).getName());
-			ChangeEgaleBehaviour item = new ChangeEgaleBehaviour(eagles(),tiles.get(numbers.get(x)));
+			new ChangeBehaviour(eagles(),tiles.get(numbers.get(x)));
 			setImageToTile(tiles.get(numbers.get(x)),eagles.get(x).getName());
 		}
 		//Arrange sharks at the bottom of the board
@@ -150,6 +150,7 @@ public class Model
 			tiles.get(location).setShark();
 			tiles.get(location).setName(sharks.get(x).getName());
 			tiles.get(location).setAttribute(sharks.get(x).getName());
+			new ChangeBehaviour(sharks(),tiles.get(x));
 			setImageToTile(tiles.get(location),sharks.get(x).getName());		
 			numberList.add(numbers.get(0));
 			numberList.add(numbers.get(1));

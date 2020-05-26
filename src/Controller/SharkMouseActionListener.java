@@ -53,7 +53,33 @@ public class SharkMouseActionListener  implements MouseListener
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		Tile tile = (Tile) e.getSource();
+		if(tile != null) {
+			if(tile.getAttribute().compareTo("blue shark") == 0)
+			tile.setToolTipText("<html>"
+                    + "&nbsp;&nbsp;&nbsp;&nbsp;▓&nbsp;"
+                    +"<br>"
+                    + "▓ ▓ ▓"
+                    +"<br>"
+                    + "&nbsp;&nbsp;&nbsp;&nbsp;▓&nbsp;"
+               + "</html>");
+			if(tile.getAttribute().compareTo("white shark") == 0)
+			tile.setToolTipText("<html>"
+                    + "▓&nbsp;&nbsp;&nbsp;▓"
+                    +"<br>"
+                    + "&nbsp;&nbsp;&nbsp;&nbsp;▓"
+                    +"<br>"
+                    + "▓&nbsp;&nbsp;&nbsp;▓"
+               + "</html>");
+			if(tile.getAttribute().compareTo("tiger shark") == 0)
+			tile.setToolTipText("<html>"
+                    + "▓ ▓ ▓"
+                    +"<br>"
+                    + "▓ ▓ ▓"
+                    +"<br>"
+                    + "▓  ▓ ▓"
+               + "</html>");
+		}		
 	}
 
 	@Override

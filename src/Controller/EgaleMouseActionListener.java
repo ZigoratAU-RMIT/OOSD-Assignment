@@ -55,7 +55,33 @@ public class EgaleMouseActionListener  implements MouseListener
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		Tile tile = (Tile) e.getSource();
+		if(tile != null) {
+			if(tile.getAttribute().compareTo("Black") == 0)
+			tile.setToolTipText("<html>"
+                    + "▓"
+                    +"<br>"
+                    + "▓"
+                    +"<br>"
+                    + "▓ ▓ ▓ ▓"
+               + "</html>");
+			if(tile.getAttribute().compareTo("Bald") == 0)
+			tile.setToolTipText("<html>"
+                    + "▓"
+                    +"<br>"
+                    + "▓"
+                    +"<br>"
+                    + "▓ ▓ ▓"
+               + "</html>");
+			if(tile.getAttribute().compareTo("Bateleur") == 0)
+			tile.setToolTipText("<html>"
+                    + "▓"
+                    +"<br>"
+                    + "▓"
+                    +"<br>"
+                    + "▓ ▓"
+               + "</html>");
+		}
 	}
 
 	@Override

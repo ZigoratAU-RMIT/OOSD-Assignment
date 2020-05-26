@@ -84,6 +84,7 @@ public class View {
 	public View() {
 		initialFrame();
 		initialMenu();
+		ToolTipManager.sharedInstance().setInitialDelay(0);
 	}
 
 	/**
