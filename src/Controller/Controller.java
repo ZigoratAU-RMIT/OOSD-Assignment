@@ -16,24 +16,30 @@ public class Controller {
 	private View view;	
 	private Model model;
 	
-	public Controller(View v, Model m) {
-		model = m;
-		m.getApplicationConfiguration().ReadApplicationConfiguration();
+	public Controller() {
 		
-		view = v;
-		v.getBoard().setRow(m.getApplicationConfiguration().getBoardRows());
-		v.getBoard().setColumn(m.getApplicationConfiguration().getBoardColumns());
-		v.getBoard().initBoard();
-		
-		m.initModel(v.getBoard().getRow(),v.getBoard().getColumn());	
-		
-		initView();
-		showBoard();
-		
-		v.setChkTurn(m.getApplicationConfiguration().getGameTurn());
-		v.UpdateTurnStatus();
-		v.getTimer().start();
 	}
+	
+//	public Controller(View v, Model m) {
+//		model = m;
+//		m.getApplicationConfiguration().ReadApplicationConfiguration();
+//		
+//		view = v;
+//		v.getBoard().setRow(m.getApplicationConfiguration().getBoardRows());
+//		v.getBoard().setColumn(m.getApplicationConfiguration().getBoardColumns());
+//		v.getBoard().initBoard();
+//		
+//		m.initModel(v.getBoard().getRow(),v.getBoard().getColumn());	
+//		
+//		initView();
+//		showBoard();
+//		
+//		v.setChkTurn(m.getApplicationConfiguration().getGameTurn());
+//		v.UpdateTurnStatus();
+//		v.getTimer().start();
+//	}
+	
+	
 	
 	public void initView() {
 		EventQueue.invokeLater(new Runnable() {
@@ -153,7 +159,28 @@ public class Controller {
 	}
 
 	
-	public void initController() {		
+	public void initController() {	
+		
+		
+		model.getApplicationConfiguration().ReadApplicationConfiguration();
+		
+		view.getBoard().setRow(model.getApplicationConfiguration().getBoardRows());
+		view.getBoard().setColumn(model.getApplicationConfiguration().getBoardColumns());
+		view.getBoard().initBoard();
+		
+		model.initModel(view.getBoard().getRow(),view.getBoard().getColumn());	
+		
+		initView();
+		showBoard();
+		
+		view.setChkTurn(model.getApplicationConfiguration().getGameTurn());
+		view.UpdateTurnStatus();
+		view.getTimer().start();
+		
+		
+		
+		
+		
 		view.getMnuStart().addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
