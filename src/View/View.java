@@ -3,6 +3,14 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import net.miginfocom.swing.MigLayout;
 
 
 
@@ -20,7 +28,11 @@ public class View {
 	private JCheckBoxMenuItem chkTurn;
 	private JMenuItem mntmNewMenuItem;
 	private JMenu mnuOptions;
+	private JPanel panel;
+	private JLabel lblNewLabel;
+	private JLabel lblTimer;
 	
+	private Timer timer;
 		
 	public JMenu getMnuBoardOptions() {
 		return mnuOptions;
@@ -81,10 +93,34 @@ public class View {
 	/**
 	 * Create the application.
 	 */
+	
+	Double timeLeft=(double) 30000;
 	public View() {
 		initialFrame();
 		initialMenu();
 		ToolTipManager.sharedInstance().setInitialDelay(0);
+		
+		
+		ActionListener countDown=new ActionListener()
+		{
+		    public void actionPerformed(ActionEvent e)
+		    {
+		        timeLeft -= 100;
+		        SimpleDateFormat df=new SimpleDateFormat("mm:ss");
+		        lblTimer.setText(df.format(timeLeft));
+		        if(timeLeft<=0)
+		        {
+		        	timeLeft =(double) 30000;
+		        	if(chkTurn.getBackground() == Color.BLUE)
+		        		chkTurn.setBackground(Color.RED);
+		        	else
+		        		chkTurn.setBackground(Color.BLUE);
+		            //timer.stop();
+		        }
+		    }
+		};
+		Timer timer = new Timer(100 ,countDown);
+        timer.start();
 	}
 
 	/**
@@ -96,8 +132,22 @@ public class View {
 		frmOodsAssignment.setBounds(100, 100, 496, 423);
 		frmOodsAssignment.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmOodsAssignment.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frmOodsAssignment.getContentPane().setLayout(new BorderLayout(0, 0));
 		board = new Board();//8,8);
-		frmOodsAssignment.getContentPane().add(board, BorderLayout.CENTER);
+		frmOodsAssignment.getContentPane().add(board);
+		
+		panel = new JPanel();
+		frmOodsAssignment.getContentPane().add(panel, BorderLayout.NORTH);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		lblNewLabel = new JLabel("Timer:");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		panel.add(lblNewLabel);
+		
+		lblTimer = new JLabel("30");
+		lblTimer.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		lblTimer.setHorizontalAlignment(SwingConstants.RIGHT);
+		panel.add(lblTimer);
 	}
 	
 	private void initialMenu() {
@@ -123,9 +173,6 @@ public class View {
 		menuBar.add(mntmNewMenuItem);
 		
 		chkTurn = new JCheckBoxMenuItem("New check item");
-		chkTurn.setEnabled(false);
-		chkTurn.setBackground(Color.BLUE);
-		chkTurn.setHorizontalAlignment(SwingConstants.CENTER);
 		menuBar.add(chkTurn);
 	}
 
