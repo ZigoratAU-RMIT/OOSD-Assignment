@@ -66,7 +66,7 @@ public class Model
 				}
 				tiles.add(tile);
 				item++;
-			}		
+			}
 	}
 	
 	

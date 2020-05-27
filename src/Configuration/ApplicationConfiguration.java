@@ -45,7 +45,7 @@ public class ApplicationConfiguration {
 	        boardRows = Integer.parseInt(prop.getProperty("boardRows","8"));	      	
 	        boardColumns = Integer.parseInt(prop.getProperty("boardColumns","8"));	
 	        gameTurn = Boolean.parseBoolean(prop.getProperty("gameTurn","false"));	
-	        String board = prop.getProperty("board","");
+	        String board = prop.getProperty("board","true");
 	        if(board.length() > 0)
 	        //tilesList = Arrays.asList(prop.getProperty("board","").split(","));	
 	        tilesList = new LinkedList<>(Arrays.asList(prop.getProperty("board","").split(",")));
@@ -69,7 +69,7 @@ public class ApplicationConfiguration {
             // set the properties value
             prop.setProperty("boardRows", String.valueOf(controller.getView().getBoard().getRow()));	      	
 	        prop.setProperty("boardColumns",String.valueOf(controller.getView().getBoard().getColumn()));	
-	        prop.setProperty("gameTurn",String.valueOf(controller.getView().getBoard().isEagleSharkTurn()));
+	        prop.setProperty("gameTurn",String.valueOf(controller.getView().getBoard().getEagleSharkTurn()));
 	        tilesList.removeAll(tilesList);
 	        for(int i=0; i<controller.getModel().getTiles().size(); i++) {
 	        	tilesList.add(controller.getModel().getTiles().get(i).getAttribute());	        
@@ -101,7 +101,7 @@ public class ApplicationConfiguration {
 		this.boardColumns = boardColumns;
 	}
 
-	public boolean isGameTurn() {
+	public boolean getGameTurn() {
 		return gameTurn;
 	}
 

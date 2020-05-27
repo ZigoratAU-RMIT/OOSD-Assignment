@@ -22,7 +22,7 @@ public class SharkMouseActionListener  implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub	
-		if(!board.isEagleSharkTurn())
+		if(board.getEagleSharkTurn())
 			JOptionPane.showMessageDialog(null,"It is Eagle turn");
 		else {
 		Tile tile = (Tile) e.getSource();

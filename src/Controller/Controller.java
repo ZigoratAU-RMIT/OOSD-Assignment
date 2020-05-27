@@ -29,6 +29,10 @@ public class Controller {
 		
 		initView();
 		showBoard();
+		
+		v.setChkTurn(m.getApplicationConfiguration().getGameTurn());
+		v.UpdateTurnStatus();
+		v.getTimer().start();
 	}
 	
 	public void initView() {
@@ -36,7 +40,7 @@ public class Controller {
 		public void run() {
 			try {
 				view.getFrame().setVisible(true);
-				changeTurn();
+				//view.getBoard().changeTurn();// changeTurn();
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
@@ -66,13 +70,16 @@ public class Controller {
 						public void mouseClicked(MouseEvent e) {							
 							Tile tileItem = (Tile) e.getSource();
 							if(tileItem != null) {
-								if(!view.getBoard().isEagleSharkTurn()) {
-									if(tileItem.getAttribute().compareToIgnoreCase("egale") != 0)
-										doMovement(true,tileItem);									
+								if(view.getBoard().getEagleSharkTurn()) {
+									if(tileItem.getAttribute().compareToIgnoreCase("egale") != 0) {
+										view.getBoard().setEagleSharkTurn(true);
+										doMovement(tileItem);		
+									}
 								}
 								else {
 									if(tileItem.getAttribute().compareToIgnoreCase("shark") != 0)
-										doMovement(false,tileItem);									
+										view.getBoard().setEagleSharkTurn(false);
+										doMovement(tileItem);									
 									}
 								}							
 							}	
@@ -81,22 +88,9 @@ public class Controller {
 				}		
 	}
 	
-	public void changeTurn() {
-		if(view.getBoard().isEagleSharkTurn()) {
-			view.getChkTurn().setText("Egale Turn");
-			view.getChkTurn().setBackground(Color.BLUE);
-			view.getBoard().setEagleSharkTurn(!view.getBoard().isEagleSharkTurn());
-		}
-		else {
-			view.getChkTurn().setText("Shark Turn");
-			view.getChkTurn().setBackground(Color.RED);
-			view.getBoard().setEagleSharkTurn(!view.getBoard().isEagleSharkTurn());
-		}
-	}
-	
-	private boolean checkMovement(boolean EagleOrShark,double x, double y) {
+	private boolean checkMovement(double x, double y) {
 		boolean result = false;
-		if(EagleOrShark) {
+		if(view.getBoard().getEagleSharkTurn()) {// EagleOrShark) {
 			//find the eagle name for selecting different movement.
 			if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getEagles().get(0).getName()) == 0)
 				result = (Math.abs(x) == 1 && Math.abs(y) == 3) || (Math.abs(x) == 3 && Math.abs(y) == 1);
@@ -117,15 +111,14 @@ public class Controller {
 		return result;
 	}
 	
-	public void doMovement(boolean EagleOrShark,Tile tileItem) {
+	public void doMovement(Tile tileItem) {
 		if(view.getBoard().getSelectedRow() != -1 && view.getBoard().getSelectedColumn() != -1) {
 			//calculate distance
 			double x = tileItem.getRow() - view.getBoard().getSelectedRow();
 			double y = tileItem.getColumn() - view.getBoard().getSelectedColumn();
 			
-			boolean isMoveAllowed = checkMovement(EagleOrShark,x,y);
-			if(isMoveAllowed) {
-				
+			boolean isMoveAllowed = checkMovement(x,y);
+			if(isMoveAllowed) {				
 				//find source and destination location in the board
 				int x1 = tileItem.getRow();
 				int y1 = tileItem.getColumn();
@@ -142,11 +135,14 @@ public class Controller {
 				view.getBoard().removeAll();
 				showBoard();
 				view.getBoard().validate();
-				changeTurn();
+				//changeTurn();
+				view.getBoard().changeTurn();
+				view.ResetTurnStatus();
+				view.UpdateScore(view.getBoard().getEagleSharkTurn(),1);
 			}
 			else
 			{
-				if(EagleOrShark)
+				if(view.getBoard().getEagleSharkTurn())
 					JOptionPane.showMessageDialog(null,"Egale movement is wrong");
 				else
 					JOptionPane.showMessageDialog(null,"Shark movement is wrong");

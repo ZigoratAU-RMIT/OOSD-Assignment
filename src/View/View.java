@@ -25,7 +25,7 @@ public class View {
 	private JMenu mnuExit;
 	
 	private Board board;
-	private JCheckBoxMenuItem chkTurn;
+	private boolean chkTurn;
 	private JMenuItem mntmNewMenuItem;
 	private JMenu mnuOptions;
 	private JPanel panel;
@@ -34,6 +34,14 @@ public class View {
 	
 	private Timer timer;
 		
+	public Timer getTimer() {
+		return timer;
+	}
+
+	public void setTimer(Timer timer) {
+		this.timer = timer;
+	}
+
 	public JMenu getMnuBoardOptions() {
 		return mnuOptions;
 	}
@@ -95,6 +103,19 @@ public class View {
 	 */
 	
 	Double timeLeft=(double) 30000;
+	private JRadioButton btnEgale;
+	private JRadioButton btnShark;
+	private JPanel panel_1;
+	private JLabel lblNewLabel_1;
+	private JLabel lblEgaleScore;
+	private JPanel panel_2;
+	private JLabel lblNewLabel_3;
+	private JLabel lblSharkScore;
+	private Component horizontalGlue;
+	private Component horizontalGlue_1;
+	private JPanel panel_3;
+	private JPanel panel_4;
+	private JPanel panel_5;
 	public View() {
 		initialFrame();
 		initialMenu();
@@ -106,21 +127,26 @@ public class View {
 		    public void actionPerformed(ActionEvent e)
 		    {
 		        timeLeft -= 100;
+		        if(timeLeft <= 10000) {
+		        	lblTimer.setBackground(Color.RED);
+		        	lblTimer.setOpaque(true);
+		        	lblNewLabel.setBackground(Color.RED);
+		        	lblNewLabel.setOpaque(true);
+		        	
+		        }
+		        else {
+		        	lblTimer.setBackground(Color.LIGHT_GRAY);
+		        	lblTimer.setOpaque(false);
+		        	lblNewLabel.setBackground(Color.LIGHT_GRAY);
+		        	lblNewLabel.setOpaque(false);
+		        }
 		        SimpleDateFormat df=new SimpleDateFormat("mm:ss");
 		        lblTimer.setText(df.format(timeLeft));
-		        if(timeLeft<=0)
-		        {
-		        	timeLeft =(double) 30000;
-		        	if(chkTurn.getBackground() == Color.BLUE)
-		        		chkTurn.setBackground(Color.RED);
-		        	else
-		        		chkTurn.setBackground(Color.BLUE);
-		            //timer.stop();
-		        }
+		        UpdateTurnStatus();
 		    }
 		};
-		Timer timer = new Timer(100 ,countDown);
-        timer.start();
+		timer = new Timer(100 ,countDown);
+		timer.stop();
 	}
 
 	/**
@@ -129,7 +155,7 @@ public class View {
 	private void initialFrame() {
 		frmOodsAssignment = new JFrame();
 		frmOodsAssignment.setTitle("OODS Assignment 1");
-		frmOodsAssignment.setBounds(100, 100, 496, 423);
+		frmOodsAssignment.setBounds(100, 100, 713, 423);
 		frmOodsAssignment.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmOodsAssignment.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frmOodsAssignment.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -138,18 +164,88 @@ public class View {
 		
 		panel = new JPanel();
 		frmOodsAssignment.getContentPane().add(panel, BorderLayout.NORTH);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
+		horizontalGlue = Box.createHorizontalGlue();
+		panel.add(horizontalGlue);
+		
+		panel_1 = new JPanel();
+		panel_1.setBackground(Color.LIGHT_GRAY);
+		panel_1.setAlignmentX(0.0f);
+		panel.add(panel_1);
+		
+		panel_5 = new JPanel();
+		panel_5.setBackground(Color.LIGHT_GRAY);
+		panel_1.add(panel_5);
 		
 		lblNewLabel = new JLabel("Timer:");
+		panel_5.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		panel.add(lblNewLabel);
 		
 		lblTimer = new JLabel("30");
-		lblTimer.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		panel_5.add(lblTimer);
+		lblTimer.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		lblTimer.setHorizontalAlignment(SwingConstants.RIGHT);
-		panel.add(lblTimer);
+		
+		panel_3 = new JPanel();
+		panel_1.add(panel_3);
+		
+		panel_4 = new JPanel();
+		panel_4.setBackground(Color.LIGHT_GRAY);
+		panel_3.add(panel_4);
+		
+		btnEgale = new JRadioButton("Egale Turn");
+		panel_4.add(btnEgale);
+		btnEgale.setEnabled(false);
+		btnEgale.setSelected(true);
+		btnEgale.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		
+		lblNewLabel_1 = new JLabel("Score:");
+		panel_4.add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		
+		lblEgaleScore = new JLabel("0");
+		panel_4.add(lblEgaleScore);
+		lblEgaleScore.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		
+		panel_2 = new JPanel();
+		panel_2.setBackground(Color.LIGHT_GRAY);
+		panel_3.add(panel_2);
+		
+		btnShark = new JRadioButton("Shark Turn");
+		panel_2.add(btnShark);
+		btnShark.setEnabled(false);
+		btnShark.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		
+		lblNewLabel_3 = new JLabel("Score:");
+		lblNewLabel_3.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		panel_2.add(lblNewLabel_3);
+		
+		lblSharkScore = new JLabel("0");
+		lblSharkScore.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		panel_2.add(lblSharkScore);
+		
+		horizontalGlue_1 = Box.createHorizontalGlue();
+		panel.add(horizontalGlue_1);
 	}
 	
+	public JLabel getLblEgaleScore() {
+		return lblEgaleScore;
+	}
+
+	public void setLblEgaleScore(JLabel lblEgaleScore) {
+		this.lblEgaleScore = lblEgaleScore;
+	}
+
+	public JLabel getLblSharkScore() {
+		return lblSharkScore;
+	}
+
+	public void setLblSharkScore(JLabel lblSharkScore) {
+		this.lblSharkScore = lblSharkScore;
+	}
+
 	private void initialMenu() {
 		menuBar = new JMenuBar();
 		frmOodsAssignment.setJMenuBar(menuBar);
@@ -170,17 +266,52 @@ public class View {
 		menuBar.add(mnuExit);
 		
 		mntmNewMenuItem = new JMenuItem("");
-		menuBar.add(mntmNewMenuItem);
-		
-		chkTurn = new JCheckBoxMenuItem("New check item");
-		menuBar.add(chkTurn);
+		menuBar.add(mntmNewMenuItem);		
 	}
 
-	public JCheckBoxMenuItem getChkTurn() {
+	public boolean getChkTurn() {
 		return chkTurn;
 	}
 
-	public void setChkTurn(JCheckBoxMenuItem chkTurn) {
+	public void setChkTurn(boolean chkTurn) {
 		this.chkTurn = chkTurn;
+	}
+	
+	public void UpdateTurnStatus() {
+        if(timeLeft<=0)
+        {
+        	timeLeft =(double) 30000;
+        	chkTurn = !chkTurn;
+        }
+    	if(chkTurn) {
+    		btnEgale.setSelected(true);
+    		btnShark.setSelected(false);
+    		btnEgale.setBackground(Color.GREEN);
+    		btnShark.setBackground(Color.LIGHT_GRAY);
+    		btnEgale.setOpaque(true);
+    		btnShark.setOpaque(false);
+    	}
+    	else
+    	{
+    		btnShark.setSelected(true);
+    		btnEgale.setSelected(false);
+    		btnShark.setBackground(Color.GREEN);
+    		btnEgale.setBackground(Color.LIGHT_GRAY);
+    		btnShark.setOpaque(true);
+    		btnEgale.setOpaque(false);
+    	}
+	}
+	
+	public void ResetTurnStatus() {
+		timeLeft =(double) 30000;
+		chkTurn = !chkTurn;
+		UpdateTurnStatus();
+	}
+	
+	public void UpdateScore(boolean item, int score) {
+		if(item)
+			lblEgaleScore.setText(String.valueOf(Integer.parseInt(lblEgaleScore.getText()) + 1));
+		else
+			lblSharkScore.setText(String.valueOf(Integer.parseInt(lblSharkScore.getText()) + 1));
 	}
 }

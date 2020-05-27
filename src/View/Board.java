@@ -70,12 +70,16 @@ public class Board extends JPanel
 		selectedname = "";		
 	}
 	
-	public boolean isEagleSharkTurn() {
+	public boolean getEagleSharkTurn() {
 		return eagleSharkTurn;
 	}
 
 	public void setEagleSharkTurn(boolean eagleSharkTurn) {
 		this.eagleSharkTurn = eagleSharkTurn;
+	}
+	
+	public void changeTurn() {
+		eagleSharkTurn = !eagleSharkTurn;
 	}
 
 	public String getSelectedname() {
