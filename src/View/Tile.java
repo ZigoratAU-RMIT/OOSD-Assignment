@@ -13,6 +13,7 @@ public class Tile extends JButton
 	private int column;
 	private String attribute;
 	private String name;
+	private String currentTileAttribute;
 
 	public Tile(String name,int row, int column)
 	{	
@@ -35,29 +36,16 @@ public class Tile extends JButton
 		setBackground(Color.BLUE);
 	}
 	
-	public void setSharkOcean()
-	{
-		this.attribute = "sharkOcean";
-	}
-	
-	public void setEagleOcean()
-	{
-		this.attribute = "eagleOcean";
-	}
-	
-	public void setEagleIsland()
-	{
-		this.attribute = "eagleIsland";
-	}
-	
 	public void setEagle()
 	{
-		this.attribute = "egale";
+		this.attribute = "eagle";
+		this.currentTileAttribute = "eagleIsland";
 	}
 	
 	public void setShark()
 	{
 		this.attribute = "shark";
+		this.currentTileAttribute = "sharkOcean";
 	}
 	
 	public String getAttribute()
@@ -68,6 +56,16 @@ public class Tile extends JButton
 	public void setAttribute(String attribute)
 	{
 		this.attribute = attribute;
+	}
+	
+	public void setCurrentTileAttribute(String attribute)
+	{
+		this.currentTileAttribute = attribute;
+	}
+	
+	public String getCurrentTileAttribute()
+	{
+		return this.currentTileAttribute;
 	}
 	
 	public int getRow() {

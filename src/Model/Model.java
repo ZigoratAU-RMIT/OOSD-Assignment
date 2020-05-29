@@ -30,7 +30,7 @@ public class Model
 
 	}
 
-	private void setImageToTile(Tile tileItem,String imageName) {
+	public void setImageToTile(Tile tileItem,String imageName) {
 		try
 		{
 			Image img = ImageIO.read(new FileInputStream(String.format("resources%s%s%s%s", File.separator, "images",File.separator, imageName + ".jpg")));
@@ -92,7 +92,7 @@ public class Model
 		for(int x = 0;x<boardRows;x++)
 			for(int y = 0;y<boardColumns;y++)
 			{
-				int[] islandSet = {0,1,2,3,4};
+				int[] islandSet = {0,1};
 				int rand = (int)(Math.random() * islandSet.length);
 				Tile tile = new Tile("",x+1,y+1);
 				switch(islandSet[rand]) {
@@ -100,16 +100,7 @@ public class Model
 					tile.setIsland();
 					break;
 				case 1:
-					tile.setEagleIsland();
-					break;
-				case 2:
-					tile.setEagleOcean();
-					break;
-				case 3:
 					tile.setOcean();
-					break;
-				case 4:
-					tile.setSharkOcean();
 					break;
 				}
 				setImageToTile(tile,tile.getAttribute());

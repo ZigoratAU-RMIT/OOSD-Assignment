@@ -7,11 +7,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
-import Controller.Controller;
 
+import Controller.Controller;
+import View.Tile;
 
 public class ApplicationConfiguration {
 	
