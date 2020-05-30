@@ -1,10 +1,8 @@
 package Controller;
 
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collections;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -147,9 +145,7 @@ public class Controller {
 //	}
 //
 //	
-	public void initController() {	
-		
-		
+	public void initController() {					
 		model.getApplicationConfiguration().ReadApplicationConfiguration();
 		
 		view.getBoard().setRow(model.getApplicationConfiguration().getBoardRows());
@@ -164,10 +160,6 @@ public class Controller {
 		view.setChkTurn(model.getApplicationConfiguration().getGameTurn());
 		view.UpdateTurnStatus();
 		view.getTimer().start();
-		
-		
-		
-		
 		
 		view.getMnuStart().addMouseListener(new MouseAdapter() {
 		@Override
@@ -196,7 +188,6 @@ public class Controller {
 				boardOptionsClick(); 	
 			}
 		});
-
 	}
 	
 	private void doExit() {

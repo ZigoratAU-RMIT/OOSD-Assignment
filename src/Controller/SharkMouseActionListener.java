@@ -2,14 +2,9 @@ package Controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.*;
 import java.util.Arrays;
-
-import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
-import javax.swing.border.*;
 
-import com.sun.prism.paint.Color;
 
 import View.Board;
 import View.Tile;
