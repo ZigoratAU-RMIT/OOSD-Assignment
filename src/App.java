@@ -13,10 +13,5 @@ public class App {
 		FactoryMethod fm = new FactoryMethod(
 				new Model(), new View(), new Controller());
 		fm.getController().initController();
-		
-//		Model model = new Model();
-//		View view = new View();
-//		Controller controller = new Controller(view ,model);
-//		controller.initController();
 	}
 }

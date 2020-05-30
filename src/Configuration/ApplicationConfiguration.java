@@ -22,6 +22,8 @@ public class ApplicationConfiguration {
 	private int boardColumns;
 	private boolean gameTurn;
 	private List<String> tilesList = new ArrayList<>();
+	private int egaleScore;
+	private int sharkScore;
 	
 	
 
@@ -35,6 +37,14 @@ public class ApplicationConfiguration {
 	    }
 	}
 	
+	public void SetDefaultApplicationConfiguration() {
+        boardRows = 8;    	
+        boardColumns = 8;
+        gameTurn = false;
+        egaleScore = 0;
+        sharkScore = 0;
+	}
+	
 	public void ReadApplicationConfiguration() {
 		try {
 			// load a properties file
@@ -45,8 +55,9 @@ public class ApplicationConfiguration {
 	        boardColumns = Integer.parseInt(prop.getProperty("boardColumns","8"));	
 	        gameTurn = Boolean.parseBoolean(prop.getProperty("gameTurn","false"));	
 	        String board = prop.getProperty("board","true");
+	        egaleScore = Integer.parseInt(prop.getProperty("egaleScore","0"));	
+	        sharkScore = Integer.parseInt(prop.getProperty("sharkScore","0"));	
 	        if(board.length() > 0)
-	        //tilesList = Arrays.asList(prop.getProperty("board","").split(","));	
 	        tilesList = new LinkedList<>(Arrays.asList(prop.getProperty("board","").split(",")));
 	        } catch (IOException ex) {
 	        ex.printStackTrace();
@@ -69,6 +80,8 @@ public class ApplicationConfiguration {
             prop.setProperty("boardRows", String.valueOf(controller.getView().getBoard().getRow()));	      	
 	        prop.setProperty("boardColumns",String.valueOf(controller.getView().getBoard().getColumn()));	
 	        prop.setProperty("gameTurn",String.valueOf(controller.getView().getBoard().getEagleSharkTurn()));
+	        prop.setProperty("egaleScore", controller.getView().getLblEgaleScore().getText());
+	        prop.setProperty("sharkScore", controller.getView().getLblSharkScore().getText());
 	        tilesList.removeAll(tilesList);
 	        for(int i=0; i<controller.getModel().getTiles().size(); i++) {
 	        	tilesList.add(controller.getModel().getTiles().get(i).getAttribute());	        
@@ -114,5 +127,21 @@ public class ApplicationConfiguration {
 
 	public void setTilesList(List<String> tilesList) {
 		this.tilesList = tilesList;
+	}
+	
+	public int getEgaleScore() {
+		return egaleScore;
+	}
+
+	public void setEgaleScore(int egaleScore) {
+		this.egaleScore = egaleScore;
+	}
+
+	public int getSharkScore() {
+		return sharkScore;
+	}
+
+	public void setSharkScore(int sharkScore) {
+		this.sharkScore = sharkScore;
 	}
 }

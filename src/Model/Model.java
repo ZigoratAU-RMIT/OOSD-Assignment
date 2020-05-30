@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Configuration.ApplicationConfiguration;
@@ -23,10 +24,12 @@ public class Model
 	private ArrayList<Shark> sharks;
 	private ArrayList<Egale> eagles;
 	private ApplicationConfiguration applicationConfiguration;
+	private boolean loadingGame;
 
 	public Model() {
 		super();
 		applicationConfiguration = new ApplicationConfiguration();
+		loadingGame = false;
 
 	}
 
@@ -46,6 +49,19 @@ public class Model
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+	
+	public void checkLoadingGame() {
+		JFrame frame = new JFrame();
+		String[] options = new String[2];
+		options[0] = new String("Agree");
+		options[1] = new String("Disagree");
+		
+		if(applicationConfiguration.getTilesList().size() > 0)
+			loadingGame = 
+				JOptionPane.showOptionDialog(frame.getContentPane(),"Do you want to loading game!","Question...", 0,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]) == 0;
+		if(!loadingGame)
+			applicationConfiguration.SetDefaultApplicationConfiguration();
 	}
 	
 	private void loadGame() {
@@ -83,8 +99,7 @@ public class Model
 		eagles.add(new Egale("Bald"));
 		eagles.add(new Egale("Black"));
 
-		if(applicationConfiguration.getTilesList().size() > 0) {
-			JOptionPane.showMessageDialog(null,"Loading game");
+		if(loadingGame) {
 			loadGame();
 			return;
 		}

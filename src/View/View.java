@@ -197,7 +197,7 @@ public class View {
 		panel_4.add(lblNewLabel_1);
 		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		
-		lblEgaleScore = new JLabel("0");
+		lblEgaleScore = new JLabel();
 		panel_4.add(lblEgaleScore);
 		lblEgaleScore.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		
@@ -214,7 +214,7 @@ public class View {
 		lblNewLabel_3.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		panel_2.add(lblNewLabel_3);
 		
-		lblSharkScore = new JLabel("0");
+		lblSharkScore = new JLabel();
 		lblSharkScore.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		panel_2.add(lblSharkScore);
 		
@@ -226,16 +226,16 @@ public class View {
 		return lblEgaleScore;
 	}
 
-	public void setLblEgaleScore(JLabel lblEgaleScore) {
-		this.lblEgaleScore = lblEgaleScore;
+	public void setLblEgaleScore(int score) {
+		this.lblEgaleScore.setText(String.valueOf(score));
 	}
 
 	public JLabel getLblSharkScore() {
 		return lblSharkScore;
 	}
 
-	public void setLblSharkScore(JLabel lblSharkScore) {
-		this.lblSharkScore = lblSharkScore;
+	public void setLblSharkScore(int score) {
+		this.lblSharkScore.setText(String.valueOf(score));
 	}
 
 	private void initialMenu() {

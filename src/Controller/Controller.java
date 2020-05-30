@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Model.Model;
@@ -17,26 +18,6 @@ public class Controller {
 	public Controller() {
 		
 	}
-	
-//	public Controller(View v, Model m) {
-//		model = m;
-//		m.getApplicationConfiguration().ReadApplicationConfiguration();
-//		
-//		view = v;
-//		v.getBoard().setRow(m.getApplicationConfiguration().getBoardRows());
-//		v.getBoard().setColumn(m.getApplicationConfiguration().getBoardColumns());
-//		v.getBoard().initBoard();
-//		
-//		m.initModel(v.getBoard().getRow(),v.getBoard().getColumn());	
-//		
-//		initView();
-//		showBoard();
-//		
-//		v.setChkTurn(m.getApplicationConfiguration().getGameTurn());
-//		v.UpdateTurnStatus();
-//		v.getTimer().start();
-//	}
-	
 	
 	
 	public void initView() {
@@ -80,77 +61,13 @@ public class Controller {
 			}		
 	}
 	
-//	private boolean checkMovement(double x, double y) {
-//		boolean result = false;
-//		if(view.getBoard().getEagleSharkTurn()) {// EagleOrShark) {
-//			//find the eagle name for selecting different movement.
-//			if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getEagles().get(0).getName()) == 0)
-//				result = (Math.abs(x) == 1 && Math.abs(y) == 3) || (Math.abs(x) == 3 && Math.abs(y) == 1);
-//			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getEagles().get(1).getName()) == 0)
-//				result = (Math.abs(x) == 2 && Math.abs(y) == 3) || (Math.abs(x) == 3 && Math.abs(y) == 2);
-//			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getEagles().get(2).getName()) == 0)
-//				result = (Math.abs(x) == 3 && Math.abs(y) == 3) || (Math.abs(x) == 3 && Math.abs(y) == 3);
-//		}
-//		else {
-//			//find the shark name for selecting different movement.
-//			if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getSharks().get(0).getName()) == 0)
-//				result = Math.abs(x) ==  Math.abs(y);
-//			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getSharks().get(1).getName()) == 0)
-//				result = (Math.abs(x) == 0 ) ||( Math.abs(y) == 0);
-//			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getSharks().get(2).getName()) == 0)
-//				result = (Math.abs(x) ==  Math.abs(y)) || ( (Math.abs(x) == 0 ) ||( Math.abs(y) == 0));			
-//		}
-//		return result;
-//	}
-//	
-//	public void doMovement(Tile tileItem) {
-//		if(view.getBoard().getSelectedRow() != -1 && view.getBoard().getSelectedColumn() != -1) {
-//			//calculate distance
-//			double x = tileItem.getRow() - view.getBoard().getSelectedRow();
-//			double y = tileItem.getColumn() - view.getBoard().getSelectedColumn();
-//			
-//			boolean isMoveAllowed = checkMovement(x,y);
-//			if(isMoveAllowed) {				
-//				//find source and destination location in the board
-//				int x1 = tileItem.getRow();
-//				int y1 = tileItem.getColumn();
-//				int x2 = view.getBoard().getSelectedRow() ;
-//				int y2 = view.getBoard().getSelectedColumn();
-//				
-//				int source = ((x1 - 1) * 8) + (y1 - 1);
-//				int destination = ((x2 - 1) * 8) + (y2 - 1);
-//				model.getTiles().get(source).setRow(x2);
-//				model.getTiles().get(source).setColumn(y2);
-//				model.getTiles().get(destination).setRow(x1);
-//				model.getTiles().get(destination).setColumn(y1);
-//				Collections.swap(model.getTiles(), source, destination); 
-//				view.getBoard().removeAll();
-//				showBoard();
-//				view.getBoard().validate();
-//				//changeTurn();
-//				view.getBoard().changeTurn();
-//				view.ResetTurnStatus();
-//				view.UpdateScore(view.getBoard().getEagleSharkTurn(),1);
-//			}
-//			else
-//			{
-//				if(view.getBoard().getEagleSharkTurn())
-//					JOptionPane.showMessageDialog(null,"Egale movement is wrong");
-//				else
-//					JOptionPane.showMessageDialog(null,"Shark movement is wrong");
-//			}
-//			view.getBoard().setSelectedRow(-1);
-//			view.getBoard().setSelectedColumn(-1);			
-//		}		
-//	}
-//
-//	
 	public void initController() {					
 		model.getApplicationConfiguration().ReadApplicationConfiguration();
+		model.checkLoadingGame();
 		
 		view.getBoard().setRow(model.getApplicationConfiguration().getBoardRows());
 		view.getBoard().setColumn(model.getApplicationConfiguration().getBoardColumns());
-		view.getBoard().initBoard();
+		view.getBoard().initBoard();		
 		
 		model.initModel(view.getBoard().getRow(),view.getBoard().getColumn());	
 		
@@ -158,6 +75,8 @@ public class Controller {
 		showBoard();
 		
 		view.setChkTurn(model.getApplicationConfiguration().getGameTurn());
+		view.setLblEgaleScore(model.getApplicationConfiguration().getEgaleScore());
+		view.setLblSharkScore(model.getApplicationConfiguration().getSharkScore());
 		view.UpdateTurnStatus();
 		view.getTimer().start();
 		
@@ -191,11 +110,14 @@ public class Controller {
 	}
 	
 	private void doExit() {
-		int result = JOptionPane.showConfirmDialog(null, "Do you want to exit?");
+		int result = JOptionPane.showConfirmDialog(null, "Do you want to exit and save?");
 		if(result == 0) {
-				model.getApplicationConfiguration().WriteApplicationConfiguration(this);
-				System.exit(0);
-			}
+			model.getApplicationConfiguration().WriteApplicationConfiguration(this);
+			System.exit(0);
+		}
+		if(result == 1) {
+			System.exit(0);
+		}
 	}
 	
 	private void boardOptionsClick() {
