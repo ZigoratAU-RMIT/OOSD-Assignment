@@ -108,14 +108,14 @@ public class Model
 			for(int y = 0;y<boardColumns;y++)
 			{
 				int[] islandSet = {0,1};
-				int rand = (int)(Math.random() * islandSet.length);
+				int rand = (int)(Math.random() * islandSet.length - 0.5);
 				Tile tile = new Tile("",x+1,y+1);
 				switch(islandSet[rand]) {
 				case 0:
-					tile.setIsland();
+					tile.setOcean();
 					break;
 				case 1:
-					tile.setOcean();
+					tile.setIsland();
 					break;
 				}
 				setImageToTile(tile,tile.getAttribute());
