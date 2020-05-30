@@ -44,7 +44,7 @@ public class View {
 	private JPanel pnlInfo;
 	private JPanel pnlEgale;
 	private JLabel lblNewLabel_4;
-	private JPanel pnlTimer;
+	private JPanel pnlTimerContainer;
 	private JPanel pnlTurn;
 	private JPanel pnlEgaleInfo;
 	private JLabel lblBateleur;
@@ -64,6 +64,9 @@ public class View {
 	private JLabel lbTtigersharkLife;	
 	private Timer timer;
 	private JMenu mnuNew;
+	private JPanel panel;
+	private JLabel lblNewLabel_5;
+	private JPanel pnlTimer;
 		
 	public JMenu getMnuNew() {
 		return mnuNew;
@@ -153,17 +156,13 @@ public class View {
 		    {
 		        timeLeft -= 100;
 		        if(timeLeft <= 10000) {
-		        	lblTimer.setBackground(Color.RED);
-		        	lblTimer.setOpaque(true);
-		        	lblNewLabel.setBackground(Color.RED);
-		        	lblNewLabel.setOpaque(true);
+		        	pnlTimerContainer.setBackground(Color.RED);
+		        	pnlTimerContainer.setBackground(Color.RED);
 		        	
 		        }
 		        else {
-		        	lblTimer.setBackground(Color.LIGHT_GRAY);
-		        	lblTimer.setOpaque(false);
-		        	lblNewLabel.setBackground(Color.LIGHT_GRAY);
-		        	lblNewLabel.setOpaque(false);
+		        	pnlTimerContainer.setBackground(Color.LIGHT_GRAY);
+		        	pnlTimerContainer.setBackground(Color.LIGHT_GRAY);
 		        }
 		        SimpleDateFormat df=new SimpleDateFormat("mm:ss");
 		        lblTimer.setText(df.format(timeLeft));
@@ -279,9 +278,13 @@ public class View {
 		lblSharkScore.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		pnlShark.add(lblSharkScore);
 		
+		pnlTimerContainer = new JPanel();
+		pnlTimerContainer.setBackground(Color.LIGHT_GRAY);
+		pnlGameReport.add(pnlTimerContainer, BorderLayout.NORTH);
+		
 		pnlTimer = new JPanel();
 		pnlTimer.setBackground(Color.LIGHT_GRAY);
-		pnlGameReport.add(pnlTimer, BorderLayout.NORTH);
+		pnlTimerContainer.add(pnlTimer);
 		
 		lblNewLabel = new JLabel("Timer:");
 		pnlTimer.add(lblNewLabel);
@@ -327,6 +330,13 @@ public class View {
 		lbTtigersharkLife = new JLabel("3");
 		lbTtigersharkLife.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lbTtigersharkLife);
+		
+		panel = new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
+		frmOodsAssignment.getContentPane().add(panel, BorderLayout.SOUTH);
+		
+		lblNewLabel_5 = new JLabel("Game is running now");
+		panel.add(lblNewLabel_5);
 	}
 	
 	public JLabel getLblEgaleScore() {
@@ -393,6 +403,7 @@ public class View {
         {
         	timeLeft =(double) 30000;
         	chkTurn = !chkTurn;
+        	board.changeTurn();
         }
     	if(chkTurn) {
     		btnEgale.setSelected(true);
@@ -411,8 +422,8 @@ public class View {
 	
 	public void ResetTurnStatus() {
 		timeLeft =(double) 30000;
-		chkTurn = !chkTurn;
 		UpdateTurnStatus();
+		chkTurn = !chkTurn;
 	}
 	
 	private Image loadImage(String imageName) {

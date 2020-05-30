@@ -196,9 +196,9 @@ public class PieceMoveActionListener implements MouseListener
 				showBoard();
 				view.getBoard().validate();
 				//changeTurn();
+				view.UpdateScore(view.getBoard().getEagleSharkTurn(),1);
 				view.getBoard().changeTurn();
 				view.ResetTurnStatus();
-				view.UpdateScore(view.getBoard().getEagleSharkTurn(),1);
 			}
 			else
 			{
