@@ -8,9 +8,6 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 
 
-
-
-
 public class View {
 
 	private JFrame frmOodsAssignment;
@@ -150,7 +147,7 @@ public class View {
 	private void initialFrame() {
 		frmOodsAssignment = new JFrame();
 		frmOodsAssignment.setTitle("OODS Assignment 1");
-		frmOodsAssignment.setBounds(100, 100, 713, 423);
+		frmOodsAssignment.setBounds(100, 100, 713, 673);
 		frmOodsAssignment.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmOodsAssignment.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frmOodsAssignment.getContentPane().setLayout(new BorderLayout(0, 0));
