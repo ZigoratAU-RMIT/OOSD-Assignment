@@ -7,6 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import net.miginfocom.swing.MigLayout;
+
 
 public class View {
 
@@ -152,7 +157,7 @@ public class View {
 		frmOodsAssignment.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frmOodsAssignment.getContentPane().setLayout(new BorderLayout(0, 0));
 		board = new Board();//8,8);
-		frmOodsAssignment.getContentPane().add(board);
+		frmOodsAssignment.getContentPane().add(board, BorderLayout.CENTER);
 		
 		panel = new JPanel();
 		frmOodsAssignment.getContentPane().add(panel, BorderLayout.NORTH);

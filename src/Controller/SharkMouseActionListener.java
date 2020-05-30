@@ -2,9 +2,14 @@ package Controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.*;
 import java.util.Arrays;
 
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.border.*;
+
+import com.sun.prism.paint.Color;
 
 import View.Board;
 import View.Tile;
@@ -20,22 +25,30 @@ public class SharkMouseActionListener  implements MouseListener
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent e) 
+	{
+		
 		// TODO Auto-generated method stub	
 		if(board.getEagleSharkTurn())
 			JOptionPane.showMessageDialog(null,"It is Eagle turn");
-		else {
-		Tile tile = (Tile) e.getSource();
-		if(tile != null) {
+		else 
+		{
+			Tile tile = (Tile) e.getSource();
+			if(tile != null) 
+			{
 			//if(tile.getAttribute().compareToIgnoreCase("shark")==0)
-			if(Arrays.asList(sharks).contains(tile.getAttribute()))
-				if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) {
-					board.setSelectedRow(tile.getRow());
-					board.setSelectedColumn(tile.getColumn());
-					board.setSelectedname(tile.getName());
+				if(Arrays.asList(sharks).contains(tile.getAttribute()))
+				{
+//					tile.setBorder(BorderFactory.createLineBorder());
+					if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) 
+					{
+						board.setSelectedRow(tile.getRow());
+						board.setSelectedColumn(tile.getColumn());
+						board.setSelectedname(tile.getName());
 					}
-			}
-		}		
+				}
+			}		
+		}
 	}
 
 	@Override
@@ -53,33 +66,6 @@ public class SharkMouseActionListener  implements MouseListener
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Tile tile = (Tile) e.getSource();
-		if(tile != null) {
-			if(tile.getAttribute().compareTo("blue shark") == 0)
-			tile.setToolTipText("<html>"
-                    + "&nbsp;&nbsp;&nbsp;&nbsp;▓&nbsp;"
-                    +"<br>"
-                    + "▓ ▓ ▓"
-                    +"<br>"
-                    + "&nbsp;&nbsp;&nbsp;&nbsp;▓&nbsp;"
-               + "</html>");
-			if(tile.getAttribute().compareTo("white shark") == 0)
-			tile.setToolTipText("<html>"
-                    + "▓&nbsp;&nbsp;&nbsp;▓"
-                    +"<br>"
-                    + "&nbsp;&nbsp;&nbsp;&nbsp;▓"
-                    +"<br>"
-                    + "▓&nbsp;&nbsp;&nbsp;▓"
-               + "</html>");
-			if(tile.getAttribute().compareTo("tiger shark") == 0)
-			tile.setToolTipText("<html>"
-                    + "▓ ▓ ▓"
-                    +"<br>"
-                    + "▓ ▓ ▓"
-                    +"<br>"
-                    + "▓  ▓ ▓"
-               + "</html>");
-		}		
 	}
 
 	@Override
