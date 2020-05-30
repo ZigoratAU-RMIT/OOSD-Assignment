@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Model.Model;
@@ -25,7 +24,6 @@ public class Controller {
 		public void run() {
 			try {
 				view.getFrame().setVisible(true);
-				//view.getBoard().changeTurn();// changeTurn();
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
@@ -78,21 +76,15 @@ public class Controller {
 		view.setLblEgaleScore(model.getApplicationConfiguration().getEgaleScore());
 		view.setLblSharkScore(model.getApplicationConfiguration().getSharkScore());
 		view.UpdateTurnStatus();
+		view.ShowGameDetails(model.eagles(),model.sharks());
 		view.getTimer().start();
 		
-		view.getMnuStart().addMouseListener(new MouseAdapter() {
+		view.getMnuStartStop().addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			startClick();
+			startStopClick();
 			}	
 		});		
-		
-		view.getMnuPause().addMouseListener(new MouseAdapter() {
-		@Override
-		public void mouseClicked(MouseEvent e) {
-				pauseClick();
-			}	
-		});
 
 		view.getMnuExit().addMouseListener(new MouseAdapter() {
 		@Override
@@ -107,6 +99,28 @@ public class Controller {
 				boardOptionsClick(); 	
 			}
 		});
+		
+		view.getMnuSave().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				doSave();
+			}
+		});
+
+		view.getMnuNew().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				doNew();
+			}
+		});	}
+	
+	private void doSave() {
+		model.getApplicationConfiguration().WriteApplicationConfiguration(this);
+		JOptionPane.showMessageDialog(null,"Current game was saved.");
+	}
+	
+	private void doNew() {
+		JOptionPane.showMessageDialog(null,"New.");
 	}
 	
 	private void doExit() {
@@ -142,15 +156,10 @@ public class Controller {
 		}	
 	}
 	
-	private void startClick() {
-		JOptionPane.showMessageDialog(null,view.getBoard().getComponentCount()); 	
-	}
-
-	private void pauseClick() {
-		if(view.getMnuPause().getText().equalsIgnoreCase("pause"))
-			view.getMnuPause().setText("Start");
-		else
-			view.getMnuPause().setText("Pause");
+	private void startStopClick() {
+		boolean enable = view.getMnuStartStop().getText().compareToIgnoreCase("Stop") == 0;
+		view.StartStopGame(enable);
+		model.setEnableDisableTiles(enable);
 	}
 	
 	public View getView() {

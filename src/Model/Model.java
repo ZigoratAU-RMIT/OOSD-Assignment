@@ -226,4 +226,10 @@ public class Model
 			items[i] = sharks.get(i).getName();
 		return items;
 	}
+	
+	public void setEnableDisableTiles(boolean enable) {
+		for(Tile tile : tiles ) {
+			tile.setEnabled(!enable);
+		}
+	}
 }
