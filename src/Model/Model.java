@@ -29,7 +29,7 @@ public class Model
 	private ApplicationConfiguration applicationConfiguration;
 	private boolean loadingGame;
 	private Context context;
-	GameState gameState;
+	//GameState gameState;
 
 	
 	public Model() {
@@ -37,7 +37,7 @@ public class Model
 		applicationConfiguration = new ApplicationConfiguration();
 		loadingGame = false;
 		context = new Context();
-		gameState = new GameState();
+		//gameState = new GameState();
 	}
 
 	public void setImageToTile(Tile tileItem,String imageName) {
