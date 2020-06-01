@@ -11,8 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 
 
 public class View {
