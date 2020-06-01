@@ -25,11 +25,11 @@ public class Model
 {	
 	private List<Tile> tiles;
 	private ArrayList<Shark> sharks;
-	private ArrayList<Egale> eagles;
+	private ArrayList<Eagle> eagles;
 	private ApplicationConfiguration applicationConfiguration;
 	private boolean loadingGame;
 	private Context context;
-	//GameState gameState;
+	GameState gameState;
 
 	
 	public Model() {
@@ -37,7 +37,7 @@ public class Model
 		applicationConfiguration = new ApplicationConfiguration();
 		loadingGame = false;
 		context = new Context();
-		//gameState = new GameState();
+		gameState = new GameState();
 	}
 
 	public void setImageToTile(Tile tileItem,String imageName) {
@@ -98,13 +98,13 @@ public class Model
 		tiles = new ArrayList<>();
 		
 		sharks = new ArrayList<Shark>();
-		sharks.add(new Shark("white shark"));
-		sharks.add(new Shark("blue shark"));
-		sharks.add(new Shark("tiger shark"));
-		eagles = new ArrayList<Egale>();
-		eagles.add(new Egale("Bateleur"));
-		eagles.add(new Egale("Bald"));
-		eagles.add(new Egale("Black"));
+		sharks.add(new WhiteShark());
+		sharks.add(new BlueShark());
+		sharks.add(new TigerShark());
+		eagles = new ArrayList<Eagle>();
+		eagles.add(new Bateleur());
+		eagles.add(new Bald());
+		eagles.add(new Black());
 		context.setGameState(Enum.valueOf(GameStatus.class, applicationConfiguration.getGameStatus()));
 		if(loadingGame) {
 			loadGame();
@@ -188,11 +188,11 @@ public class Model
 		this.sharks = sharks;
 	}
 
-	public ArrayList<Egale> getEagles() {
+	public ArrayList<Eagle> getEagles() {
 		return eagles;
 	}
 
-	public void setEagles(ArrayList<Egale> eagles) {
+	public void setEagles(ArrayList<Eagle> eagles) {
 		this.eagles = eagles;
 	}
 	

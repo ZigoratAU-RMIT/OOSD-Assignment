@@ -243,20 +243,20 @@ public class PieceMoveActionListener implements MouseListener
 		if(model.getContext().getGameState() == GameStatus.EGALE) {// view.getBoard().getEagleSharkTurn()) {// EagleOrShark) {
 			//find the eagle name for selecting different movement.
 			if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getEagles().get(0).getName()) == 0)
-				result = (Math.abs(x) == 1 && Math.abs(y) == 3) || (Math.abs(x) == 3 && Math.abs(y) == 1);
+				result = ((Math.abs(x) + Math.abs(y)) <= 3);
 			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getEagles().get(1).getName()) == 0)
-				result = (Math.abs(x) == 2 && Math.abs(y) == 3) || (Math.abs(x) == 3 && Math.abs(y) == 2);
+				result = ((Math.abs(x) + Math.abs(y)) <= 3);
 			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getEagles().get(2).getName()) == 0)
-				result = (Math.abs(x) == 3 && Math.abs(y) == 3) || (Math.abs(x) == 3 && Math.abs(y) == 3);
+				result = ((Math.abs(x) + Math.abs(y)) <= 3);
 		}
 		else if(model.getContext().getGameState() == GameStatus.SHARK){
 			//find the shark name for selecting different movement.
-			if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getSharks().get(0).getName()) == 0)
-				result = Math.abs(x) ==  Math.abs(y);
-			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getSharks().get(1).getName()) == 0)
+			if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getSharks().get(0).getName()) == 0)	
 				result = (Math.abs(x) == 0 ) ||( Math.abs(y) == 0);
-			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getSharks().get(2).getName()) == 0)
-				result = (Math.abs(x) ==  Math.abs(y)) || ( (Math.abs(x) == 0 ) ||( Math.abs(y) == 0));			
+			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getSharks().get(1).getName()) == 0)	
+				result = (Math.abs(x) == 0 ) ||( Math.abs(y) == 0);
+			else if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getSharks().get(2).getName()) == 0)	
+				result = (Math.abs(x) == 0 ) ||( Math.abs(y) == 0);
 		}
 		return result;
 	}
