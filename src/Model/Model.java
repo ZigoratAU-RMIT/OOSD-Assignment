@@ -16,6 +16,9 @@ import javax.swing.JOptionPane;
 import Configuration.ApplicationConfiguration;
 import View.*;
 import Entity.*;
+import Patterns.State.*;
+import Patterns.State.Context.GameStatus;
+
 
 
 public class Model 
@@ -25,12 +28,16 @@ public class Model
 	private ArrayList<Egale> eagles;
 	private ApplicationConfiguration applicationConfiguration;
 	private boolean loadingGame;
+	private Context context;
+	GameState gameState;
 
+	
 	public Model() {
 		super();
 		applicationConfiguration = new ApplicationConfiguration();
 		loadingGame = false;
-
+		context = new Context();
+		gameState = new GameState();
 	}
 
 	public void setImageToTile(Tile tileItem,String imageName) {
@@ -98,7 +105,7 @@ public class Model
 		eagles.add(new Egale("Bateleur"));
 		eagles.add(new Egale("Bald"));
 		eagles.add(new Egale("Black"));
-
+		context.setGameState(Enum.valueOf(GameStatus.class, applicationConfiguration.getGameStatus()));
 		if(loadingGame) {
 			loadGame();
 			return;
@@ -231,5 +238,13 @@ public class Model
 		for(Tile tile : tiles ) {
 			tile.setEnabled(!enable);
 		}
+	}
+
+	public Context getContext() {
+		return context;
+	}
+
+	public void setContext(Context context) {
+		this.context = context;
 	}
 }

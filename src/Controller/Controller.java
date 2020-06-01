@@ -7,6 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import Model.Model;
+import Patterns.State.Context.GameStatus;
 import View.*;
 
 public class Controller {
@@ -33,8 +34,8 @@ public class Controller {
 	}
 	
 	private void showBoard() {
-		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view.getBoard(),model.eagles());
-		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view.getBoard(),model.sharks());
+		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view.getBoard(),model);//.eagles());
+		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view.getBoard(),model);//.sharks());
 		PieceMoveActionListener pieceMoveActionListener = new PieceMoveActionListener(view,model);
 
 		int item = 0;
@@ -72,11 +73,13 @@ public class Controller {
 		initView();
 		showBoard();
 		
-		view.setChkTurn(model.getApplicationConfiguration().getGameTurn());
+		//view.setChkTurn(model.getApplicationConfiguration().getGameTurn());
 		view.setLblEgaleScore(model.getApplicationConfiguration().getEgaleScore());
 		view.setLblSharkScore(model.getApplicationConfiguration().getSharkScore());
-		view.UpdateTurnStatus();
 		view.ShowGameDetails(model.eagles(),model.sharks());
+		if(model.getContext().getGameState() == GameStatus.START)
+			model.getContext().setGameState(GameStatus.EGALE);
+		view.UpdateTurnStatus(model.getContext().getGameState());
 		view.getTimer().start();
 		
 		view.getMnuStartStop().addMouseListener(new MouseAdapter() {
@@ -157,7 +160,16 @@ public class Controller {
 	}
 	
 	private void startStopClick() {
-		boolean enable = view.getMnuStartStop().getText().compareToIgnoreCase("Stop") == 0;
+		boolean enable = false;
+		switch(model.getContext().getGameState()) {
+		case PAUSE:
+			model.getContext().setGameState(GameStatus.START);
+			enable = true;
+			break;
+		default:
+			model.getContext().setGameState(GameStatus.PAUSE);
+			break;
+		}
 		view.StartStopGame(enable);
 		model.setEnableDisableTiles(enable);
 	}

@@ -26,7 +26,6 @@ public class ChangeBehaviour {
 		ActionListener actionPrinter = new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
 		        try {
-		          //pane.getStyledDocument().insertString(0,"Action [" + e.getActionCommand()+ "] performed!\n", null);
 		        	JOptionPane.showMessageDialog(null,e.getActionCommand());
 		        } catch (Exception ex) {
 		          ex.printStackTrace();
@@ -36,7 +35,7 @@ public class ChangeBehaviour {
 		
 		
 		for(int i=0; i<items.length; i++) {
-			JRadioButtonMenuItem item = new JRadioButtonMenuItem(items[i]/*,new ImageIcon("1.gif")*/);
+			JRadioButtonMenuItem item = new JRadioButtonMenuItem(items[i]);
 			item.addActionListener(actionPrinter);
 			radioButtonMenuItems.add(item);	
 		}

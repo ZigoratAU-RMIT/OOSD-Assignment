@@ -20,14 +20,12 @@ public class ApplicationConfiguration {
 	private InputStream input = null;
 	private int boardRows;
 	private int boardColumns;
-	private boolean gameTurn;
 	private List<String> tilesList = new ArrayList<>();
 	private int egaleScore;
 	private int sharkScore;
+	private String GameStatus;
 	
 	
-
-
 
 	public ApplicationConfiguration() {		
 	    try {
@@ -40,7 +38,7 @@ public class ApplicationConfiguration {
 	public void SetDefaultApplicationConfiguration() {
         boardRows = 8;    	
         boardColumns = 8;
-        gameTurn = false;
+        GameStatus = "START";
         egaleScore = 0;
         sharkScore = 0;
 	}
@@ -53,10 +51,11 @@ public class ApplicationConfiguration {
 	        
 	        boardRows = Integer.parseInt(prop.getProperty("boardRows","8"));	      	
 	        boardColumns = Integer.parseInt(prop.getProperty("boardColumns","8"));	
-	        gameTurn = Boolean.parseBoolean(prop.getProperty("gameTurn","false"));	
+	        setGameStatus(prop.getProperty("GameStatus","START"));
 	        String board = prop.getProperty("board","true");
 	        egaleScore = Integer.parseInt(prop.getProperty("egaleScore","0"));	
 	        sharkScore = Integer.parseInt(prop.getProperty("sharkScore","0"));	
+	        
 	        if(board.length() > 0)
 	        tilesList = new LinkedList<>(Arrays.asList(prop.getProperty("board","").split(",")));
 	        } catch (IOException ex) {
@@ -79,9 +78,9 @@ public class ApplicationConfiguration {
             // set the properties value
             prop.setProperty("boardRows", String.valueOf(controller.getView().getBoard().getRow()));	      	
 	        prop.setProperty("boardColumns",String.valueOf(controller.getView().getBoard().getColumn()));	
-	        prop.setProperty("gameTurn",String.valueOf(controller.getView().getBoard().getEagleSharkTurn()));
 	        prop.setProperty("egaleScore", controller.getView().getLblEgaleScore().getText());
 	        prop.setProperty("sharkScore", controller.getView().getLblSharkScore().getText());
+	        prop.setProperty("GameStatus",controller.getModel().getContext().getGameState().toString());
 	        tilesList.removeAll(tilesList);
 	        for(int i=0; i<controller.getModel().getTiles().size(); i++) {
 	        	tilesList.add(controller.getModel().getTiles().get(i).getAttribute());	        
@@ -113,14 +112,6 @@ public class ApplicationConfiguration {
 		this.boardColumns = boardColumns;
 	}
 
-	public boolean getGameTurn() {
-		return gameTurn;
-	}
-
-	public void setGameTurn(boolean gameTurn) {
-		this.gameTurn = gameTurn;
-	}
-
 	public List<String> getTilesList() {
 		return tilesList;
 	}
@@ -143,5 +134,13 @@ public class ApplicationConfiguration {
 
 	public void setSharkScore(int sharkScore) {
 		this.sharkScore = sharkScore;
+	}
+
+	public String getGameStatus() {
+		return GameStatus;
+	}
+
+	public void setGameStatus(String gameStatus) {
+		GameStatus = gameStatus;
 	}
 }

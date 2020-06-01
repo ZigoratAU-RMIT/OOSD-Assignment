@@ -3,6 +3,9 @@ package View;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import Patterns.State.Context.GameStatus;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +26,6 @@ public class View {
 	private JMenu mnuExit;
 	
 	private Board board;
-	private boolean chkTurn;
 	private JMenuItem mntmNewMenuItem;
 	private JMenu mnuOptions;
 	private JPanel pnlMain;
@@ -165,7 +167,6 @@ public class View {
 		        }
 		        SimpleDateFormat df=new SimpleDateFormat("mm:ss");
 		        lblTimer.setText(df.format(timeLeft));
-		        UpdateTurnStatus();
 		    }
 		};
 		timer = new Timer(100 ,countDown);
@@ -388,29 +389,19 @@ public class View {
 	public void setMnuSave(JMenu mnuSave) {
 		this.mnuSave = mnuSave;
 	}
-
-	public boolean getChkTurn() {
-		return chkTurn;
-	}
-
-	public void setChkTurn(boolean chkTurn) {
-		this.chkTurn = chkTurn;
-	}
 	
-	public void UpdateTurnStatus() {
+	public void UpdateTurnStatus(GameStatus gameStatus) {
         if(timeLeft<=0)
         {
         	timeLeft =(double) 30000;
-        	chkTurn = !chkTurn;
-        	board.changeTurn();
         }
-    	if(chkTurn) {
+    	if(gameStatus == GameStatus.EGALE) {
     		btnEgale.setSelected(true);
     		btnShark.setSelected(false);
     		pnlEgale.setBackground(Color.GREEN);
     		pnlShark.setBackground(Color.LIGHT_GRAY);
     	}
-    	else
+    	else if(gameStatus == GameStatus.SHARK)
     	{
     		btnShark.setSelected(true);
     		btnEgale.setSelected(false);
@@ -419,10 +410,9 @@ public class View {
     	}
 	}
 	
-	public void ResetTurnStatus() {
+	public void ResetTurnStatus(GameStatus gameStatus) {
 		timeLeft =(double) 30000;
-		UpdateTurnStatus();
-		chkTurn = !chkTurn;
+		UpdateTurnStatus(gameStatus);
 	}
 	
 	private Image loadImage(String imageName) {

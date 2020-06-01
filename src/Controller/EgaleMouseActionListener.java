@@ -5,36 +5,34 @@ import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
-
-
+import Model.Model;
+import Patterns.State.Context.GameStatus;
 import View.Board;
 import View.Tile;
 
 public class EgaleMouseActionListener  implements MouseListener 
 {
 	private Board board;
-	private String[] eagles;
+	private Model model;
 	
-	public EgaleMouseActionListener(Board board,String[] eagles) {
-		this.setBoard(board);
-		this.eagles = eagles;
+	public EgaleMouseActionListener(Board board, Model model) {// String[] eagles) {
+		this.board = board;
+		this.model = model;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(!board.getEagleSharkTurn())
+		if(model.getContext().getGameState() != GameStatus.EGALE)
 			JOptionPane.showMessageDialog(null,"It is shark turn");
 		else {
 		Tile tile = (Tile) e.getSource();
 		if(tile != null) {
-			 if(Arrays.asList(eagles).contains(tile.getAttribute()))
-			//if(tile.getAttribute().compareToIgnoreCase("egale")==0)
+			 if(Arrays.asList(model.eagles()).contains(tile.getAttribute()))
 				if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) {
 					board.setSelectedRow(tile.getRow());
 					board.setSelectedColumn(tile.getColumn());
 					board.setSelectedname(tile.getName());
-					//JOptionPane.showMessageDialog(null,board.getSelectedRow()+","+board.getSelectedColumn());
 					}			
 			}		
 		}
@@ -55,7 +53,6 @@ public class EgaleMouseActionListener  implements MouseListener
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Tile tile = (Tile) e.getSource();
 	}
 
 	@Override
@@ -63,13 +60,4 @@ public class EgaleMouseActionListener  implements MouseListener
 		// TODO Auto-generated method stub
 		
 	}
-
-	public Board getBoard() {
-		return board;
-	}
-
-	public void setBoard(Board board) {
-		this.board = board;
-	}
-
 }

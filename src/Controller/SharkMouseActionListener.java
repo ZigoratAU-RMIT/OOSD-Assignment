@@ -5,36 +5,34 @@ import java.awt.event.MouseListener;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
-
+import Model.Model;
+import Patterns.State.Context.GameStatus;
 import View.Board;
 import View.Tile;
 
 public class SharkMouseActionListener  implements MouseListener 
 {
 	private Board board;
-	private String[] sharks;
+	private Model model;
 	
-	public SharkMouseActionListener(Board board, String[] sharks) {
-		this.setBoard(board);
-		this.sharks = sharks;
+	public SharkMouseActionListener(Board board, Model model) {//, String[] sharks) {
+		this.board = board;
+		this.model = model;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) 
-	{
-		
+	{	
 		// TODO Auto-generated method stub	
-		if(board.getEagleSharkTurn())
+		if(model.getContext().getGameState() != GameStatus.SHARK)
 			JOptionPane.showMessageDialog(null,"It is Eagle turn");
 		else 
 		{
 			Tile tile = (Tile) e.getSource();
 			if(tile != null) 
 			{
-			//if(tile.getAttribute().compareToIgnoreCase("shark")==0)
-				if(Arrays.asList(sharks).contains(tile.getAttribute()))
+				if(Arrays.asList(model.sharks()/*sharks*/).contains(tile.getAttribute()))
 				{
-//					tile.setBorder(BorderFactory.createLineBorder());
 					if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) 
 					{
 						board.setSelectedRow(tile.getRow());
@@ -68,13 +66,4 @@ public class SharkMouseActionListener  implements MouseListener
 		// TODO Auto-generated method stub
 		
 	}
-
-	public Board getBoard() {
-		return board;
-	}
-
-	public void setBoard(Board board) {
-		this.board = board;
-	}
-
 }

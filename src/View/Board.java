@@ -11,7 +11,6 @@ public class Board extends JPanel
 	private int column;
 	private int selectedRow;
 	private int selectedColumn;
-	private boolean eagleSharkTurn;
 	private String selectedname;
 	
 	public int getRow() {
@@ -53,7 +52,6 @@ public class Board extends JPanel
 		setLayout(new GridLayout(row,column));
 		selectedRow = -1;
 		selectedColumn = -1;
-		eagleSharkTurn = true;
 		selectedname = "";		
 	}
 	
@@ -62,20 +60,7 @@ public class Board extends JPanel
 		setLayout(new GridLayout(row,column));
 		selectedRow = -1;
 		selectedColumn = -1;
-		eagleSharkTurn = true;
 		selectedname = "";		
-	}
-	
-	public boolean getEagleSharkTurn() {
-		return eagleSharkTurn;
-	}
-
-	public void setEagleSharkTurn(boolean eagleSharkTurn) {
-		this.eagleSharkTurn = eagleSharkTurn;
-	}
-	
-	public void changeTurn() {
-		eagleSharkTurn = !eagleSharkTurn;
 	}
 
 	public String getSelectedname() {
