@@ -35,8 +35,10 @@ public class View {
 	private JLabel lblNewLabel;
 	private JLabel lblTimer;
 	
-	Double timeLeft=(double) 30000;
-	
+	public JLabel getLblTimer() {
+		return lblTimer;
+	}
+
 	private JRadioButton btnEgale;
 	private JRadioButton btnShark;
 	private JLabel lblNewLabel_1;
@@ -67,6 +69,10 @@ public class View {
 	private JPanel tileStatusPanel;
 	private JPanel currentAnimalPanel;
 	private JPanel pnlTimer;
+	public JPanel getPnlTimer() {
+		return pnlTimer;
+	}
+
 	private JTextArea txtEagleLog;
 	private JTextArea txtSharkLog;
 		
@@ -150,29 +156,6 @@ public class View {
 		initialFrame();
 		initialMenu();
 		ToolTipManager.sharedInstance().setInitialDelay(0);
-		
-		
-		ActionListener countDown=new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-		    {
-		        timeLeft -= 100;
-		        if(timeLeft <= 10000) {
-		        	pnlTimer.setBackground(Color.RED);
-		        	pnlTimer.setBackground(Color.RED);		        	
-		        }
-		        else {
-		        	pnlTimer.setBackground(Color.LIGHT_GRAY);
-		        	pnlTimer.setBackground(Color.LIGHT_GRAY);
-		        }
-		        if(timeLeft<0)
-		        	timeLeft =(double) 30000;
-		        SimpleDateFormat df=new SimpleDateFormat("mm:ss");
-		        lblTimer.setText(df.format(timeLeft));
-		    }
-		};
-		timer = new Timer(100 ,countDown);
-		timer.stop();
 	}
 
 	/**
@@ -404,11 +387,26 @@ public class View {
 		this.mnuSave = mnuSave;
 	}
 	
-	public void UpdateTurnStatus(GameStatus gameStatus) {
-	    if(timeLeft<=0)
-        {
-        	timeLeft =(double) 30000;
+	Double timeLeft=(double) 30000;
+	public double updateTimer() {
+		timeLeft -= 100;
+        if(timeLeft <= 10000) {
+        	pnlTimer.setBackground(Color.RED);
         }
+        else {
+        	pnlTimer.setBackground(Color.LIGHT_GRAY);
+        }
+        SimpleDateFormat df=new SimpleDateFormat("mm:ss");
+        lblTimer.setText(df.format(timeLeft));
+        return timeLeft;
+	}
+	
+	public void changeGameStateTimer(GameStatus gameStatus) {
+		timeLeft =(double) 30000;
+		UpdateTurnViewStatus(gameStatus);
+	}
+	
+	public void UpdateTurnViewStatus(GameStatus gameStatus) {
     	if(gameStatus == GameStatus.EGALE) {
     		pnlSharkInfo.setBackground(Color.PINK);
     		pnlEgaleInfo.setBackground(Color.GREEN);
@@ -421,11 +419,6 @@ public class View {
     		btnEgale.setSelected(false);
     	}
 		btnShark.setSelected(!btnEgale.isSelected());
-	}
-	
-	public void ResetTurnStatus(GameStatus gameStatus) {
-		timeLeft =(double) 30000;
-		UpdateTurnStatus(gameStatus);
 	}
 	
 	private Image loadImage(String imageName) {

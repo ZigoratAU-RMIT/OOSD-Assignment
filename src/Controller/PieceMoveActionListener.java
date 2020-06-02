@@ -220,19 +220,19 @@ public class PieceMoveActionListener implements MouseListener
 					//Change state to Shark turn
 					model.getContext().setGameState(GameStatus.SHARK);
 				}
-				view.ResetTurnStatus(model.getContext().getGameState());
+				view.changeGameStateTimer(model.getContext().getGameState());
 			}
 			else
 			{
 				if(model.getContext().getGameState() == GameStatus.EGALE) {
 					model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, "Shark movement is wrong");
 					view.updateEagleLog(model.getLoggerChain().message);
-					//JOptionPane.showMessageDialog(null,"Egale movement is wrong");
+					JOptionPane.showMessageDialog(null,"Egale movement is wrong");
 				}
 				else if(model.getContext().getGameState() == GameStatus.SHARK) {
 					model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "Shark movement is wrong");
 					view.updateSharkLog(model.getLoggerChain().message);
-					//JOptionPane.showMessageDialog(null,"Shark movement is wrong");
+					JOptionPane.showMessageDialog(null,"Shark movement is wrong");
 				}
 			}
 			view.getBoard().setSelectedRow(-1);

@@ -2,13 +2,8 @@ package Controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
-import java.util.Collections;
-
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import Entity.Eagle;
 import Entity.Shark;
 import Model.Model;
 import Patterns.Chain.AbstractLogger;
@@ -87,6 +82,33 @@ public class SharkMouseActionListener  implements MouseListener
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
+		Tile tile = (Tile) e.getSource();
+ 		if(tile != null) {
+ 			if(tile.getAttribute().compareTo("blue shark") == 0)
+ 			tile.setToolTipText("<html>"
+                     + "&nbsp;&nbsp;&nbsp;&nbsp;▓&nbsp;"
+                     +"<br>"
+                     + "▓ ▓ ▓"
+                     +"<br>"
+                     + "&nbsp;&nbsp;&nbsp;&nbsp;▓&nbsp;"
+                + "</html>");
+ 			if(tile.getAttribute().compareTo("white shark") == 0)
+ 			tile.setToolTipText("<html>"
+                     + "▓&nbsp;&nbsp;&nbsp;▓"
+                     +"<br>"
+                     + "&nbsp;&nbsp;&nbsp;&nbsp;▓"
+                     +"<br>"
+                     + "▓&nbsp;&nbsp;&nbsp;▓"
+                + "</html>");
+ 			if(tile.getAttribute().compareTo("tiger shark") == 0)
+ 			tile.setToolTipText("<html>"
+                     + "▓ ▓ ▓"
+                     +"<br>"
+                     + "▓ ▓ ▓"
+                     +"<br>"
+                     + "▓  ▓ ▓"
+                + "</html>");
+ 		}	
 	}
 
 	@Override
@@ -96,8 +118,8 @@ public class SharkMouseActionListener  implements MouseListener
 	}
 	
 	public void showBoard() {
-		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view,model);//.eagles());
-		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view,model);//.sharks());
+		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view,model);
+		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view,model);
 		PieceMoveActionListener pieceMoveActionListener = new PieceMoveActionListener(view,model);
 
 		int item = 0;

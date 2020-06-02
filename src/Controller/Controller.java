@@ -1,10 +1,15 @@
 package Controller;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 import Model.Model;
 import Patterns.State.Context.GameStatus;
@@ -34,8 +39,8 @@ public class Controller {
 	}
 	
 	private void showBoard() {
-		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view,model);//.eagles());
-		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view,model);//.sharks());
+		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view,model);
+		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view,model);
 		PieceMoveActionListener pieceMoveActionListener = new PieceMoveActionListener(view,model);
 
 		int item = 0;
@@ -60,6 +65,27 @@ public class Controller {
 			}		
 	}
 	
+	
+	private void createTimer() {
+		ActionListener countDown=new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+		    {
+				double timerCounter = view.updateTimer();
+				if(timerCounter < 0) {
+					if(model.getContext().getGameState() == GameStatus.EGALE)
+		        		model.getContext().setGameState(GameStatus.SHARK);
+		        	else
+		        		model.getContext().setGameState(GameStatus.EGALE);
+		        	view.changeGameStateTimer(model.getContext().getGameState());
+				}
+		    }
+		};
+		view.setTimer( new Timer(100 ,countDown));
+		view.getTimer().start();
+		view.UpdateTurnViewStatus(model.getContext().getGameState());
+	}
+	
 	public void initController() {					
 		model.getApplicationConfiguration().ReadApplicationConfiguration();
 		model.checkLoadingGame();
@@ -73,14 +99,13 @@ public class Controller {
 		initView();
 		showBoard();
 		
-		//view.setChkTurn(model.getApplicationConfiguration().getGameTurn());
 		view.setLblEgaleScore(model.getApplicationConfiguration().getEgaleScore());
 		view.setLblSharkScore(model.getApplicationConfiguration().getSharkScore());
 		view.ShowGameDetails(model.eagles(),model.sharks());
 		if(model.getContext().getGameState() == GameStatus.START)
 			model.getContext().setGameState(GameStatus.EGALE);
-		view.UpdateTurnStatus(model.getContext().getGameState());
-		view.getTimer().start();
+		
+		createTimer();
 		
 		view.getMnuStartStop().addMouseListener(new MouseAdapter() {
 		@Override
