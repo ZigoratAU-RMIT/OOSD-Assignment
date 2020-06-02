@@ -52,6 +52,7 @@ public class SharkMouseActionListener  implements MouseListener
 							board.setSelectedRow(tile.getRow());
 							board.setSelectedColumn(tile.getColumn());
 							board.setSelectedname(tile.getName());
+							//set Shark message
 							model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "SHARK ( " +tile.getRow() + "," +tile.getColumn() + " )");
 						}
 //						view.getCurrentAnimalPanel().removeAll();
