@@ -24,4 +24,9 @@ public class BlueShark extends Shark
 	{
 		this.life -= reduceNumber;
 	}
+	
+	public int getLife()
+	{
+		return this.life;
+	}
 }

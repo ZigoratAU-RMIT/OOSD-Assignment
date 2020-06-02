@@ -91,8 +91,8 @@ public class PieceMoveActionListener implements MouseListener
 	}
 
 	public void showBoard() {
-		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view.getBoard(),model);//.eagles());
-		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view.getBoard(),model);//.sharks());
+		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view,model);//.eagles());
+		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view,model);//.sharks());
 		PieceMoveActionListener pieceMoveActionListener = new PieceMoveActionListener(view,model);
 
 		int item = 0;

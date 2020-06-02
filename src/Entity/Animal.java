@@ -1,17 +1,18 @@
 package Entity;
 
 public class Animal {
-	private String Name;
-
+	private int life;
+	private String name;
 	public Animal() {
-		
 	}
 	
-	public String getName() {
-		return Name;
+	public int getLife()
+	{
+		return this.life;
 	}
-
-	public void setName(String name) {
-		Name = name;
+	
+	public String getName()
+	{
+		return this.name;
 	}
 }

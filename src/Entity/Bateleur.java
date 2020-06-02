@@ -24,4 +24,9 @@ public class Bateleur extends Eagle
 	{
 		this.life -= reduceNumber;
 	}
+	
+	public int getLife()
+	{
+		return this.life;
+	}
 }

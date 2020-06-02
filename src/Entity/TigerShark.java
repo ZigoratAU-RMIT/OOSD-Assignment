@@ -24,4 +24,9 @@ public class TigerShark extends Shark
 	{
 		this.life -= reduceNumber;
 	}
+	
+	public int getLife()
+	{
+		return this.life;
+	}
 }

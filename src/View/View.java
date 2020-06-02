@@ -65,8 +65,8 @@ public class View {
 	private JLabel lbTtigersharkLife;	
 	private Timer timer;
 	private JMenu mnuNew;
-	private JPanel panel;
-	private JLabel lblNewLabel_5;
+	private JPanel tileStatusPanel;
+	private JPanel currentAnimalPanel;
 	private JPanel pnlTimer;
 		
 	public JMenu getMnuNew() {
@@ -331,12 +331,23 @@ public class View {
 		lbTtigersharkLife.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lbTtigersharkLife);
 		
-		panel = new JPanel();
-		panel.setBackground(Color.LIGHT_GRAY);
-		frmOodsAssignment.getContentPane().add(panel, BorderLayout.SOUTH);
+		tileStatusPanel = new TileStatusPanel();
+		tileStatusPanel.setBackground(Color.LIGHT_GRAY);
+		frmOodsAssignment.getContentPane().add(tileStatusPanel, BorderLayout.WEST);
 		
-		lblNewLabel_5 = new JLabel("Game is running now");
-		panel.add(lblNewLabel_5);
+		currentAnimalPanel = new CurrentAnimalPanel();
+		currentAnimalPanel.setBackground(Color.LIGHT_GRAY);
+		frmOodsAssignment.getContentPane().add(currentAnimalPanel, BorderLayout.EAST);
+
+	}
+	public JPanel getTileStatusPanel()
+	{
+		return this.tileStatusPanel;
+	}
+	
+	public JPanel getCurrentAnimalPanel()
+	{
+		return this.currentAnimalPanel;
 	}
 	
 	public JLabel getLblEgaleScore() {
