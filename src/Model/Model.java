@@ -16,6 +16,10 @@ import javax.swing.JOptionPane;
 import Configuration.ApplicationConfiguration;
 import View.*;
 import Entity.*;
+import Patterns.Chain.AbstractLogger;
+import Patterns.Chain.EagleLogger;
+import Patterns.Chain.SharkAttackLogger;
+import Patterns.Chain.SharkLogger;
 import Patterns.State.*;
 import Patterns.State.Context.GameStatus;
 
@@ -30,7 +34,30 @@ public class Model
 	private boolean loadingGame;
 	private Context context;
 	GameState gameState;
+	AbstractLogger loggerChain ;
 
+	public AbstractLogger getLoggerChain() {
+		return loggerChain;
+	}
+
+
+	public void setLoggerChain(AbstractLogger loggerChain) {
+		this.loggerChain = loggerChain;
+	}
+
+
+	private static AbstractLogger getChainOfLogger() {
+		  AbstractLogger sharkLogger = new SharkLogger(AbstractLogger.SHARK);
+	      AbstractLogger sharkAttackLogger = new SharkAttackLogger(AbstractLogger.SHAEKATTACK);
+	      AbstractLogger eagleLogger = new EagleLogger(AbstractLogger.EAGLE);
+	      AbstractLogger eagleAttackLogger = new EagleLogger(AbstractLogger.EAGLEATTACK);
+
+	      sharkLogger.setNextLogger(sharkAttackLogger);
+	      sharkAttackLogger.setNextLogger(eagleLogger);
+	      eagleLogger.setNextLogger(eagleAttackLogger);
+	      
+	      return sharkLogger;
+	}
 	
 	public Model() {
 		super();
@@ -38,6 +65,7 @@ public class Model
 		loadingGame = false;
 		context = new Context();
 		gameState = new GameState();
+		loggerChain = getChainOfLogger();		
 	}
 
 	public void setImageToTile(Tile tileItem,String imageName) {

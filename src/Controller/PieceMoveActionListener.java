@@ -6,6 +6,7 @@ import java.util.Collections;
 import javax.swing.JOptionPane;
 
 import Model.*;
+import Patterns.Chain.AbstractLogger;
 import Patterns.State.Context.GameStatus;
 import View.*;
 
@@ -42,23 +43,7 @@ public class PieceMoveActionListener implements MouseListener
 				break;
 			default:
 				break;
-			}
-//			if(view.getBoard().getEagleSharkTurn()) 
-//			{
-//				if(tileItem.getAttribute().compareToIgnoreCase("egale") != 0) 
-//				{
-//					view.getBoard().setEagleSharkTurn(true);
-//					doMovement(tileItem);		
-//				}
-//			}
-//			else 
-//			{
-//				if(tileItem.getAttribute().compareToIgnoreCase("shark") != 0)
-//				{
-//					view.getBoard().setEagleSharkTurn(false);
-//					doMovement(tileItem);									
-//				}
-//			}			
+			}		
 		}
 	}
 
@@ -213,25 +198,42 @@ public class PieceMoveActionListener implements MouseListener
 				view.getBoard().removeAll();
 				showBoard();
 				view.getBoard().validate();
-				//changeTurn();
-				view.UpdateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
-				//view.getBoard().changeTurn();
-				if(model.getContext().getGameState() == GameStatus.SHARK)
+				if(model.getContext().getGameState() == GameStatus.SHARK) {
+					//Shark log show in right side of panel
+					model.getLoggerChain().setwMessage(AbstractLogger.SHARK, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
+					view.updateSharkLog(model.getLoggerChain().message);
+					//scored the Shark
+					view.UpdateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
+					model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "Scoreed");
+					view.updateSharkLog(model.getLoggerChain().message);
+					//Change state to Eagle turn
 					model.getContext().setGameState(GameStatus.EGALE);
-				else
+				}
+				else {
+					//Eagle log show in right side of panel
+					model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
+					view.updateEagleLog(model.getLoggerChain().message);
+					//scored the Eagle
+					view.UpdateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
+					model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, "Scoreed");
+					view.updateEagleLog(model.getLoggerChain().message);
+					//Change state to Shark turn
 					model.getContext().setGameState(GameStatus.SHARK);
+				}
 				view.ResetTurnStatus(model.getContext().getGameState());
 			}
 			else
 			{
-				if(model.getContext().getGameState() == GameStatus.EGALE)
-					JOptionPane.showMessageDialog(null,"Egale movement is wrong");
-				else if(model.getContext().getGameState() == GameStatus.SHARK)
-					JOptionPane.showMessageDialog(null,"Shark movement is wrong");
-//				if(view.getBoard().getEagleSharkTurn())
-//					JOptionPane.showMessageDialog(null,"Egale movement is wrong");
-//				else
-//					JOptionPane.showMessageDialog(null,"Shark movement is wrong");
+				if(model.getContext().getGameState() == GameStatus.EGALE) {
+					model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, "Shark movement is wrong");
+					view.updateEagleLog(model.getLoggerChain().message);
+					//JOptionPane.showMessageDialog(null,"Egale movement is wrong");
+				}
+				else if(model.getContext().getGameState() == GameStatus.SHARK) {
+					model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "Shark movement is wrong");
+					view.updateSharkLog(model.getLoggerChain().message);
+					//JOptionPane.showMessageDialog(null,"Shark movement is wrong");
+				}
 			}
 			view.getBoard().setSelectedRow(-1);
 			view.getBoard().setSelectedColumn(-1);			

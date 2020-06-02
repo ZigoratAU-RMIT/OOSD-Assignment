@@ -3,6 +3,7 @@ package View;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import Patterns.State.Context.GameStatus;
 
@@ -14,6 +15,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
 
 
 
@@ -36,17 +39,13 @@ public class View {
 	
 	private JRadioButton btnEgale;
 	private JRadioButton btnShark;
-	private JPanel pnlGameReport;
 	private JLabel lblNewLabel_1;
 	private JLabel lblEgaleScore;
 	private JPanel pnlShark;
 	private JLabel lblNewLabel_3;
 	private JLabel lblSharkScore;
-	private JPanel pnlInfo;
 	private JPanel pnlEgale;
-	private JLabel lblNewLabel_4;
 	private JPanel pnlTimerContainer;
-	private JPanel pnlTurn;
 	private JPanel pnlEgaleInfo;
 	private JLabel lblBateleur;
 	private JLabel lblBlack;
@@ -56,7 +55,7 @@ public class View {
 	private JLabel lblBateleurLife;
 	private JLabel lblNewLabel_11;
 	private JLabel lblNewLabel_2;
-	private JPanel panel_2;
+	private JPanel pnlSharkInfo;
 	private JLabel lblwhiteshark;
 	private JLabel lblWhitesharkLife;
 	private JLabel lblblueshark;
@@ -68,6 +67,8 @@ public class View {
 	private JPanel tileStatusPanel;
 	private JPanel currentAnimalPanel;
 	private JPanel pnlTimer;
+	private JTextArea txtEagleLog;
+	private JTextArea txtSharkLog;
 		
 	public JMenu getMnuNew() {
 		return mnuNew;
@@ -153,18 +154,19 @@ public class View {
 		
 		ActionListener countDown=new ActionListener()
 		{
-		    public void actionPerformed(ActionEvent e)
+			public void actionPerformed(ActionEvent e)
 		    {
 		        timeLeft -= 100;
 		        if(timeLeft <= 10000) {
-		        	pnlTimerContainer.setBackground(Color.RED);
-		        	pnlTimerContainer.setBackground(Color.RED);
-		        	
+		        	pnlTimer.setBackground(Color.RED);
+		        	pnlTimer.setBackground(Color.RED);		        	
 		        }
 		        else {
-		        	pnlTimerContainer.setBackground(Color.LIGHT_GRAY);
-		        	pnlTimerContainer.setBackground(Color.LIGHT_GRAY);
+		        	pnlTimer.setBackground(Color.LIGHT_GRAY);
+		        	pnlTimer.setBackground(Color.LIGHT_GRAY);
 		        }
+		        if(timeLeft<0)
+		        	timeLeft =(double) 30000;
 		        SimpleDateFormat df=new SimpleDateFormat("mm:ss");
 		        lblTimer.setText(df.format(timeLeft));
 		    }
@@ -191,6 +193,7 @@ public class View {
 		pnlMain.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		pnlEgaleInfo = new JPanel();
+		pnlEgaleInfo.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Egale", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pnlEgaleInfo.setBackground(Color.ORANGE);
 		pnlMain.add(pnlEgaleInfo);
 		pnlEgaleInfo.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -225,32 +228,13 @@ public class View {
 		lblBlackLife.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlEgaleInfo.add(lblBlackLife);
 		
-		pnlGameReport = new JPanel();
-		pnlGameReport.setBackground(Color.GRAY);
-		pnlGameReport.setAlignmentX(0.0f);
-		pnlMain.add(pnlGameReport);
-		pnlGameReport.setLayout(new BorderLayout(0, 0));
-		
-		pnlInfo = new JPanel();
-		pnlInfo.setBackground(Color.LIGHT_GRAY);
-		pnlGameReport.add(pnlInfo);
-		
-		pnlTurn = new JPanel();
-		pnlTurn.setBackground(Color.LIGHT_GRAY);
-		pnlInfo.add(pnlTurn);
-		
-		lblNewLabel_4 = new JLabel("Turn :");
-		pnlTurn.add(lblNewLabel_4);
-		lblNewLabel_4.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		
 		pnlEgale = new JPanel();
-		pnlEgale.setBackground(Color.LIGHT_GRAY);
-		pnlInfo.add(pnlEgale);
+		pnlEgaleInfo.add(pnlEgale);
+		pnlEgale.setBackground(Color.ORANGE);
 		
-		btnEgale = new JRadioButton("Egale");
+		btnEgale = new JRadioButton("");
 		pnlEgale.add(btnEgale);
 		btnEgale.setEnabled(false);
-		btnEgale.setSelected(true);
 		btnEgale.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		
 		lblNewLabel_1 = new JLabel("Score:");
@@ -261,26 +245,9 @@ public class View {
 		pnlEgale.add(lblEgaleScore);
 		lblEgaleScore.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		
-		pnlShark = new JPanel();
-		pnlShark.setBackground(Color.LIGHT_GRAY);
-		pnlInfo.add(pnlShark);
-		
-		btnShark = new JRadioButton("Shark");
-		pnlShark.add(btnShark);
-		btnShark.setEnabled(false);
-		btnShark.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		
-		lblNewLabel_3 = new JLabel("Score:");
-		lblNewLabel_3.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		pnlShark.add(lblNewLabel_3);
-		
-		lblSharkScore = new JLabel();
-		lblSharkScore.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		pnlShark.add(lblSharkScore);
-		
 		pnlTimerContainer = new JPanel();
+		pnlMain.add(pnlTimerContainer);
 		pnlTimerContainer.setBackground(Color.LIGHT_GRAY);
-		pnlGameReport.add(pnlTimerContainer, BorderLayout.NORTH);
 		
 		pnlTimer = new JPanel();
 		pnlTimer.setBackground(Color.LIGHT_GRAY);
@@ -296,48 +263,84 @@ public class View {
 		lblTimer.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblTimer.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		panel_2 = new JPanel();
-		panel_2.setBackground(Color.PINK);
-		pnlMain.add(panel_2);
-		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		pnlSharkInfo = new JPanel();
+		pnlSharkInfo.setBorder(new TitledBorder(null, "Shark", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		pnlSharkInfo.setBackground(Color.PINK);
+		pnlMain.add(pnlSharkInfo);
+		pnlSharkInfo.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		lblNewLabel_2 = new JLabel("Shrk Life");
-		panel_2.add(lblNewLabel_2);
+		pnlSharkInfo.add(lblNewLabel_2);
 		
 		lblwhiteshark = new JLabel("");
 		lblwhiteshark.setToolTipText("White Shark");
 		lblwhiteshark.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(lblwhiteshark);
+		pnlSharkInfo.add(lblwhiteshark);
 		
 		lblWhitesharkLife = new JLabel("3");
 		lblWhitesharkLife.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(lblWhitesharkLife);
+		pnlSharkInfo.add(lblWhitesharkLife);
 		
 		lblblueshark = new JLabel("");
 		lblblueshark.setToolTipText("Blue Shark");
 		lblblueshark.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(lblblueshark);
+		pnlSharkInfo.add(lblblueshark);
 		
 		lblBluesharkLife = new JLabel("3");
 		lblBluesharkLife.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(lblBluesharkLife);
+		pnlSharkInfo.add(lblBluesharkLife);
 		
 		lbltigershark = new JLabel("");
 		lbltigershark.setToolTipText("Tiger Shark");
 		lbltigershark.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(lbltigershark);
+		pnlSharkInfo.add(lbltigershark);
 		
 		lbTtigersharkLife = new JLabel("3");
 		lbTtigersharkLife.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(lbTtigersharkLife);
+		pnlSharkInfo.add(lbTtigersharkLife);
+		
+		pnlShark = new JPanel();
+		pnlSharkInfo.add(pnlShark);
+		pnlShark.setBackground(Color.PINK);
+		
+		btnShark = new JRadioButton("");
+		pnlShark.add(btnShark);
+		btnShark.setEnabled(false);
+		btnShark.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		
+		lblNewLabel_3 = new JLabel("Score:");
+		lblNewLabel_3.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		pnlShark.add(lblNewLabel_3);
+		
+		lblSharkScore = new JLabel();
+		lblSharkScore.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		pnlShark.add(lblSharkScore);
 		
 		tileStatusPanel = new TileStatusPanel();
 		tileStatusPanel.setBackground(Color.LIGHT_GRAY);
 		frmOodsAssignment.getContentPane().add(tileStatusPanel, BorderLayout.WEST);
+		tileStatusPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		tileStatusPanel.setBorder(new LineBorder(new Color(255, 200, 0), 3, true));
+		
+		txtEagleLog = new JTextArea();
+		txtEagleLog.setEditable(false);
+		txtEagleLog.setColumns(10); 
+		txtEagleLog.setLineWrap(false);
+		tileStatusPanel.add(txtEagleLog);
 		
 		currentAnimalPanel = new CurrentAnimalPanel();
 		currentAnimalPanel.setBackground(Color.LIGHT_GRAY);
 		frmOodsAssignment.getContentPane().add(currentAnimalPanel, BorderLayout.EAST);
+		currentAnimalPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		currentAnimalPanel.setBorder(new LineBorder(Color.PINK, 3, true));
+		
+		txtSharkLog = new JTextArea();
+		txtSharkLog.setEditable(false);
+		txtSharkLog.setColumns(10); 
+		txtSharkLog.setLineWrap(false);
+		currentAnimalPanel.add(txtSharkLog);
+		txtSharkLog.setColumns(10);
+		
 
 	}
 	public JPanel getTileStatusPanel()
@@ -402,23 +405,22 @@ public class View {
 	}
 	
 	public void UpdateTurnStatus(GameStatus gameStatus) {
-        if(timeLeft<=0)
+	    if(timeLeft<=0)
         {
         	timeLeft =(double) 30000;
         }
     	if(gameStatus == GameStatus.EGALE) {
+    		pnlSharkInfo.setBackground(Color.PINK);
+    		pnlEgaleInfo.setBackground(Color.GREEN);
     		btnEgale.setSelected(true);
-    		btnShark.setSelected(false);
-    		pnlEgale.setBackground(Color.GREEN);
-    		pnlShark.setBackground(Color.LIGHT_GRAY);
     	}
     	else if(gameStatus == GameStatus.SHARK)
     	{
-    		btnShark.setSelected(true);
+    		pnlSharkInfo.setBackground(Color.GREEN);
+    		pnlEgaleInfo.setBackground(Color.ORANGE);
     		btnEgale.setSelected(false);
-    		pnlEgale.setBackground(Color.LIGHT_GRAY);
-    		pnlShark.setBackground(Color.GREEN);
     	}
+		btnShark.setSelected(!btnEgale.isSelected());
 	}
 	
 	public void ResetTurnStatus(GameStatus gameStatus) {
@@ -542,6 +544,30 @@ public class View {
 			mnuStartSop.setText("Stop");
 			timer.start();
 			pnlMain.setEnabled(true);
+		}
+	}
+	
+	public void updateEagleLog(String log) {
+		if(log.length() == 0)
+			return;
+		if(txtEagleLog.getText().length() != 0) {
+			txtEagleLog.append("\n");
+			txtEagleLog.append(log);
+		}
+		else {
+			txtEagleLog.append(log);
+		}
+	}
+
+	public void updateSharkLog(String log) {
+		if(log.length() == 0)
+			return;
+		if(txtSharkLog.getText().length() != 0) {
+			txtSharkLog.append("\n");
+			txtSharkLog.append(log);
+		}
+		else {
+			txtSharkLog.append(log);
 		}
 	}
 }
