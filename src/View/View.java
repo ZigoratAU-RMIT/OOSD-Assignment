@@ -64,9 +64,9 @@ public class View {
 	private JTextArea txtEagleLog;
 	private JTextArea txtSharkLog;
 	private Double timeLeft;
-	private JToolBar toolBar;
 	private JButton btnUndoButton;
 	private JButton btnRedoButton;
+	private JPanel panel;
 
 	/**
 	 * Create the application.
@@ -95,6 +95,23 @@ public class View {
 		pnlMain = new JPanel();
 		frmOodsAssignment.getContentPane().add(pnlMain, BorderLayout.NORTH);
 		pnlMain.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		panel = new JPanel();
+		pnlMain.add(panel);
+		
+		btnUndoButton = new JButton("Undo");
+		panel.add(btnUndoButton);
+		btnUndoButton.setActionCommand("Undo");
+		btnUndoButton.setToolTipText("Undo");
+		//button.addActionListener(this);
+		btnUndoButton.setPreferredSize(new Dimension(60, 30));
+		
+		btnRedoButton = new JButton("Redo");
+		panel.add(btnRedoButton);
+		btnRedoButton.setActionCommand("Redo");
+		btnRedoButton.setToolTipText("Redo");
+		//button.addActionListener(this);
+		btnRedoButton.setPreferredSize(new Dimension(60, 30));
 
 		pnlEgaleInfo = new JPanel();
 		pnlEgaleInfo.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Egale", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -244,28 +261,6 @@ public class View {
 		txtSharkLog.setLineWrap(false);
 		currentAnimalPanel.add(txtSharkLog);
 		txtSharkLog.setColumns(10);
-
-		toolBar = new JToolBar();
-		toolBar.setPreferredSize(new Dimension(450, 35));
-		FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
-		flowLayout.setVgap(0);
-		toolBar.setLayout(flowLayout);
-	
-		frmOodsAssignment.getContentPane().add(toolBar, BorderLayout.NORTH);
-		
-		btnUndoButton = new JButton("Undo");
-		btnUndoButton.setActionCommand("Undo");
-		btnUndoButton.setToolTipText("Undo");
-		//button.addActionListener(this);
-		btnUndoButton.setPreferredSize(new Dimension(45, 30));
-		toolBar.add(btnUndoButton);
-		
-		btnRedoButton = new JButton("Redo");
-		btnRedoButton.setActionCommand("Redo");
-		btnRedoButton.setToolTipText("Redo");
-		//button.addActionListener(this);
-		btnRedoButton.setPreferredSize(new Dimension(45, 30));
-		toolBar.add(btnRedoButton);
 	}
 
 	public JButton getBtnUndoButton() {
