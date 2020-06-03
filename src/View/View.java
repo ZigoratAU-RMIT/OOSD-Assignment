@@ -8,8 +8,6 @@ import javax.swing.border.LineBorder;
 import Patterns.State.Context.GameStatus;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,11 +32,6 @@ public class View {
 	private JPanel pnlMain;
 	private JLabel lblNewLabel;
 	private JLabel lblTimer;
-	
-	public JLabel getLblTimer() {
-		return lblTimer;
-	}
-
 	private JRadioButton btnEgale;
 	private JRadioButton btnShark;
 	private JLabel lblNewLabel_1;
@@ -69,19 +62,11 @@ public class View {
 	private JPanel tileStatusPanel;
 	private JPanel currentAnimalPanel;
 	private JPanel pnlTimer;
-	public JPanel getPnlTimer() {
-		return pnlTimer;
-	}
-
 	private JTextArea txtEagleLog;
 	private JTextArea txtSharkLog;
 		
 	public JMenu getMnuNew() {
 		return mnuNew;
-	}
-
-	public void setMnuNew(JMenu mnuNew) {
-		this.mnuNew = mnuNew;
 	}
 
 	public Timer getTimer() {
@@ -96,56 +81,20 @@ public class View {
 		return mnuOptions;
 	}
 
-	public void setMnuBoardOptions(JMenu mnuOptions) {
-		this.mnuOptions = mnuOptions;
-	}
-
-	public JMenuBar getMenuBar() {
-		return menuBar;
-	}
-
-	public void setMenuBar(JMenuBar menuBar) {
-		this.menuBar = menuBar;
-	}
-
 	public JMenu getMnuStartStop() {
 		return mnuStartSop;
 	}
 
-	public void setMnuStartStop(JMenu mnuStart) {
-		this.mnuStartSop = mnuStart;
-	}
-
-	public JMenu getMnuPause() {
-		return mnuSave;
-	}
-
-	public void setMnuPause(JMenu mnuPause) {
-		this.mnuSave = mnuPause;
-	}
-
 	public JMenu getMnuExit() {
 		return mnuExit;
-	}
-
-	public void setMnuExit(JMenu mnuExit) {
-		this.mnuExit = mnuExit;
 	}
 	
 	public JFrame getFrame() {
 		return frmOodsAssignment;
 	}
 
-	public void setFrame(JFrame frame) {
-		this.frmOodsAssignment = frame;
-	}
-
 	public Board getBoard() {
 		return board;
-	}
-
-	public void setBoard(Board board) {
-		this.board = board;
 	}
 	
 	/**
@@ -326,15 +275,6 @@ public class View {
 		
 
 	}
-	public JPanel getTileStatusPanel()
-	{
-		return this.tileStatusPanel;
-	}
-	
-	public JPanel getCurrentAnimalPanel()
-	{
-		return this.currentAnimalPanel;
-	}
 	
 	public JLabel getLblEgaleScore() {
 		return lblEgaleScore;
@@ -381,10 +321,6 @@ public class View {
 
 	public JMenu getMnuSave() {
 		return mnuSave;
-	}
-
-	public void setMnuSave(JMenu mnuSave) {
-		this.mnuSave = mnuSave;
 	}
 	
 	Double timeLeft=(double) 30000;
@@ -477,54 +413,6 @@ public class View {
 			lblEgaleScore.setText(String.valueOf(Integer.parseInt(lblEgaleScore.getText()) + 1));
 		else
 			lblSharkScore.setText(String.valueOf(Integer.parseInt(lblSharkScore.getText()) + 1));
-	}
-	
-	public JLabel getLblBateleur() {
-		return lblBateleur;
-	}
-
-	public void setLblBateleur(JLabel lblBateleur) {
-		this.lblBateleur = lblBateleur;
-	}
-
-	public JLabel getLblBlack() {
-		return lblBlack;
-	}
-
-	public void setLblBlack(JLabel lblBlack) {
-		this.lblBlack = lblBlack;
-	}
-
-	public JLabel getLblBald() {
-		return lblBald;
-	}
-
-	public void setLblBald(JLabel lblBald) {
-		this.lblBald = lblBald;
-	}
-
-	public JLabel getLblBlackLife() {
-		return lblBlackLife;
-	}
-
-	public void setLblBlackLife(JLabel lblBlackLife) {
-		this.lblBlackLife = lblBlackLife;
-	}
-
-	public JLabel getLblBaldLife() {
-		return lblBaldLife;
-	}
-
-	public void setLblBaldLife(JLabel lblBaldLife) {
-		this.lblBaldLife = lblBaldLife;
-	}
-
-	public JLabel getLblBateleurLife() {
-		return lblBateleurLife;
-	}
-
-	public void setLblBateleurLife(JLabel lblBateleurLife) {
-		this.lblBateleurLife = lblBateleurLife;
 	}
 
 	public void StartStopGame(boolean StartStop) {

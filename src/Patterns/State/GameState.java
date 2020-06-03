@@ -3,13 +3,6 @@ package Patterns.State;
 import Patterns.State.Context.GameStatus;
 
 public class GameState  implements State {
-
-	@Override
-	public void doAction(Context context) {
-		// TODO Auto-generated method stub
-		context.setGameState(GameStatus.START);	
-	}
-
 	@Override
 	public void doEgaleAction(Context context) {
 		// TODO Auto-generated method stub

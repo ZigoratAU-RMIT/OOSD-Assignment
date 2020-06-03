@@ -40,12 +40,6 @@ public class Model
 		return loggerChain;
 	}
 
-
-	public void setLoggerChain(AbstractLogger loggerChain) {
-		this.loggerChain = loggerChain;
-	}
-
-
 	private static AbstractLogger getChainOfLogger() {
 		  AbstractLogger sharkLogger = new SharkLogger(AbstractLogger.SHARK);
 	      AbstractLogger sharkAttackLogger = new SharkAttackLogger(AbstractLogger.SHAEKATTACK);
@@ -203,33 +197,17 @@ public class Model
 	public List<Tile> getTiles() {
 		return tiles;
 	}
-
-	public void setTiles(List<Tile> tiles) {
-		this.tiles = tiles;
-	}	
 	
 	public ArrayList<Shark> getSharks() {
 		return sharks;
 	}
 
-	public void setSharks(ArrayList<Shark> sharks) {
-		this.sharks = sharks;
-	}
-
 	public ArrayList<Eagle> getEagles() {
 		return eagles;
-	}
-
-	public void setEagles(ArrayList<Eagle> eagles) {
-		this.eagles = eagles;
 	}
 	
 	public ApplicationConfiguration getApplicationConfiguration() {
 		return applicationConfiguration;
-	}
-
-	public void setApplicationConfiguration(ApplicationConfiguration applicationConfiguration) {
-		this.applicationConfiguration = applicationConfiguration;
 	}
 	
 	public boolean isContaingEagle(String eagleName) {
@@ -270,9 +248,5 @@ public class Model
 
 	public Context getContext() {
 		return context;
-	}
-
-	public void setContext(Context context) {
-		this.context = context;
 	}
 }
