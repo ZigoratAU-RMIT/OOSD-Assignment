@@ -1,10 +1,14 @@
 package Entity;
 
 public class Shark extends Animal {
-	
+
 	private int life;
 	private String name;
-	public Shark() {
+	public Shark(String name) 
+	{
+		super(name);
+		this.name = name;
+		this.life = 3;
 	}
 	
 	public int getLife()
@@ -26,4 +30,5 @@ public class Shark extends Animal {
 	{
 		return this.name;
 	}
+
 }

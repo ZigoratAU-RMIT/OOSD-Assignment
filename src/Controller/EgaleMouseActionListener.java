@@ -1,10 +1,14 @@
 package Controller;
+import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
 import java.util.Collections;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import Entity.Eagle;
 import Model.Model;
@@ -61,42 +65,36 @@ public class EgaleMouseActionListener  implements MouseListener
 			if(tile != null) 
 			{
 				if(Arrays.asList(model.eagles()).contains(tile.getAttribute()))
-					if(view.getBoard().getSelectedRow() == -1 && view.getBoard().getSelectedColumn() == -1) {
+				{
+					if(view.getBoard().getSelectedRow() == -1 && view.getBoard().getSelectedColumn() == -1) 
+					{
 						view.getBoard().setSelectedRow(tile.getRow());
 						view.getBoard().setSelectedColumn(tile.getColumn());
 						view.getBoard().setSelectedname(tile.getName());
 						model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, tile.getAttribute() + " ( " +tile.getRow() + "," +tile.getColumn() + " )");
 						view.updateEagleLog(model.getLoggerChain().message);
 					}	
+				}
 				
-				
-//				for(Eagle eagle : model.getEagles())
-//				{
-//					if(eagle.getName().contains(tile.getAttribute()))
-//					{
-//						if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) 
-//						{
-//							board.setSelectedRow(tile.getRow());
-//							board.setSelectedColumn(tile.getColumn());
-//							board.setSelectedname(tile.getName());
-//							model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, "EAGLE ( " +tile.getRow() + "," +tile.getColumn() + " )");	
-//						}
-////						view.getCurrentAnimalPanel().removeAll();
-////						JLabel currentLabel = new JLabel("This is the animal that you choose");
-////						JLabel eagleName = new JLabel(eagle.getName());
-////						JLabel eagleLife = new JLabel("Life: " + String.valueOf(eagle.getLife()));
-////						JLabel movementType = new JLabel("Movement: in 3 tiles");
-////						JButton changeBehaviour = new JButton("Use Ability");
-//////						changeBehaviour.add(null);
-////						view.getCurrentAnimalPanel().add(currentLabel);
-////						view.getCurrentAnimalPanel().add(eagleName);
-////						view.getCurrentAnimalPanel().add(eagleLife);
-////						view.getCurrentAnimalPanel().add(movementType);
-////						view.getCurrentAnimalPanel().add(changeBehaviour);
-////						view.getCurrentAnimalPanel().validate();
-//						
-//					}
-//				}		
+				for(Eagle eagle : model.getEagles())
+				{
+					if(eagle.getName().contains(tile.getAttribute()))
+					{
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).removeAll();
+						JLabel currentLabel = new JLabel("This is the animal that you choose");
+						JLabel eagleName = new JLabel(eagle.getName());
+						JLabel eagleLife = new JLabel("Life: " + String.valueOf(eagle.getLife()));
+						JLabel movementType = new JLabel("Movement: in 3 tiles");
+						JButton changeBehaviour = new JButton("Use Ability");
+//						changeBehaviour.add(null);
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(currentLabel);
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(eagleName);
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(eagleLife);
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(movementType);
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(changeBehaviour);
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).validate();
+					}
+				}
 			}
 		}
 	}

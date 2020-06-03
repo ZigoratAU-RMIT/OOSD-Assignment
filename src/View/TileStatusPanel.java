@@ -12,8 +12,4 @@ public class TileStatusPanel extends JPanel
 		this.add(tileTitle);
 	}
 	
-	public JPanel getTileStatusPanel()
-	{
-		return this;
-	}
 }

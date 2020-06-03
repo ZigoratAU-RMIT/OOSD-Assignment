@@ -5,7 +5,11 @@ public class Eagle extends Animal {
 
 	private int life;
 	private String name;
-	public Eagle() {
+	public Eagle(String name) 
+	{
+		super(name);
+		this.name = name;
+		this.life = 3;
 	}
 	
 	public int getLife()

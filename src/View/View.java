@@ -267,6 +267,17 @@ public class View {
 		txtSharkLog.setColumns(10);
 	}
 
+	
+	public JPanel getTileStatusPanel()
+	{
+		return this.tileStatusPanel;
+	}
+	
+	public JPanel getCurrentAnimalPanel()
+	{
+		return this.currentAnimalPanel;
+	}
+	
 	public JButton getBtnUndoButton() {
 		return btnUndoButton;
 	}

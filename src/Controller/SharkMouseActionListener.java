@@ -1,9 +1,12 @@
 package Controller;
 
+import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Collections;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import Entity.Shark;
@@ -74,22 +77,25 @@ public class SharkMouseActionListener  implements MouseListener
 							board.setSelectedname(tile.getName());
 							//set Shark message
 							model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "SHARK ( " +tile.getRow() + "," +tile.getColumn() + " )");
+							view.updateSharkLog(model.getLoggerChain().message);
 						}
-//						view.getCurrentAnimalPanel().removeAll();
-//						JLabel currentLabel = new JLabel("This is the animal that you choose");
-//						JLabel sharkName = new JLabel(shark.getName());
-//						JLabel sharkLife = new JLabel("Life: " + String.valueOf(shark.getLife()));
-//						JLabel movementType = new JLabel("Movement: in '+' shape");
-//						view.getCurrentAnimalPanel().add(currentLabel);
-//						view.getCurrentAnimalPanel().add(sharkName);
-//						view.getCurrentAnimalPanel().add(sharkLife);
-//						view.getCurrentAnimalPanel().add(movementType);
-//						view.getCurrentAnimalPanel().validate();
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).removeAll();
+						JLabel currentLabel = new JLabel("This is the animal that you choose");
+						JLabel sharkName = new JLabel(shark.getName());
+						JLabel sharkLife = new JLabel("Life: " + String.valueOf(shark.getLife()));
+						JLabel movementType = new JLabel("Movement: in '+' shape");
+						JButton changeBehaviour = new JButton("Use Ability");
+//						changeBehaviour.add(null);
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(currentLabel);
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(sharkName);
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(sharkLife);
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(movementType);
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(changeBehaviour);
+						((Container) view.getCurrentAnimalPanel().getComponent(0)).validate();
 					}
 				}
 			}		
 		}
-		view.updateSharkLog(model.getLoggerChain().message);
 	}
 
 	@Override

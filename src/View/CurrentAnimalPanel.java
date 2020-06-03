@@ -12,8 +12,4 @@ public class CurrentAnimalPanel extends JPanel
 		this.add(currentAnimalTitle);
 	}
 	
-	public JPanel getCurrentAnimalPanel()
-	{
-		return this;
-	}
 }

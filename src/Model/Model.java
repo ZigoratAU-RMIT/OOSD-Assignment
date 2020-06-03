@@ -134,13 +134,13 @@ public class Model
 		tiles = new ArrayList<>();
 		
 		sharks = new ArrayList<Shark>();
-		sharks.add(new WhiteShark());
-		sharks.add(new BlueShark());
-		sharks.add(new TigerShark());
+		sharks.add(new Shark("white shark"));
+		sharks.add(new Shark("blue shark"));
+		sharks.add(new Shark("tiger shark"));
 		eagles = new ArrayList<Eagle>();
-		eagles.add(new Bateleur());
-		eagles.add(new Bald());
-		eagles.add(new Black());
+		eagles.add(new Eagle("Bateleur"));
+		eagles.add(new Eagle("Bald"));
+		eagles.add(new Eagle("Black"));
 		context.setGameState(Enum.valueOf(GameStatus.class, applicationConfiguration.getGameStatus()));
 		if(loadingGame) {
 			loadGame();
