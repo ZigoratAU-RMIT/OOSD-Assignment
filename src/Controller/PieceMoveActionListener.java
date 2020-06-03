@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.util.Collections;
 import Model.*;
 import Patterns.Chain.AbstractLogger;
+import Patterns.Command.CommandLineChanger;
 import Patterns.State.Context.GameStatus;
 import View.*;
 
@@ -206,6 +207,12 @@ public class PieceMoveActionListener implements MouseListener
 					//Change state to Eagle turn
 					model.getGameState().doEgaleAction(model.getContext());
 					//model.getContext().setGameState(GameStatus.EGALE);
+					
+					model.getManager().addChangeable(new CommandLineChanger(
+						 	model.getContext().getGameState(),
+						  	source,
+						  	destination,
+						  	model.getTiles()));
 				}
 				else {
 					//Eagle log show in right side of panel
@@ -217,6 +224,12 @@ public class PieceMoveActionListener implements MouseListener
 					view.updateEagleLog(model.getLoggerChain().message);
 					//Change state to Shark turn
 					model.getGameState().doSharkAction(model.getContext());
+					
+					model.getManager().addChangeable(new CommandLineChanger(
+						 	model.getContext().getGameState(),
+						  	source,
+						  	destination,
+						  	model.getTiles()));
 				}
 				view.changeGameStateTimer(model.getContext().getGameState());
 			}

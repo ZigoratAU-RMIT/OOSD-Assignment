@@ -51,7 +51,7 @@ public class ApplicationConfiguration {
 	        
 	        boardRows = Integer.parseInt(prop.getProperty("boardRows","8"));	      	
 	        boardColumns = Integer.parseInt(prop.getProperty("boardColumns","8"));	
-	        setGameStatus(prop.getProperty("GameStatus","START"));
+	        GameStatus = prop.getProperty("GameStatus","START");
 	        String board = prop.getProperty("board","true");
 	        egaleScore = Integer.parseInt(prop.getProperty("egaleScore","0"));	
 	        sharkScore = Integer.parseInt(prop.getProperty("sharkScore","0"));	
@@ -100,47 +100,23 @@ public class ApplicationConfiguration {
 		return boardRows;
 	}
 
-	public void setBoardRows(int boardRows) {
-		this.boardRows = boardRows;
-	}
-
 	public int getBoardColumns() {
 		return boardColumns;
 	}
 
-	public void setBoardColumns(int boardColumns) {
-		this.boardColumns = boardColumns;
-	}
-
 	public List<String> getTilesList() {
 		return tilesList;
-	}
-
-	public void setTilesList(List<String> tilesList) {
-		this.tilesList = tilesList;
 	}
 	
 	public int getEgaleScore() {
 		return egaleScore;
 	}
 
-	public void setEgaleScore(int egaleScore) {
-		this.egaleScore = egaleScore;
-	}
-
 	public int getSharkScore() {
 		return sharkScore;
 	}
 
-	public void setSharkScore(int sharkScore) {
-		this.sharkScore = sharkScore;
-	}
-
 	public String getGameStatus() {
 		return GameStatus;
-	}
-
-	public void setGameStatus(String gameStatus) {
-		GameStatus = gameStatus;
 	}
 }

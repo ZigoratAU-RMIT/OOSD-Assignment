@@ -20,6 +20,7 @@ import Patterns.Chain.AbstractLogger;
 import Patterns.Chain.EagleLogger;
 import Patterns.Chain.SharkAttackLogger;
 import Patterns.Chain.SharkLogger;
+import Patterns.Command.UndoRedoManager;
 import Patterns.State.*;
 import Patterns.State.Context.GameStatus;
 
@@ -35,8 +36,14 @@ public class Model
 	private Context context;
 	private GameState gameState;
 	private AbstractLogger loggerChain ;
+	private UndoRedoManager manager;
 
 	
+	public UndoRedoManager getManager() {
+		return manager;
+	}
+
+
 	public GameState getGameState() {
 		return gameState;
 	}
@@ -66,6 +73,7 @@ public class Model
 		context = new Context();
 		gameState = new GameState();
 		loggerChain = getChainOfLogger();		
+		manager = new UndoRedoManager();
 	}
 
 	public void setImageToTile(Tile tileItem,String imageName) {
