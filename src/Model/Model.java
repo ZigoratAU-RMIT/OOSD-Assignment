@@ -33,8 +33,14 @@ public class Model
 	private ApplicationConfiguration applicationConfiguration;
 	private boolean loadingGame;
 	private Context context;
-	GameState gameState;
-	AbstractLogger loggerChain ;
+	private GameState gameState;
+	private AbstractLogger loggerChain ;
+
+	
+	public GameState getGameState() {
+		return gameState;
+	}
+
 
 	public AbstractLogger getLoggerChain() {
 		return loggerChain;

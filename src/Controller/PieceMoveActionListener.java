@@ -2,9 +2,6 @@ package Controller;
 
 import java.awt.event.*;
 import java.util.Collections;
-
-import javax.swing.JOptionPane;
-
 import Model.*;
 import Patterns.Chain.AbstractLogger;
 import Patterns.State.Context.GameStatus;
@@ -76,8 +73,8 @@ public class PieceMoveActionListener implements MouseListener
 	}
 
 	public void showBoard() {
-		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view,model);//.eagles());
-		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view,model);//.sharks());
+		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(view,model);
+		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(view,model);
 		PieceMoveActionListener pieceMoveActionListener = new PieceMoveActionListener(view,model);
 
 		int item = 0;
@@ -207,7 +204,8 @@ public class PieceMoveActionListener implements MouseListener
 					model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "Scoreed");
 					view.updateSharkLog(model.getLoggerChain().message);
 					//Change state to Eagle turn
-					model.getContext().setGameState(GameStatus.EGALE);
+					model.getGameState().doEgaleAction(model.getContext());
+					//model.getContext().setGameState(GameStatus.EGALE);
 				}
 				else {
 					//Eagle log show in right side of panel
@@ -218,7 +216,7 @@ public class PieceMoveActionListener implements MouseListener
 					model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, "Scoreed");
 					view.updateEagleLog(model.getLoggerChain().message);
 					//Change state to Shark turn
-					model.getContext().setGameState(GameStatus.SHARK);
+					model.getGameState().doSharkAction(model.getContext());
 				}
 				view.changeGameStateTimer(model.getContext().getGameState());
 			}
@@ -227,12 +225,10 @@ public class PieceMoveActionListener implements MouseListener
 				if(model.getContext().getGameState() == GameStatus.EGALE) {
 					model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, "Shark movement is wrong");
 					view.updateEagleLog(model.getLoggerChain().message);
-					JOptionPane.showMessageDialog(null,"Egale movement is wrong");
 				}
 				else if(model.getContext().getGameState() == GameStatus.SHARK) {
 					model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "Shark movement is wrong");
 					view.updateSharkLog(model.getLoggerChain().message);
-					JOptionPane.showMessageDialog(null,"Shark movement is wrong");
 				}
 			}
 			view.getBoard().setSelectedRow(-1);
@@ -242,7 +238,7 @@ public class PieceMoveActionListener implements MouseListener
 
 	public boolean checkMovement(double x, double y) {
 		boolean result = false;
-		if(model.getContext().getGameState() == GameStatus.EGALE) {// view.getBoard().getEagleSharkTurn()) {// EagleOrShark) {
+		if(model.getContext().getGameState() == GameStatus.EGALE) {
 			//find the eagle name for selecting different movement.
 			if(view.getBoard().getSelectedname().compareToIgnoreCase(model.getEagles().get(0).getName()) == 0)
 				result = ((Math.abs(x) + Math.abs(y)) <= 3);

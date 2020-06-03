@@ -74,9 +74,9 @@ public class Controller {
 				double timerCounter = view.updateTimer();
 				if(timerCounter < 0) {
 					if(model.getContext().getGameState() == GameStatus.EGALE)
-		        		model.getContext().setGameState(GameStatus.SHARK);
+						model.getGameState().doSharkAction(model.getContext());
 		        	else
-		        		model.getContext().setGameState(GameStatus.EGALE);
+		        		model.getGameState().doEgaleAction(model.getContext());
 		        	view.changeGameStateTimer(model.getContext().getGameState());
 				}
 		    }
@@ -103,7 +103,7 @@ public class Controller {
 		view.setLblSharkScore(model.getApplicationConfiguration().getSharkScore());
 		view.ShowGameDetails(model.eagles(),model.sharks());
 		if(model.getContext().getGameState() == GameStatus.START)
-			model.getContext().setGameState(GameStatus.EGALE);
+			model.getGameState().doEgaleAction(model.getContext());
 		
 		createTimer();
 		
@@ -188,11 +188,11 @@ public class Controller {
 		boolean enable = false;
 		switch(model.getContext().getGameState()) {
 		case PAUSE:
-			model.getContext().setGameState(GameStatus.START);
+			model.getGameState().doGameStartAction(model.getContext());
 			enable = true;
 			break;
 		default:
-			model.getContext().setGameState(GameStatus.PAUSE);
+			model.getGameState().doGamePauseAction(model.getContext());
 			break;
 		}
 		view.StartStopGame(enable);
