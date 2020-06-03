@@ -1,22 +1,17 @@
 import Controller.Controller;
-import Model.BigFightGame;
-import Model.Eagle;
 import Model.Model;
-import Model.Pieces;
-import Model.Shark;
+import Patterns.FactoryMethod;
 import View.View;
 
 public class App {
 	/**
 	 * Launch the application.
+	 * @throws IOException 
 	 */
 	public static void main(String[] args) {
-		Pieces[] pieces = new Pieces[1];
-//		pices[0] = new Pieces("Stone");
-		Model m = new Model(new BigFightGame(
-				new Eagle("Egale"),new Shark("shark"),pieces));
-		View v = new View();
-		Controller c = new Controller(v ,m);
-		c.initController();
+		
+		FactoryMethod fm = new FactoryMethod(
+				new Model(), new View(), new Controller());
+		fm.getController().initController();
 	}
 }
