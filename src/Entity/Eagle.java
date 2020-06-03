@@ -5,11 +5,13 @@ public class Eagle extends Animal {
 
 	private int life;
 	private String name;
+	private int lifeAbility;
 	public Eagle(String name) 
 	{
 		super(name);
 		this.name = name;
 		this.life = 3;
+		this.lifeAbility = 1;
 	}
 	
 	public int getLife()
@@ -32,5 +34,13 @@ public class Eagle extends Animal {
 		return this.name;
 	}
 	
+	public void setLifeAbility(int number)
+	{
+		this.lifeAbility = number;
+	}
 	
+	public int getLifeAbility()
+	{
+		return this.lifeAbility;
+	}
 }

@@ -4,11 +4,13 @@ public class Shark extends Animal {
 
 	private int life;
 	private String name;
+	private int lifeAbility;
 	public Shark(String name) 
 	{
 		super(name);
 		this.name = name;
 		this.life = 3;
+		this.lifeAbility = 1;
 	}
 	
 	public int getLife()
@@ -29,6 +31,16 @@ public class Shark extends Animal {
 	public String getName()
 	{
 		return this.name;
+	}
+	
+	public void setLifeAbility(int number)
+	{
+		this.lifeAbility = number;
+	}
+	
+	public int getLifeAbility()
+	{
+		return this.lifeAbility;
 	}
 
 }
