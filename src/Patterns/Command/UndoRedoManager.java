@@ -26,7 +26,7 @@ public class UndoRedoManager {
 
 	// add items to UndoRedoManager
 
-	public void addChangeable(Command changeable) {
+	public void addUndoRedoManager(Command changeable) {
 		Node node = new Node(changeable);
 		currentIndex.right = node;
 		node.left = currentIndex;

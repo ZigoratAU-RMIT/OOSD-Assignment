@@ -208,7 +208,7 @@ public class PieceMoveActionListener implements MouseListener
 					model.getGameState().doEgaleAction(model.getContext());
 					//model.getContext().setGameState(GameStatus.EGALE);
 					
-					model.getManager().addChangeable(new CommandLineChanger(
+					model.getManager().addUndoRedoManager(new CommandLineChanger(
 						 	model.getContext().getGameState(),
 						  	source,
 						  	destination,
@@ -225,7 +225,7 @@ public class PieceMoveActionListener implements MouseListener
 					//Change state to Shark turn
 					model.getGameState().doSharkAction(model.getContext());
 					
-					model.getManager().addChangeable(new CommandLineChanger(
+					model.getManager().addUndoRedoManager(new CommandLineChanger(
 						 	model.getContext().getGameState(),
 						  	source,
 						  	destination,
