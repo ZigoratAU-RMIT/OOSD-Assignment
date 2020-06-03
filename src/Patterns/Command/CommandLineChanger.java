@@ -22,10 +22,16 @@ public class CommandLineChanger implements Command{
 	}
 
 	public void undo(){
-		JOptionPane.showMessageDialog(null, gameStatus.toString() + "\n" + String.valueOf(source) + "\n" + String.valueOf(destination) + "\n" + tilesLists  + "\n UNDO");
+		JOptionPane.showMessageDialog(null, gameStatus.toString() + "\n" + 
+				String.valueOf(source) + "\n" + 
+				String.valueOf(destination) + "\n" + 
+				"Size of the board is : " + String.valueOf(tilesLists.size())   + "\n UNDO");
 	}
 
 	public void redo(){
-		JOptionPane.showMessageDialog(null, gameStatus.toString() + "\n" + String.valueOf(source) + "\n" + String.valueOf(destination) + "\n" + tilesLists  + "\n REDO");
+		JOptionPane.showMessageDialog(null, gameStatus.toString() + "\n" + 
+				String.valueOf(source) + "\n" + 
+				String.valueOf(destination) + "\n" + 
+				"Size of the board is : " + String.valueOf(tilesLists.size())  + "\n REDO");
 	}
 }
