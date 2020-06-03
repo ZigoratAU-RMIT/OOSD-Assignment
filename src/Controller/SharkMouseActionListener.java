@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import Entity.Shark;
+import Entity.*;
 import Model.Model;
 import Patterns.Chain.AbstractLogger;
 import Patterns.Command.CommandLineChanger;
@@ -38,6 +38,15 @@ public class SharkMouseActionListener  implements MouseListener
 		{
 			JOptionPane.showMessageDialog(null,"It is Eagle turn");
 			Tile tileItem = (Tile) e.getSource();
+			Eagle eagleChoose = new Eagle("");
+			for(Eagle eagle : model.getEagles())
+			{
+				if(eagle.getName().equalsIgnoreCase(tileItem.getAttribute()))
+				{
+					eagleChoose = eagle;
+				}
+			}
+			Shark sharkChoose = new Shark("");
 			if(tileItem != null && checkMovement(tileItem.getRow()-view.getBoard().getSelectedRow(),
 					tileItem.getColumn()-view.getBoard().getSelectedColumn()))
 			{
@@ -45,14 +54,15 @@ public class SharkMouseActionListener  implements MouseListener
 				{
 					if(shark.getName().contains(tileItem.getAttribute()))
 					{
-						if(shark.getLife() > 0)
-						{
-							shark.reduceLife(1);
-							if(shark.getLife() <= 0)
-							{
-								doMovement(tileItem);
-							}
-						}
+						sharkChoose = shark;
+					}
+				}
+				if(sharkChoose.getLife() > 0)
+				{
+					sharkChoose.reduceLife(eagleChoose.getLifeAbility());
+					if(sharkChoose.getLife() <= 0)
+					{
+						doMovement(tileItem);
 					}
 				}
 			}
@@ -64,36 +74,41 @@ public class SharkMouseActionListener  implements MouseListener
 		else 
 		{
 			Tile tile = (Tile) e.getSource();
+			Shark sharkChoose = new Shark("");
 			if(tile != null) 
 			{
 				for(Shark shark : model.getSharks())
 				{
 					if(shark.getName().contains(tile.getAttribute()))
 					{
-						if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) 
-						{
-							board.setSelectedRow(tile.getRow());
-							board.setSelectedColumn(tile.getColumn());
-							board.setSelectedname(tile.getName());
-							//set Shark message
-							model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "SHARK ( " +tile.getRow() + "," +tile.getColumn() + " )");
-							view.updateSharkLog(model.getLoggerChain().message);
-						}
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).removeAll();
-						JLabel currentLabel = new JLabel("This is the animal that you choose");
-						JLabel sharkName = new JLabel(shark.getName());
-						JLabel sharkLife = new JLabel("Life: " + String.valueOf(shark.getLife()));
-						JLabel movementType = new JLabel("Movement: in '+' shape");
-						JButton changeBehaviour = new JButton("Use Ability");
-//						changeBehaviour.add(null);
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(currentLabel);
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(sharkName);
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(sharkLife);
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(movementType);
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(changeBehaviour);
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).validate();
+						sharkChoose = shark;
 					}
 				}
+				if(board.getSelectedRow() == -1 && board.getSelectedColumn() == -1) 
+				{
+					board.setSelectedRow(tile.getRow());
+					board.setSelectedColumn(tile.getColumn());
+					board.setSelectedname(tile.getName());
+					//set Shark message
+					model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "SHARK ( " +tile.getRow() + "," +tile.getColumn() + " )");
+					view.updateSharkLog(model.getLoggerChain().message);
+				}
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).removeAll();
+				JLabel currentLabel = new JLabel("This is the animal that you choose");
+				JLabel sharkName = new JLabel(sharkChoose.getName());
+				JLabel sharkLife = new JLabel("Life: " + String.valueOf(sharkChoose.getLife()));
+				JLabel movementType = new JLabel("Movement: in '+' shape");
+				
+				JButton changeBehaviour = new JButton("Use Ability");
+//				MouseListener tigerShark = new TigerSharkMouseListener();
+//				changeBehaviour.addMouseListener(tigerShark);
+				
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(currentLabel);
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(sharkName);
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(sharkLife);
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(movementType);
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(changeBehaviour);
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).validate();
 			}		
 		}
 	}

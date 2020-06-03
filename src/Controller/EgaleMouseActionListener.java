@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import Entity.Eagle;
+import Entity.*;
 import Model.Model;
 import Patterns.Chain.AbstractLogger;
 import Patterns.Command.CommandLineChanger;
@@ -35,6 +35,15 @@ public class EgaleMouseActionListener  implements MouseListener
 		{
 			JOptionPane.showMessageDialog(null,"It is shark turn");
 			Tile tileItem = (Tile) e.getSource();
+			Shark sharkChoose = new Shark("");
+			for(Shark shark : model.getSharks())
+			{
+				if(shark.getName().equalsIgnoreCase(tileItem.getAttribute()))
+				{
+					sharkChoose = shark;
+				}
+			}
+			Eagle eagleChoose = new Eagle("");
 			if(tileItem != null && checkMovement(tileItem.getRow()-view.getBoard().getSelectedRow(),
 					tileItem.getColumn()-view.getBoard().getSelectedColumn()))
 			{
@@ -42,14 +51,15 @@ public class EgaleMouseActionListener  implements MouseListener
 				{
 					if(eagle.getName().contains(tileItem.getAttribute()))
 					{
-						if(eagle.getLife() > 0)
-						{
-							eagle.reduceLife(1);
-							if(eagle.getLife() <= 0)
-							{
-								doMovement(tileItem);
-							}
-						}
+						eagleChoose = eagle;
+					}
+				}
+				if(eagleChoose.getLife() > 0)
+				{
+					eagleChoose.reduceLife(sharkChoose.getLifeAbility());
+					if(eagleChoose.getLife() <= 0)
+					{
+						doMovement(tileItem);
 					}
 				}
 			}
@@ -62,6 +72,7 @@ public class EgaleMouseActionListener  implements MouseListener
 		else 
 		{
 			Tile tile = (Tile) e.getSource();
+			Eagle eagleChoose = new Eagle("");
 			if(tile != null) 
 			{
 				if(Arrays.asList(model.eagles()).contains(tile.getAttribute()))
@@ -80,21 +91,24 @@ public class EgaleMouseActionListener  implements MouseListener
 				{
 					if(eagle.getName().contains(tile.getAttribute()))
 					{
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).removeAll();
-						JLabel currentLabel = new JLabel("This is the animal that you choose");
-						JLabel eagleName = new JLabel(eagle.getName());
-						JLabel eagleLife = new JLabel("Life: " + String.valueOf(eagle.getLife()));
-						JLabel movementType = new JLabel("Movement: in 3 tiles");
-						JButton changeBehaviour = new JButton("Use Ability");
-//						changeBehaviour.add(null);
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(currentLabel);
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(eagleName);
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(eagleLife);
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(movementType);
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).add(changeBehaviour);
-						((Container) view.getCurrentAnimalPanel().getComponent(0)).validate();
+						eagleChoose = eagle;
 					}
 				}
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).removeAll();
+				JLabel currentLabel = new JLabel("This is the animal that you choose");
+				JLabel eagleName = new JLabel(eagleChoose.getName());
+				JLabel eagleLife = new JLabel("Life: " + String.valueOf(eagleChoose.getLife()));
+				JLabel movementType = new JLabel("Movement: in 3 tiles");
+				
+				JButton changeBehaviour = new JButton("Use Ability");
+//				changeBehaviour.addMouseListener(null);
+				
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(currentLabel);
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(eagleName);
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(eagleLife);
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(movementType);
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(changeBehaviour);
+				((Container) view.getCurrentAnimalPanel().getComponent(0)).validate();
 			}
 		}
 	}
