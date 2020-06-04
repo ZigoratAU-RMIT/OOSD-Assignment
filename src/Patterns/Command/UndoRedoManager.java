@@ -51,7 +51,7 @@ public class UndoRedoManager {
 		if (!canUndo()) {
 			throw new IllegalStateException("Index is out of range for doing undo.");
 		}
-		currentIndex.changeable.undo();
+		currentIndex.command.undo();
 		moveLeft();
 	}
 
@@ -79,19 +79,19 @@ public class UndoRedoManager {
 			throw new IllegalStateException("Index is out of range for doing redo");
 		}
 		moveRight();
-		currentIndex.changeable.redo();
+		currentIndex.command.redo();
 	}
 
 	// Node data structure for Undo and Redo list
 	private class Node {
 		private Node left = null;
 		private Node right = null;
-		private final Command changeable;
+		private final Command command;
 		public Node(Command c) {
-			changeable = c;
+			command = c;
 		}
 		public Node() {
-			changeable = null;
+			command = null;
 		}
 	}
 

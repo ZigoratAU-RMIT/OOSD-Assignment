@@ -169,7 +169,7 @@ public class Controller {
 
 		view.setLblEgaleScore(model.getApplicationConfiguration().getEgaleScore());
 		view.setLblSharkScore(model.getApplicationConfiguration().getSharkScore());
-		view.ShowGameDetails(model.eagles(),model.sharks());
+		view.showGameDetails(model.eagles(),model.sharks());
 		if(model.getContext().getGameState() == GameStatus.START)
 			model.getGameState().doEgaleAction(model.getContext());
 		createTimer();
@@ -324,7 +324,7 @@ public class Controller {
 					model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
 					view.updateSharkLog(model.getLoggerChain().message);
 					//scored the Shark
-					view.UpdateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
+					view.updateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
 					model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, "Scoreed");
 					view.updateSharkLog(model.getLoggerChain().message);
 					//Change state to Eagle turn
@@ -342,7 +342,7 @@ public class Controller {
 					model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
 					view.updateEagleLog(model.getLoggerChain().message);
 					//scored the Eagle
-					view.UpdateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
+					view.updateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
 					model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, "Scoreed");
 					view.updateEagleLog(model.getLoggerChain().message);
 					//Change state to Shark turn
@@ -448,7 +448,7 @@ public class Controller {
 			model.getGameState().doGamePauseAction(model.getContext());
 			break;
 		}
-		view.StartStopGame(enable);
+		view.startStopGame(enable);
 		model.setEnableDisableTiles(enable);
 	}
 

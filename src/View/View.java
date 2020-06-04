@@ -95,22 +95,20 @@ public class View {
 		pnlMain = new JPanel();
 		frmOodsAssignment.getContentPane().add(pnlMain, BorderLayout.NORTH);
 		pnlMain.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+
 		panel = new JPanel();
 		pnlMain.add(panel);
-		
+
 		btnUndoButton = new JButton("Undo");
 		panel.add(btnUndoButton);
 		btnUndoButton.setActionCommand("Undo");
 		btnUndoButton.setToolTipText("Undo");
-		//button.addActionListener(this);
 		btnUndoButton.setPreferredSize(new Dimension(60, 60));
-		
+
 		btnRedoButton = new JButton("Redo");
 		panel.add(btnRedoButton);
 		btnRedoButton.setActionCommand("Redo");
 		btnRedoButton.setToolTipText("Redo");
-		//button.addActionListener(this);
 		btnRedoButton.setPreferredSize(new Dimension(60, 60));
 
 		pnlEgaleInfo = new JPanel();
@@ -244,13 +242,13 @@ public class View {
 		tileStatusPanel.setBackground(Color.LIGHT_GRAY);
 		frmOodsAssignment.getContentPane().add(tileStatusPanel, BorderLayout.WEST);
 		tileStatusPanel.setBorder(new LineBorder(new Color(255, 200, 0), 3, true));
-		
+
 		txtEagleLog = new JTextArea();
 		txtEagleLog.setEditable(false);
 		txtEagleLog.setColumns(10); 
 		txtEagleLog.setLineWrap(false);
 		tileStatusPanel.add(txtEagleLog);
-		
+
 		currentAnimalPanel = new JPanel();
 		currentAnimalPanel.setBackground(Color.LIGHT_GRAY);
 		frmOodsAssignment.getContentPane().add(currentAnimalPanel, BorderLayout.EAST);
@@ -258,7 +256,7 @@ public class View {
 		JPanel animalPanel = new CurrentAnimalPanel();
 		currentAnimalPanel.add(animalPanel);
 		currentAnimalPanel.setBorder(new LineBorder(Color.PINK, 3, true));
-		
+
 		txtSharkLog = new JTextArea();
 		txtSharkLog.setEditable(false);
 		txtSharkLog.setColumns(10); 
@@ -267,17 +265,17 @@ public class View {
 		txtSharkLog.setColumns(10);
 	}
 
-	
+
 	public JPanel getTileStatusPanel()
 	{
 		return this.tileStatusPanel;
 	}
-	
+
 	public JPanel getCurrentAnimalPanel()
 	{
 		return this.currentAnimalPanel;
 	}
-	
+
 	public JButton getBtnUndoButton() {
 		return btnUndoButton;
 	}
@@ -338,17 +336,17 @@ public class View {
 		menuBar = new JMenuBar();
 		frmOodsAssignment.setJMenuBar(menuBar);
 
-		mnuStartSop = new JMenu("Stop");
-		mnuStartSop.setMnemonic('S');
-		menuBar.add(mnuStartSop);
+		mnuNew = new JMenu("New Game");
+		mnuNew.setMnemonic('P');
+		menuBar.add(mnuNew);
 
 		mnuSave = new JMenu("Save Game");
 		mnuSave.setMnemonic('P');
 		menuBar.add(mnuSave);
 
-		mnuNew = new JMenu("New Game");
-		mnuNew.setMnemonic('P');
-		menuBar.add(mnuNew);
+		mnuStartSop = new JMenu("Stop");
+		mnuStartSop.setMnemonic('S');
+		menuBar.add(mnuStartSop);
 
 		mnuOptions = new JMenu("BoardOptions");
 		menuBar.add(mnuOptions);
@@ -418,7 +416,7 @@ public class View {
 		}
 	}
 
-	public void ShowGameDetails(String[] eagls,String[] sharks) {
+	public void showGameDetails(String[] eagls,String[] sharks) {
 		for(int i=0; i< eagls.length; i++) {
 			Image img = loadImage(eagls[i]);
 			if(img!= null)
@@ -451,14 +449,33 @@ public class View {
 		}
 	}
 
-	public void UpdateScore(boolean item, int score) {
+	public void updateScore(boolean item, int score) {
 		if(item)
 			lblEgaleScore.setText(String.valueOf(Integer.parseInt(lblEgaleScore.getText()) + 1));
 		else
 			lblSharkScore.setText(String.valueOf(Integer.parseInt(lblSharkScore.getText()) + 1));
 	}
 
-	public void StartStopGame(boolean StartStop) {
+	public void updateLife(String name) {
+		switch(name.toLowerCase()) {
+		case "Bateleur":
+			break;
+		case "lblBlack":
+			break;
+		case "lblBald":
+			break;
+		case "lblwhiteshark":
+			break;
+		case "lblblueshark":
+			break;
+		case "lbltigershark":
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void startStopGame(boolean StartStop) {
 		if(StartStop) {
 			mnuStartSop.setText("Start");
 			timer.stop();
