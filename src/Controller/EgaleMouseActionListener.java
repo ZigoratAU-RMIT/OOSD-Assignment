@@ -144,8 +144,6 @@ public class EgaleMouseActionListener implements MouseListener
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Tile tile = (Tile) e.getSource();
-
 	}
 
 	@Override

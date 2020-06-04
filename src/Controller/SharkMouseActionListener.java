@@ -36,6 +36,25 @@ public class SharkMouseActionListener  implements MouseListener
 	public void mouseClicked(MouseEvent e) 
 	{	
 		// TODO Auto-generated method stub	
+		
+		switch(model.getContext().getGameState()) {
+		case BEGIN:
+			break;
+		case START:
+			break;
+		case PAUSE:
+			break;
+		case EGALE:
+			break;
+		case SHARK:
+			break;
+		case END:
+			break;
+		default:
+			break;
+		}
+		
+		
 		if(model.getContext().getGameState() != GameStatus.SHARK)
 		{
 			JOptionPane.showMessageDialog(null,"It is Eagle turn");
@@ -143,8 +162,6 @@ public class SharkMouseActionListener  implements MouseListener
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Tile tile = (Tile) e.getSource();
-
 	}
 
 	@Override

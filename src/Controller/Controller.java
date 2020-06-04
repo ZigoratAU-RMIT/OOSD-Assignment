@@ -14,7 +14,6 @@ import javax.swing.Timer;
 import Model.Model;
 import Patterns.Chain.AbstractLogger;
 import Patterns.Command.CommandLineChanger;
-import Patterns.Command.UndoRedoManager;
 import Patterns.State.Context.GameStatus;
 import View.*;
 
@@ -233,9 +232,10 @@ public class Controller {
 				String destinationAttribute = destinationTile.getAttribute();
 
 				String sourceAttributeChange = "";
-				if(destinationAttribute.equalsIgnoreCase("Black") || 
-						destinationAttribute.equalsIgnoreCase("Bateleur") || 
-						destinationAttribute.equalsIgnoreCase("Bald"))
+//				if(destinationAttribute.equalsIgnoreCase("Black") || 
+//						destinationAttribute.equalsIgnoreCase("Bateleur") || 
+//						destinationAttribute.equalsIgnoreCase("Bald"))
+				if(model.isContaingEagle(destinationAttribute))
 				{
 					sourceAttributeChange = "island";
 				}
@@ -246,9 +246,10 @@ public class Controller {
 
 				if(destinationTile.getCurrentTileAttribute() == null)
 				{
-					if(destinationAttribute.equalsIgnoreCase("Black") || 
-							destinationAttribute.equalsIgnoreCase("Bateleur") || 
-							destinationAttribute.equalsIgnoreCase("Bald"))
+//					if(destinationAttribute.equalsIgnoreCase("Black") || 
+//							destinationAttribute.equalsIgnoreCase("Bateleur") || 
+//							destinationAttribute.equalsIgnoreCase("Bald"))
+					if(model.isContaingEagle(destinationAttribute))
 					{
 						model.getTiles().get(destination).setCurrentTileAttribute("EagleIsland");
 					}
@@ -279,15 +280,17 @@ public class Controller {
 					}
 				}
 
-				if(sourceAttribute.equalsIgnoreCase("ocean") && (destinationAttribute.equalsIgnoreCase("Black") || 
-						destinationAttribute.equalsIgnoreCase("Bateleur") || 
-						destinationAttribute.equalsIgnoreCase("Bald")))
+				if(sourceAttribute.equalsIgnoreCase("ocean") && model.isContaingEagle(destinationAttribute))
+//						(destinationAttribute.equalsIgnoreCase("Black") || 
+//						destinationAttribute.equalsIgnoreCase("Bateleur") || 
+//						destinationAttribute.equalsIgnoreCase("Bald")))
 				{
 					destinationTile.setCurrentTileAttribute("EagleOcean");
 				}
-				else if(sourceAttribute.equalsIgnoreCase("island") && (destinationAttribute.equalsIgnoreCase("Black") || 
-						destinationAttribute.equalsIgnoreCase("Bateleur") || 
-						destinationAttribute.equalsIgnoreCase("Bald")))
+				else if(sourceAttribute.equalsIgnoreCase("island") && model.isContaingEagle(destinationAttribute))
+//						(destinationAttribute.equalsIgnoreCase("Black") || 
+//						destinationAttribute.equalsIgnoreCase("Bateleur") || 
+//						destinationAttribute.equalsIgnoreCase("Bald")))
 				{
 					destinationTile.setCurrentTileAttribute("EagleIsland");
 				}
