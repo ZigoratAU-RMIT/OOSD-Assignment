@@ -456,19 +456,25 @@ public class View {
 			lblSharkScore.setText(String.valueOf(Integer.parseInt(lblSharkScore.getText()) + 1));
 	}
 
-	public void updateLife(String name) {
+	public void updateLife(String name, int value) {
 		switch(name.toLowerCase()) {
-		case "Bateleur":
+		case "bateleur":
+			lblBateleurLife.setText(String.valueOf(value));
 			break;
-		case "lblBlack":
+		case "black":
+			lblBlack.setText(String.valueOf(value));
 			break;
-		case "lblBald":
+		case "bald":
+			lblBald.setText(String.valueOf(value));
 			break;
-		case "lblwhiteshark":
+		case "white shark":
+			lblwhiteshark.setText(String.valueOf(value));
 			break;
-		case "lblblueshark":
+		case "blue shark":
+			lblblueshark.setText(String.valueOf(value));
 			break;
-		case "lbltigershark":
+		case "tiger shark":
+			lbltigershark.setText(String.valueOf(value));
 			break;
 		default:
 			break;

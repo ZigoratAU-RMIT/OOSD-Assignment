@@ -133,7 +133,7 @@ public class EgaleMouseActionListener implements MouseListener
 					if(eagleChoose1.getLife() > 0)
 					{
 						controller.doMovement(tileItem);
-						view.updateLife(tileItem.getAttribute());
+						view.updateLife(tileItem.getAttribute(),eagleChoose1.getLife());
 					}
 				}
 			}
