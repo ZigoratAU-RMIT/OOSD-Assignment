@@ -36,11 +36,11 @@ public class Model
 	private Context context;
 	private GameState gameState;
 	private AbstractLogger loggerChain ;
-	private UndoRedoManager manager;
+	private UndoRedoManager undoRedoManager;
 
 	
-	public UndoRedoManager getManager() {
-		return manager;
+	public UndoRedoManager getUndoRedoManager() {
+		return undoRedoManager;
 	}
 
 
@@ -73,7 +73,7 @@ public class Model
 		context = new Context();
 		gameState = new GameState();
 		loggerChain = getChainOfLogger();		
-		manager = new UndoRedoManager();
+		undoRedoManager = new UndoRedoManager();
 	}
 
 	public void setImageToTile(Tile tileItem,String imageName) {
