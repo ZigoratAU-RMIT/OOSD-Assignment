@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import Entity.*;
 import Model.Model;
-import Patterns.Chain.AbstractLogger;
+import Patterns.Chain.AbstractGameLogger;
 import View.Board;
 import View.Tile;
 import View.View;
@@ -83,7 +83,7 @@ public class SharkMouseActionListener  implements MouseListener
 			}
 			else
 			{
-				model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, "Wrong selection");
+				model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, "Wrong selection");
 			}
 			break;
 		case SHARK:
@@ -105,7 +105,7 @@ public class SharkMouseActionListener  implements MouseListener
 					board.setSelectedColumn(tile.getColumn());
 					board.setSelectedname(tile.getName());
 					//set Shark message
-					model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "SHARK ( " +tile.getRow() + "," +tile.getColumn() + " )");
+					model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, "SHARK ( " +tile.getRow() + "," +tile.getColumn() + " )");
 					view.updateSharkLog(model.getLoggerChain().message);
 				}
 				((Container) view.getCurrentAnimalPanel().getComponent(0)).removeAll();

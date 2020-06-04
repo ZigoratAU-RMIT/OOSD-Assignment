@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import Entity.*;
 import Model.Model;
-import Patterns.Chain.AbstractLogger;
+import Patterns.Chain.AbstractGameLogger;
 import View.Tile;
 import View.View;
 
@@ -49,7 +49,7 @@ public class EgaleMouseActionListener implements MouseListener
 						view.getBoard().setSelectedRow(tile.getRow());
 						view.getBoard().setSelectedColumn(tile.getColumn());
 						view.getBoard().setSelectedname(tile.getName());
-						model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, tile.getAttribute() + " ( " +tile.getRow() + "," +tile.getColumn() + " )");
+						model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, tile.getAttribute() + " ( " +tile.getRow() + "," +tile.getColumn() + " )");
 						view.updateEagleLog(model.getLoggerChain().message);
 					}	
 				}
@@ -138,7 +138,7 @@ public class EgaleMouseActionListener implements MouseListener
 			}
 			else
 			{
-				model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, "Wrong selection");
+				model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, "Wrong selection");
 				view.updateEagleLog(model.getLoggerChain().message);
 			}
 			break;

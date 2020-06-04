@@ -104,14 +104,14 @@ public class View {
 		btnUndoButton.setActionCommand("Undo");
 		btnUndoButton.setToolTipText("Undo");
 		//button.addActionListener(this);
-		btnUndoButton.setPreferredSize(new Dimension(60, 30));
+		btnUndoButton.setPreferredSize(new Dimension(60, 60));
 		
 		btnRedoButton = new JButton("Redo");
 		panel.add(btnRedoButton);
 		btnRedoButton.setActionCommand("Redo");
 		btnRedoButton.setToolTipText("Redo");
 		//button.addActionListener(this);
-		btnRedoButton.setPreferredSize(new Dimension(60, 30));
+		btnRedoButton.setPreferredSize(new Dimension(60, 60));
 
 		pnlEgaleInfo = new JPanel();
 		pnlEgaleInfo.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Egale", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));

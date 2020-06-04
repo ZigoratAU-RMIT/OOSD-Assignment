@@ -1,6 +1,6 @@
 package Patterns.Chain;
 
-public class EagleLogger extends AbstractLogger {
+public class EagleLogger extends AbstractGameLogger {
 
 	public EagleLogger(int level) {
 		this.level = level;

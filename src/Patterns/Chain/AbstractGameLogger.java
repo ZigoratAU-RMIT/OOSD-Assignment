@@ -1,6 +1,6 @@
 package Patterns.Chain;
 
-public abstract class AbstractLogger {
+public abstract class AbstractGameLogger {
 	public static int SHARK = 1;
 	public static int SHAEKATTACK = 2;
 	public static int EAGLE = 3;
@@ -12,9 +12,9 @@ public abstract class AbstractLogger {
 	
 	
 	//next element responsibility
-	 protected AbstractLogger nextLogger;
+	 protected AbstractGameLogger nextLogger;
 	 
-	 public void setNextLogger(AbstractLogger nextLogger) {
+	 public void setNextLogger(AbstractGameLogger nextLogger) {
 		 this.nextLogger = nextLogger;
 	 }
 	 	 

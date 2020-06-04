@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import Model.Model;
-import Patterns.Chain.AbstractLogger;
+import Patterns.Chain.AbstractGameLogger;
 import Patterns.Command.CommandLineChanger;
 import Patterns.State.Context.GameStatus;
 import View.*;
@@ -321,11 +321,11 @@ public class Controller {
 				case SHARK:
 				case SHARKATTACK:
 					//Shark log show in right side of panel
-					model.getLoggerChain().setwMessage(AbstractLogger.SHARK, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
+					model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
 					view.updateSharkLog(model.getLoggerChain().message);
 					//scored the Shark
 					view.UpdateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
-					model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "Scoreed");
+					model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, "Scoreed");
 					view.updateSharkLog(model.getLoggerChain().message);
 					//Change state to Eagle turn
 					model.getGameState().doEgaleAction(model.getContext());
@@ -339,11 +339,11 @@ public class Controller {
 					break;
 				case EGALE:
 				case EGALEATTACK:
-					model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
+					model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
 					view.updateEagleLog(model.getLoggerChain().message);
 					//scored the Eagle
 					view.UpdateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
-					model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, "Scoreed");
+					model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, "Scoreed");
 					view.updateEagleLog(model.getLoggerChain().message);
 					//Change state to Shark turn
 					model.getGameState().doSharkAction(model.getContext());
@@ -401,11 +401,11 @@ public class Controller {
 			else
 			{
 				if(model.getContext().getGameState() == GameStatus.EGALE) {
-					model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, "Shark movement is wrong");
+					model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, "Shark movement is wrong");
 					view.updateEagleLog(model.getLoggerChain().message);
 				}
 				else if(model.getContext().getGameState() == GameStatus.SHARK) {
-					model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "Shark movement is wrong");
+					model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, "Shark movement is wrong");
 					view.updateSharkLog(model.getLoggerChain().message);
 				}
 			}

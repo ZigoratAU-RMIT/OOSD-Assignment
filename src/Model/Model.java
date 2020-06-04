@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import Configuration.ApplicationConfiguration;
 import View.*;
 import Entity.*;
-import Patterns.Chain.AbstractLogger;
+import Patterns.Chain.AbstractGameLogger;
 import Patterns.Chain.EagleLogger;
 import Patterns.Chain.SharkAttackLogger;
 import Patterns.Chain.SharkLogger;
@@ -35,7 +35,7 @@ public class Model
 	private boolean loadingGame;
 	private Context context;
 	private GameState gameState;
-	private AbstractLogger loggerChain ;
+	private AbstractGameLogger loggerChain ;
 	private UndoRedoManager undoRedoManager;
 	private Tile attacker;
 	
@@ -51,15 +51,15 @@ public class Model
 	}
 
 
-	public AbstractLogger getLoggerChain() {
+	public AbstractGameLogger getLoggerChain() {
 		return loggerChain;
 	}
 
-	private static AbstractLogger getChainOfLogger() {
-		  AbstractLogger sharkLogger = new SharkLogger(AbstractLogger.SHARK);
-	      AbstractLogger sharkAttackLogger = new SharkAttackLogger(AbstractLogger.SHAEKATTACK);
-	      AbstractLogger eagleLogger = new EagleLogger(AbstractLogger.EAGLE);
-	      AbstractLogger eagleAttackLogger = new EagleLogger(AbstractLogger.EAGLEATTACK);
+	private static AbstractGameLogger getChainOfLogger() {
+		  AbstractGameLogger sharkLogger = new SharkLogger(AbstractGameLogger.SHARK);
+	      AbstractGameLogger sharkAttackLogger = new SharkAttackLogger(AbstractGameLogger.SHAEKATTACK);
+	      AbstractGameLogger eagleLogger = new EagleLogger(AbstractGameLogger.EAGLE);
+	      AbstractGameLogger eagleAttackLogger = new EagleLogger(AbstractGameLogger.EAGLEATTACK);
 
 	      sharkLogger.setNextLogger(sharkAttackLogger);
 	      sharkAttackLogger.setNextLogger(eagleLogger);

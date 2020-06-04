@@ -1,7 +1,7 @@
 package Patterns.Chain;
 
 
-public class SharkLogger extends AbstractLogger{
+public class SharkLogger extends AbstractGameLogger{
 
 	public SharkLogger(int level) {
 		this.level = level;

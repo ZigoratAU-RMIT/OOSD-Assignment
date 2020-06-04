@@ -1,6 +1,6 @@
 package Patterns.Chain;
 
-public class SharkAttackLogger extends AbstractLogger{
+public class SharkAttackLogger extends AbstractGameLogger{
 
 	public SharkAttackLogger(int level) {
 		this.level = level;
