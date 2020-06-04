@@ -23,6 +23,11 @@ public class Eagle extends Animal {
 	{
 		this.life = life;
 	}
+	
+	public void increaseLife()
+	{
+		this.life++;
+	}
 
 	public void reduceLife(int reduceNumber)
 	{

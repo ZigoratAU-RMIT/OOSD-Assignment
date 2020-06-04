@@ -85,6 +85,10 @@ public class SharkMouseActionListener  implements MouseListener
 					{
 						controller.doMovement(tileItem);
 					}
+					else if(sharkChoose.getLife() != 3 && eagleChoose.getName().equalsIgnoreCase("Bateleur"))
+					{
+						controller.doMovement(tileItem);
+					}
 				}
 			}
 			else
@@ -123,17 +127,17 @@ public class SharkMouseActionListener  implements MouseListener
 				JButton changeBehaviour = new JButton("Use Ability");
 				if(sharkChoose.getName().equalsIgnoreCase("white shark"))
 				{
-					MouseListener whiteShark = new WhiteSharkMouseListener();
+					MouseListener whiteShark = new WhiteSharkMouseListener(sharkChoose,view);
 					changeBehaviour.addMouseListener(whiteShark);
 				}
 				else if(sharkChoose.getName().equalsIgnoreCase("blue shark"))
 				{
-					MouseListener blueShark = new BlueSharkMouseListener();
+					MouseListener blueShark = new BlueSharkMouseListener(sharkChoose,view);
 					changeBehaviour.addMouseListener(blueShark);
 				}
 				else if(sharkChoose.getName().equalsIgnoreCase("tiger shark"))
 				{
-					MouseListener tigerShark = new TigerSharkMouseListener();
+					MouseListener tigerShark = new TigerSharkMouseListener(sharkChoose,view);
 					changeBehaviour.addMouseListener(tigerShark);
 				}
 				
