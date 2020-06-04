@@ -1,24 +1,18 @@
 package Controller;
 
 import java.awt.event.*;
-import java.util.Collections;
 import Model.*;
-import Patterns.Chain.AbstractLogger;
-import Patterns.Command.CommandLineChanger;
-import Patterns.State.Context.GameStatus;
 import View.*;
 
 
 public class PieceMoveActionListener implements MouseListener 
 {
-	private View view;
 	private Model model;
 	private Controller controller;
 
-	public PieceMoveActionListener(Controller controller) {// View view, Model model) {
+	public PieceMoveActionListener(Controller controller) {
 		this.controller = controller;
-		this.model = controller.getModel();// model;
-		this.view = controller.getView();// view;
+		this.model = controller.getModel();
 	}
 
 	@Override

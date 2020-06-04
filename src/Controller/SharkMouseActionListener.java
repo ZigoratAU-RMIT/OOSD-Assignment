@@ -3,17 +3,12 @@ package Controller;
 import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Collections;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import Entity.*;
 import Model.Model;
 import Patterns.Chain.AbstractLogger;
-import Patterns.Command.CommandLineChanger;
-import Patterns.State.Context.GameStatus;
 import View.Board;
 import View.Tile;
 import View.View;
@@ -36,34 +31,6 @@ public class SharkMouseActionListener  implements MouseListener
 	public void mouseClicked(MouseEvent e) 
 	{	
 		// TODO Auto-generated method stub	
-		/*
-		switch(model.getContext().getGameState()) {
-		case BEGIN:
-			JOptionPane.showMessageDialog(null,"The Game is not Started.");
-			break;
-		case START:
-			JOptionPane.showMessageDialog(null,"Please select an Animal to play.");
-			break;
-		case PAUSE:
-			JOptionPane.showMessageDialog(null,"Gmae is in pause mode.");
-			break;
-		case EGALE:
-			break;
-		case EGALEATTACK:
-			break;
-		case SHARK:
-			break;
-		case SHARKATTACK:
-			break;
-		case END:
-			JOptionPane.showMessageDialog(null,"Game was finished.");
-			break;
-		default:
-			break;
-		}
-		 */		
-		
-		
 		switch(model.getContext().getGameState()) {
 		case BEGIN:
 			JOptionPane.showMessageDialog(null,"The Game is not Started.");

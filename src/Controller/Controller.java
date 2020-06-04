@@ -41,36 +41,19 @@ public class Controller {
 	}
 
 	public void updateBoard() {
-//		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(this);//view,model);
-//		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(this);//view,model);
-//		PieceMoveActionListener pieceMoveActionListener = new PieceMoveActionListener(this);//view,model);
-
 		int item = 0;
 		Tile tile;
 		for(int x = 0;x<view.getBoard().getRow();x++)
 			for(int y = 0;y<view.getBoard().getColumn();y++) {
 				tile = model.getTiles().get(item++);
-				//String attribute = tile.getAttribute();
-//				if(model.isContaingEagle(attribute)) 
-//				{
-//					tile.addMouseListener(egaleMouseActionListener);
-//				}
-//				else if(model.isContaingShark(attribute))
-//				{
-//					tile.addMouseListener(sharkMouseActionListener);
-//				}
-//				else
-//				{
-//					tile.addMouseListener(pieceMoveActionListener);
-//				}
 				view.getBoard().add(tile);
 			}		
 	}
 	
 	public void showBoard() {
-		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(this);//view,model);
-		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(this);//view,model);
-		PieceMoveActionListener pieceMoveActionListener = new PieceMoveActionListener(this);//view,model);
+		EgaleMouseActionListener egaleMouseActionListener = new EgaleMouseActionListener(this);
+		SharkMouseActionListener sharkMouseActionListener = new SharkMouseActionListener(this);
+		PieceMoveActionListener pieceMoveActionListener = new PieceMoveActionListener(this);
 
 		int item = 0;
 		Tile tile;
@@ -93,7 +76,6 @@ public class Controller {
 				view.getBoard().add(tile);
 			}		
 	}
-
 
 	private void createTimer() {
 		ActionListener countDown=new ActionListener()
@@ -191,7 +173,7 @@ public class Controller {
 		if(model.getContext().getGameState() == GameStatus.START)
 			model.getGameState().doEgaleAction(model.getContext());
 		createTimer();
-		initMouseListener();		
+		initMouseListener();
 	}
 
 	private void doSave() {
@@ -350,6 +332,7 @@ public class Controller {
 					
 					//save command for doing UNDO and REDO
 					model.getUndoRedoManager().addUndoRedoManager(new CommandLineChanger(
+							this,
 						 	model.getContext().getGameState(),
 						  	source,
 						  	destination,
@@ -368,6 +351,7 @@ public class Controller {
 					
 					//save command for doing UNDO and REDO
 					model.getUndoRedoManager().addUndoRedoManager(new CommandLineChanger(
+							this,
 						 	model.getContext().getGameState(),
 						  	source,
 						  	destination,
@@ -428,7 +412,7 @@ public class Controller {
 				}
 			}
 			view.getBoard().setSelectedRow(-1);
-			view.getBoard().setSelectedColumn(-1);			
+			view.getBoard().setSelectedColumn(-1);
 		}		
 	}
 	
