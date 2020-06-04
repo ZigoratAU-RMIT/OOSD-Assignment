@@ -324,7 +324,7 @@ public class Controller {
 					model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
 					view.updateSharkLog(model.getLoggerChain().message);
 					//scored the Shark
-					view.updateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
+					view.updateScore(false,1);
 					model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, "Scoreed");
 					view.updateSharkLog(model.getLoggerChain().message);
 					//Change state to Eagle turn
@@ -342,7 +342,7 @@ public class Controller {
 					model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
 					view.updateEagleLog(model.getLoggerChain().message);
 					//scored the Eagle
-					view.updateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
+					view.updateScore(true,1);
 					model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, "Scoreed");
 					view.updateEagleLog(model.getLoggerChain().message);
 					//Change state to Shark turn

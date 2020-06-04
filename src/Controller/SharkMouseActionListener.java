@@ -45,7 +45,6 @@ public class SharkMouseActionListener  implements MouseListener
 			JOptionPane.showMessageDialog(null,"It is Eagle turn");
 			break;
 		case EGALEATTACK:
-			//Tile tileItemAttack = (Tile) e.getSource();
 			Eagle eagleChooseAttack = new Eagle("");
 			for(Eagle eagle : model.getEagles())
 			{
@@ -71,6 +70,7 @@ public class SharkMouseActionListener  implements MouseListener
 				if(sharkChooseAttack.getLife() >  0)
 				{
 					sharkChooseAttack.reduceLife(eagleChooseAttack.getLifeAbility());
+					view.updateLife(tileItemAttack.getAttribute(),eagleChooseAttack.getLife());
 					if(sharkChooseAttack.getLife() <= 0)
 					{
 						controller.doMovement(tileItemAttack);
