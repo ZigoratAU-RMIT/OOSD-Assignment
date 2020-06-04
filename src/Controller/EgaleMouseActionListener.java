@@ -101,7 +101,21 @@ public class EgaleMouseActionListener  implements MouseListener
 				JLabel movementType = new JLabel("Movement: in 3 tiles");
 				
 				JButton changeBehaviour = new JButton("Use Ability");
-//				changeBehaviour.addMouseListener(null);
+				if(eagleChoose.getName().equalsIgnoreCase("Bald"))
+				{
+					MouseListener bald = new BaldMouseListener();
+					changeBehaviour.addMouseListener(bald);	
+				}
+				else if(eagleChoose.getName().equalsIgnoreCase("Black"))
+				{
+					MouseListener black = new BlackMouseListener();
+					changeBehaviour.addMouseListener(black);	
+				}
+				else if(eagleChoose.getName().equalsIgnoreCase("Bateleur"))
+				{
+					MouseListener bateleur = new BateleurMouseListener();
+					changeBehaviour.addMouseListener(bateleur);	
+				}
 				
 				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(currentLabel);
 				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(eagleName);

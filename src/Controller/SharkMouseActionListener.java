@@ -100,8 +100,21 @@ public class SharkMouseActionListener  implements MouseListener
 				JLabel movementType = new JLabel("Movement: in '+' shape");
 				
 				JButton changeBehaviour = new JButton("Use Ability");
-//				MouseListener tigerShark = new TigerSharkMouseListener();
-//				changeBehaviour.addMouseListener(tigerShark);
+				if(sharkChoose.getName().equalsIgnoreCase("white shark"))
+				{
+					MouseListener whiteShark = new WhiteSharkMouseListener();
+					changeBehaviour.addMouseListener(whiteShark);
+				}
+				else if(sharkChoose.getName().equalsIgnoreCase("blue shark"))
+				{
+					MouseListener blueShark = new BlueSharkMouseListener();
+					changeBehaviour.addMouseListener(blueShark);
+				}
+				else if(sharkChoose.getName().equalsIgnoreCase("tiger shark"))
+				{
+					MouseListener tigerShark = new TigerSharkMouseListener();
+					changeBehaviour.addMouseListener(tigerShark);
+				}
 				
 				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(currentLabel);
 				((Container) view.getCurrentAnimalPanel().getComponent(0)).add(sharkName);
