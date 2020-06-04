@@ -39,4 +39,16 @@ public class GameState  implements State {
 		context.setGameState(GameStatus.END);
 	}
 
+	@Override
+	public void doEgaleAttackAction(Context context) {
+		// TODO Auto-generated method stub
+		context.setGameState(GameStatus.EGALEATTACK);
+	}
+
+	@Override
+	public void doSharkAttackAction(Context context) {
+		// TODO Auto-generated method stub
+		context.setGameState(GameStatus.SHARKATTACK);
+	}
+
 }

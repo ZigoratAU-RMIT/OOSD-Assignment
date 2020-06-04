@@ -37,6 +37,8 @@ public class Model
 	private GameState gameState;
 	private AbstractLogger loggerChain ;
 	private UndoRedoManager undoRedoManager;
+	private Tile attacker;
+	
 
 	
 	public UndoRedoManager getUndoRedoManager() {
@@ -262,5 +264,15 @@ public class Model
 
 	public Context getContext() {
 		return context;
+	}
+
+
+	public Tile getAttacker() {
+		return attacker;
+	}
+
+
+	public void setAttacker(Tile attacker) {
+		this.attacker = attacker;
 	}
 }

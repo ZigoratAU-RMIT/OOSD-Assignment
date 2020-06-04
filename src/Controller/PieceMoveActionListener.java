@@ -29,12 +29,14 @@ public class PieceMoveActionListener implements MouseListener
 		{
 			switch(model.getContext().getGameState()) {
 			case EGALE:
+			case EGALEATTACK:
 				if(tileItem.getAttribute().compareToIgnoreCase("egale") != 0) 
 				{
 					controller.doMovement(tileItem);		
 				}
 				break;
 			case SHARK:
+			case SHARKATTACK:
 				if(tileItem.getAttribute().compareToIgnoreCase("shark") != 0)
 				{
 					controller.doMovement(tileItem);									
