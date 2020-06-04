@@ -139,7 +139,7 @@ public class Controller {
 				if(model.getUndoRedoManager().canUndo())
 					model.getUndoRedoManager().undo();
 				else
-					JOptionPane.showMessageDialog(null,"No UNDO");
+					JOptionPane.showMessageDialog(null,"End of UNDO");
 			}			
 		});
 
@@ -149,7 +149,7 @@ public class Controller {
 				if(model.getUndoRedoManager().canRedo())
 					model.getUndoRedoManager().redo();
 				else
-					JOptionPane.showMessageDialog(null,"No REDO");
+					JOptionPane.showMessageDialog(null,"End of REDO");
 			}			
 		});
 	}
@@ -331,12 +331,11 @@ public class Controller {
 					model.getGameState().doEgaleAction(model.getContext());
 					
 					//save command for doing UNDO and REDO
-					model.getUndoRedoManager().addUndoRedoManager(new CommandLineChanger(
-							this,
-						 	model.getContext().getGameState(),
-						  	source,
-						  	destination,
-						  	model.getTiles()));
+					model.getUndoRedoManager().addUndoRedoManager(
+							new CommandLineChanger(
+									this,
+									source,
+									destination));
 					break;
 				case EGALE:
 				case EGALEATTACK:
@@ -350,12 +349,11 @@ public class Controller {
 					model.getGameState().doSharkAction(model.getContext());
 					
 					//save command for doing UNDO and REDO
-					model.getUndoRedoManager().addUndoRedoManager(new CommandLineChanger(
-							this,
-						 	model.getContext().getGameState(),
-						  	source,
-						  	destination,
-						  	model.getTiles()));
+					model.getUndoRedoManager().addUndoRedoManager(
+							new CommandLineChanger(
+									this,
+									source,
+									destination));
 					break;
 				default:
 					break;
