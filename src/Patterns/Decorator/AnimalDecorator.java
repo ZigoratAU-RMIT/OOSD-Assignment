@@ -42,5 +42,4 @@ public abstract class AnimalDecorator extends Animal  {
 	{
 		return this.lifeAbility;
 	}
-
 }
