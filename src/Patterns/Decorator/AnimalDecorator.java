@@ -3,8 +3,6 @@ package Patterns.Decorator;
 import Entity.Animal;
 
 public abstract class AnimalDecorator extends Animal  {
-	   
-	protected Animal decoratedAnimal;
 	private int life;
 	private int lifeAbility;
 
