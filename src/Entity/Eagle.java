@@ -2,12 +2,12 @@ package Entity;
 
 public class Eagle extends Animal {
 	//private int life;
-	private String name;
+	//private String name;
 	//private int lifeAbility;
 	public Eagle(String name) 
 	{
 		super(name);
-		this.name = name;
+		//this.name = name;
 		//this.life = 3;
 		//this.lifeAbility = 1;
 	}
@@ -32,10 +32,10 @@ public class Eagle extends Animal {
 //		this.life -= reduceNumber;
 //	}
 	
-	public String getName()
-	{
-		return this.name;
-	}
+//	public String getName()
+//	{
+//		return this.name;
+//	}
 	
 //	public void setLifeAbility(int number)
 //	{

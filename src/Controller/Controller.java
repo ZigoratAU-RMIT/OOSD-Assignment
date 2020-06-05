@@ -115,6 +115,7 @@ public class Controller {
 		view.getMnuBoardOptions().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				//Border options event to change the game border size
 				boardOptionsClick(); 	
 			}
 		});
@@ -122,6 +123,7 @@ public class Controller {
 		view.getMnuSave().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				//save event for saving the current game status
 				doSave();
 			}
 		});
@@ -136,6 +138,7 @@ public class Controller {
 		view.getBtnUndoButton().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				//UNDO Events
 				if(model.getUndoRedoManager().canUndo())
 					model.getUndoRedoManager().undo();
 				else
@@ -146,6 +149,7 @@ public class Controller {
 		view.getBtnRedoButton().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				//REDO Events
 				if(model.getUndoRedoManager().canRedo())
 					model.getUndoRedoManager().redo();
 				else
@@ -235,7 +239,6 @@ public class Controller {
 			}
 			if(islandCheck)
 			{
-
 				boolean isMoveAllowed = checkMovement(x,y);
 				if(isMoveAllowed) {				
 					//find source and destination location in the board
