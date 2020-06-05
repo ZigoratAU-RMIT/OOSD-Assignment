@@ -223,191 +223,208 @@ public class Controller {
 			//calculate distance
 			double x = tileItem.getRow() - view.getBoard().getSelectedRow();
 			double y = tileItem.getColumn() - view.getBoard().getSelectedColumn();
+			boolean islandCheck = true;
+			int tileX = view.getBoard().getSelectedRow() - 1;
+			int tileY = view.getBoard().getSelectedColumn() - 1;
+			int tileLocation = tileX * 8 + tileY;
+			Tile originalTile = model.getTiles().get(tileLocation);
+			if(model.getContext().getGameState() == GameStatus.SHARKATTACK && 
+					!originalTile.getAttribute().equalsIgnoreCase("blue shark"))
+			{
+				islandCheck = this.checkIslandForShark(tileItem);
+			}
+			if(islandCheck)
+			{
 
-			boolean isMoveAllowed = checkMovement(x,y);
-			if(isMoveAllowed) {				
-				//find source and destination location in the board
-				int x1 = tileItem.getRow();   
-				int y1 = tileItem.getColumn();
-				int x2 = view.getBoard().getSelectedRow() ;
-				int y2 = view.getBoard().getSelectedColumn();
+				boolean isMoveAllowed = checkMovement(x,y);
+				if(isMoveAllowed) {				
+					//find source and destination location in the board
+					int x1 = tileItem.getRow();   
+					int y1 = tileItem.getColumn();
+					int x2 = view.getBoard().getSelectedRow() ;
+					int y2 = view.getBoard().getSelectedColumn();
 
-				int source = ((x1 - 1) * 8) + (y1 - 1);
-				int destination = ((x2 - 1) * 8) + (y2 - 1);
+					int source = ((x1 - 1) * 8) + (y1 - 1);
+					int destination = ((x2 - 1) * 8) + (y2 - 1);
 
-				Tile sourceTile = model.getTiles().get(source);
-				Tile destinationTile = model.getTiles().get(destination);
-				String sourceAttribute = sourceTile.getAttribute();
-				String destinationAttribute = destinationTile.getAttribute();
+					Tile sourceTile = model.getTiles().get(source);
+					Tile destinationTile = model.getTiles().get(destination);
+					String sourceAttribute = sourceTile.getAttribute();
+					String destinationAttribute = destinationTile.getAttribute();
 
-				String sourceAttributeChange = "";
-//				if(destinationAttribute.equalsIgnoreCase("Black") || 
-//						destinationAttribute.equalsIgnoreCase("Bateleur") || 
-//						destinationAttribute.equalsIgnoreCase("Bald"))
-				if(model.isContaingEagle(destinationAttribute))
-				{
-					sourceAttributeChange = "island";
-				}
-				else
-				{
-					sourceAttributeChange = "ocean";
-				}
-
-				if(destinationTile.getCurrentTileAttribute() == null)
-				{
+					String sourceAttributeChange = "";
 //					if(destinationAttribute.equalsIgnoreCase("Black") || 
 //							destinationAttribute.equalsIgnoreCase("Bateleur") || 
 //							destinationAttribute.equalsIgnoreCase("Bald"))
 					if(model.isContaingEagle(destinationAttribute))
 					{
-						model.getTiles().get(destination).setCurrentTileAttribute("EagleIsland");
+						sourceAttributeChange = "island";
 					}
 					else
-					{
-						model.getTiles().get(destination).setCurrentTileAttribute("SharkOcean");
-					}
-
-					if(destinationTile.getCurrentTileAttribute().equalsIgnoreCase("EagleOcean")
-							|| destinationTile.getCurrentTileAttribute().equalsIgnoreCase("SharkOcean"))
 					{
 						sourceAttributeChange = "ocean";
 					}
+
+					if(destinationTile.getCurrentTileAttribute() == null)
+					{
+//						if(destinationAttribute.equalsIgnoreCase("Black") || 
+//								destinationAttribute.equalsIgnoreCase("Bateleur") || 
+//								destinationAttribute.equalsIgnoreCase("Bald"))
+						if(model.isContaingEagle(destinationAttribute))
+						{
+							model.getTiles().get(destination).setCurrentTileAttribute("EagleIsland");
+						}
+						else
+						{
+							model.getTiles().get(destination).setCurrentTileAttribute("SharkOcean");
+						}
+
+						if(destinationTile.getCurrentTileAttribute().equalsIgnoreCase("EagleOcean")
+								|| destinationTile.getCurrentTileAttribute().equalsIgnoreCase("SharkOcean"))
+						{
+							sourceAttributeChange = "ocean";
+						}
+						else
+						{
+							sourceAttributeChange = "island";
+						}
+					}
 					else
 					{
-						sourceAttributeChange = "island";
+						if(destinationTile.getCurrentTileAttribute().equalsIgnoreCase("EagleIsland"))
+						{
+							sourceAttributeChange = "island";
+						}
+						else
+						{
+							sourceAttributeChange = "ocean";
+						}
 					}
+
+					if(sourceAttribute.equalsIgnoreCase("ocean") && model.isContaingEagle(destinationAttribute))
+//							(destinationAttribute.equalsIgnoreCase("Black") || 
+//							destinationAttribute.equalsIgnoreCase("Bateleur") || 
+//							destinationAttribute.equalsIgnoreCase("Bald")))
+					{
+						destinationTile.setCurrentTileAttribute("EagleOcean");
+					}
+					else if(sourceAttribute.equalsIgnoreCase("island") && model.isContaingEagle(destinationAttribute))
+//							(destinationAttribute.equalsIgnoreCase("Black") || 
+//							destinationAttribute.equalsIgnoreCase("Bateleur") || 
+//							destinationAttribute.equalsIgnoreCase("Bald")))
+					{
+						destinationTile.setCurrentTileAttribute("EagleIsland");
+					}
+
+
+					model.getTiles().get(source).setRow(x2);
+					model.getTiles().get(source).setColumn(y2);
+					model.getTiles().get(destination).setRow(x1);
+					model.getTiles().get(destination).setColumn(y1);
+					Collections.swap(model.getTiles(), source, destination);
+
+					model.getTiles().get(destination).setAttribute(sourceAttributeChange);
+					model.setImageToTile(model.getTiles().get(destination), sourceAttributeChange);
+
+					view.getBoard().removeAll();
+					updateBoard();
+					view.getBoard().validate();
+					switch(model.getContext().getGameState()) {
+					case SHARK:
+					case SHARKATTACK:
+						//Shark log show in right side of panel
+						model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
+						view.updateSharkLog(model.getLoggerChain().message);
+						//scored the Shark
+						view.updateScore(false,1);
+						model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, "Scoreed");
+						view.updateSharkLog(model.getLoggerChain().message);
+						//Change state to Eagle turn
+						model.getGameState().doEgaleAction(model.getContext());
+						
+						//save command for doing UNDO and REDO
+						model.getUndoRedoManager().addUndoRedoManager(
+								new CommandLineChanger(
+										this,
+										source,
+										destination));
+						break;
+					case EGALE:
+					case EGALEATTACK:
+						model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
+						view.updateEagleLog(model.getLoggerChain().message);
+						//scored the Eagle
+						view.updateScore(true,1);
+						model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, "Scoreed");
+						view.updateEagleLog(model.getLoggerChain().message);
+						//Change state to Shark turn
+						model.getGameState().doSharkAction(model.getContext());
+						
+						//save command for doing UNDO and REDO
+						model.getUndoRedoManager().addUndoRedoManager(
+								new CommandLineChanger(
+										this,
+										source,
+										destination));
+						break;
+					default:
+						break;
+					}
+					if((model.getContext().getGameState() == GameStatus.SHARK) || (model.getContext().getGameState() == GameStatus.EGALE))
+						view.changeGameStateTimer(model.getContext().getGameState());
+//					if(model.getContext().getGameState() == GameStatus.SHARK) {
+//						//Shark log show in right side of panel
+//						model.getLoggerChain().setwMessage(AbstractLogger.SHARK, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
+//						view.updateSharkLog(model.getLoggerChain().message);
+//						//scored the Shark
+//						view.UpdateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
+//						model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "Scoreed");
+//						view.updateSharkLog(model.getLoggerChain().message);
+//						//Change state to Eagle turn
+//						model.getGameState().doEgaleAction(model.getContext());
+//						
+//						//save command for doing UNDO and REDO
+//						model.getUndoRedoManager().addUndoRedoManager(new CommandLineChanger(
+//							 	model.getContext().getGameState(),
+//							  	source,
+//							  	destination,
+//							  	model.getTiles()));
+//					}
+//					else {
+//						//Eagle log show in right side of panel
+//						model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
+//						view.updateEagleLog(model.getLoggerChain().message);
+//						//scored the Eagle
+//						view.UpdateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
+//						model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, "Scoreed");
+//						view.updateEagleLog(model.getLoggerChain().message);
+//						//Change state to Shark turn
+//						model.getGameState().doSharkAction(model.getContext());
+//						
+//						//save command for doing UNDO and REDO
+//						model.getUndoRedoManager().addUndoRedoManager(new CommandLineChanger(
+//							 	model.getContext().getGameState(),
+//							  	source,
+//							  	destination,
+//							  	model.getTiles()));
+//					}
+//					view.changeGameStateTimer(model.getContext().getGameState());
 				}
 				else
 				{
-					if(destinationTile.getCurrentTileAttribute().equalsIgnoreCase("EagleIsland"))
-					{
-						sourceAttributeChange = "island";
+					if(model.getContext().getGameState() == GameStatus.EGALE) {
+						model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, "Shark movement is wrong");
+						view.updateEagleLog(model.getLoggerChain().message);
 					}
-					else
-					{
-						sourceAttributeChange = "ocean";
+					else if(model.getContext().getGameState() == GameStatus.SHARK) {
+						model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, "Shark movement is wrong");
+						view.updateSharkLog(model.getLoggerChain().message);
 					}
 				}
-
-				if(sourceAttribute.equalsIgnoreCase("ocean") && model.isContaingEagle(destinationAttribute))
-//						(destinationAttribute.equalsIgnoreCase("Black") || 
-//						destinationAttribute.equalsIgnoreCase("Bateleur") || 
-//						destinationAttribute.equalsIgnoreCase("Bald")))
-				{
-					destinationTile.setCurrentTileAttribute("EagleOcean");
-				}
-				else if(sourceAttribute.equalsIgnoreCase("island") && model.isContaingEagle(destinationAttribute))
-//						(destinationAttribute.equalsIgnoreCase("Black") || 
-//						destinationAttribute.equalsIgnoreCase("Bateleur") || 
-//						destinationAttribute.equalsIgnoreCase("Bald")))
-				{
-					destinationTile.setCurrentTileAttribute("EagleIsland");
-				}
-
-
-				model.getTiles().get(source).setRow(x2);
-				model.getTiles().get(source).setColumn(y2);
-				model.getTiles().get(destination).setRow(x1);
-				model.getTiles().get(destination).setColumn(y1);
-				Collections.swap(model.getTiles(), source, destination);
-
-				model.getTiles().get(destination).setAttribute(sourceAttributeChange);
-				model.setImageToTile(model.getTiles().get(destination), sourceAttributeChange);
-
-				view.getBoard().removeAll();
-				updateBoard();
-				view.getBoard().validate();
-				switch(model.getContext().getGameState()) {
-				case SHARK:
-				case SHARKATTACK:
-					//Shark log show in right side of panel
-					model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
-					view.updateSharkLog(model.getLoggerChain().message);
-					//scored the Shark
-					view.updateScore(false,1);
-					model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, "Scoreed");
-					view.updateSharkLog(model.getLoggerChain().message);
-					//Change state to Eagle turn
-					model.getGameState().doEgaleAction(model.getContext());
-					
-					//save command for doing UNDO and REDO
-					model.getUndoRedoManager().addUndoRedoManager(
-							new CommandLineChanger(
-									this,
-									source,
-									destination));
-					break;
-				case EGALE:
-				case EGALEATTACK:
-					model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
-					view.updateEagleLog(model.getLoggerChain().message);
-					//scored the Eagle
-					view.updateScore(true,1);
-					model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, "Scoreed");
-					view.updateEagleLog(model.getLoggerChain().message);
-					//Change state to Shark turn
-					model.getGameState().doSharkAction(model.getContext());
-					
-					//save command for doing UNDO and REDO
-					model.getUndoRedoManager().addUndoRedoManager(
-							new CommandLineChanger(
-									this,
-									source,
-									destination));
-					break;
-				default:
-					break;
-				}
-				if((model.getContext().getGameState() == GameStatus.SHARK) || (model.getContext().getGameState() == GameStatus.EGALE))
-					view.changeGameStateTimer(model.getContext().getGameState());
-//				if(model.getContext().getGameState() == GameStatus.SHARK) {
-//					//Shark log show in right side of panel
-//					model.getLoggerChain().setwMessage(AbstractLogger.SHARK, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
-//					view.updateSharkLog(model.getLoggerChain().message);
-//					//scored the Shark
-//					view.UpdateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
-//					model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "Scoreed");
-//					view.updateSharkLog(model.getLoggerChain().message);
-//					//Change state to Eagle turn
-//					model.getGameState().doEgaleAction(model.getContext());
-//					
-//					//save command for doing UNDO and REDO
-//					model.getUndoRedoManager().addUndoRedoManager(new CommandLineChanger(
-//						 	model.getContext().getGameState(),
-//						  	source,
-//						  	destination,
-//						  	model.getTiles()));
-//				}
-//				else {
-//					//Eagle log show in right side of panel
-//					model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
-//					view.updateEagleLog(model.getLoggerChain().message);
-//					//scored the Eagle
-//					view.UpdateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
-//					model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, "Scoreed");
-//					view.updateEagleLog(model.getLoggerChain().message);
-//					//Change state to Shark turn
-//					model.getGameState().doSharkAction(model.getContext());
-//					
-//					//save command for doing UNDO and REDO
-//					model.getUndoRedoManager().addUndoRedoManager(new CommandLineChanger(
-//						 	model.getContext().getGameState(),
-//						  	source,
-//						  	destination,
-//						  	model.getTiles()));
-//				}
-//				view.changeGameStateTimer(model.getContext().getGameState());
 			}
 			else
 			{
-				if(model.getContext().getGameState() == GameStatus.EGALE) {
-					model.getLoggerChain().setwMessage(AbstractGameLogger.EAGLE, "Shark movement is wrong");
-					view.updateEagleLog(model.getLoggerChain().message);
-				}
-				else if(model.getContext().getGameState() == GameStatus.SHARK) {
-					model.getLoggerChain().setwMessage(AbstractGameLogger.SHARK, "Shark movement is wrong");
-					view.updateSharkLog(model.getLoggerChain().message);
-				}
+				JOptionPane.showMessageDialog(null,"Shark can not go through the island");
 			}
 			view.getBoard().setSelectedRow(-1);
 			view.getBoard().setSelectedColumn(-1);
@@ -435,6 +452,73 @@ public class Controller {
 				result = (Math.abs(x) == 0 ) ||( Math.abs(y) == 0);
 		}
 		return result;
+	}
+	
+	public boolean checkIslandForShark(Tile tileItem)
+	{
+		boolean returnValue = true;
+		double x = tileItem.getRow() - view.getBoard().getSelectedRow();
+		double y = tileItem.getColumn() - view.getBoard().getSelectedColumn();
+		if((Math.abs(x) != 0 ) && ( Math.abs(y) != 0))
+		{
+			returnValue = false;
+		}
+		int x1 = tileItem.getRow();   
+		int y1 = tileItem.getColumn();
+		int x2 = view.getBoard().getSelectedRow();
+		int y2 = view.getBoard().getSelectedColumn();
+		if(model.getContext().getGameState() == GameStatus.SHARKATTACK)
+		{
+			if(x == 0 && y1 < y2)
+			{
+				for(int i = (y1 - 1);i<(y2-1);i++)
+				{
+					int tileCheck = ((x1-1)*8) + i;
+					if(model.getTiles().get(tileCheck).getAttribute().equalsIgnoreCase("island"))
+					{
+						returnValue = false;
+						break;
+					}
+				}
+			}
+			else if (x == 0 && y1 > y2)
+			{
+				for(int i = (y2 - 1);i<(y1-1);i++)
+				{
+					int tileCheck = ((x1-1)*8) + i;
+					if(model.getTiles().get(tileCheck).getAttribute().equalsIgnoreCase("island"))
+					{
+						returnValue = false;
+						break;
+					}
+				}
+			}
+			else if (y == 0 && x1 > x2)
+			{
+				for(int i = (x2 - 1);i<(x1-1);i++)
+				{
+					int tileCheck = (i*8) + (y1-1);
+					if(model.getTiles().get(tileCheck).getAttribute().equalsIgnoreCase("island"))
+					{
+						returnValue = false;
+						break;
+					}
+				}
+			}
+			else if (y == 0 && x1 < x2)
+			{
+				for(int i = (x1 - 1);i<(x2-1);i++)
+				{
+					int tileCheck = (i*8) + (y1-1);
+					if(model.getTiles().get(tileCheck).getAttribute().equalsIgnoreCase("island"))
+					{
+						returnValue = false;
+						break;
+					}
+				}
+			}
+		}
+		return returnValue;
 	}
 	
 	private void startStopClick() {

@@ -24,10 +24,12 @@ public class BlueSharkMouseListener implements MouseListener
 		JLabel sharkName = new JLabel(this.shark.getName());
 		JLabel sharkLife = new JLabel("Life: " + String.valueOf(this.shark.getLife()));
 		JLabel movementType = new JLabel("Movement: in '+' shape");
+		JLabel abilityShown = new JLabel("You can now go through the island");
 		((Container) view.getCurrentAnimalPanel().getComponent(0)).add(currentLabel);
 		((Container) view.getCurrentAnimalPanel().getComponent(0)).add(sharkName);
 		((Container) view.getCurrentAnimalPanel().getComponent(0)).add(sharkLife);
 		((Container) view.getCurrentAnimalPanel().getComponent(0)).add(movementType);
+		((Container) view.getCurrentAnimalPanel().getComponent(0)).add(abilityShown);
 		((Container) view.getCurrentAnimalPanel().getComponent(0)).validate();
 	}
 
