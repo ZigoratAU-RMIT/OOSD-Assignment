@@ -10,6 +10,7 @@ import Model.Model;
 import Patterns.Chain.AbstractGameLogger;
 import Patterns.Decorator.EagleDecorator;
 import Patterns.Decorator.SharkDecorator;
+import Patterns.State.Context.GameStatus;
 import View.Board;
 import View.Tile;
 import View.View;
@@ -21,10 +22,10 @@ public class SharkMouseActionListener  implements MouseListener
 	private Model model;
 	private Controller controller;
 	
-	public SharkMouseActionListener(Controller controller) {
+	public SharkMouseActionListener(Controller controller) {// View view, Model model) {
 		this.controller = controller;
-		this.model = controller.getModel();
-		this.view = controller.getView();
+		this.model = controller.getModel();// model;
+		this.view = controller.getView();// view;
 		this.board = view.getBoard();
 	}
 
@@ -70,15 +71,18 @@ public class SharkMouseActionListener  implements MouseListener
 				}
 				if(sharkChooseAttack.getLife() >  0)
 				{
-					sharkChooseAttack.reduceLife(eagleChooseAttack.getLifeAbility());
-					view.updateLife(tileItemAttack.getAttribute(),eagleChooseAttack.getLife());
-					if(sharkChooseAttack.getLife() <= 0)
+					if(sharkChooseAttack.getLife() != 3 && eagleChooseAttack.getName().equalsIgnoreCase("Bateleur"))
 					{
 						controller.doMovement(tileItemAttack);
 					}
-					else if(sharkChooseAttack.getLife() != 3 && eagleChooseAttack.getName().equalsIgnoreCase("Bateleur"))
+					else
 					{
-						controller.doMovement(tileItemAttack);
+						sharkChooseAttack.reduceLife(eagleChooseAttack.getLifeAbility());
+						view.updateLife(tileItemAttack.getAttribute(),eagleChooseAttack.getLife());
+						if(sharkChooseAttack.getLife() <= 0)
+						{
+							controller.doMovement(tileItemAttack);
+						}
 					}
 				}
 			}

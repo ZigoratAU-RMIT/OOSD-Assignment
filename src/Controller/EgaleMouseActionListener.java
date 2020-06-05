@@ -10,6 +10,7 @@ import Model.Model;
 import Patterns.Chain.AbstractGameLogger;
 import Patterns.Decorator.EagleDecorator;
 import Patterns.Decorator.SharkDecorator;
+import Patterns.State.Context.GameStatus;
 import View.Tile;
 import View.View;
 
@@ -104,6 +105,8 @@ public class EgaleMouseActionListener implements MouseListener
 			JOptionPane.showMessageDialog(null,"It is Shark turn");
 			break;
 		case SHARKATTACK:
+			//Tile tileItem = (Tile) e.getSource();
+			//Tile tileItem =  model.getAttacker();
 			SharkDecorator sharkChoose = new SharkDecorator("");
 			for(SharkDecorator shark : model.getSharks())
 			{
@@ -129,10 +132,10 @@ public class EgaleMouseActionListener implements MouseListener
 				if(eagleChoose1.getLife() > 0)
 				{
 					eagleChoose1.reduceLife(sharkChoose.getLifeAbility());
-					if(eagleChoose1.getLife() > 0)
+					view.updateLife(tileItem.getAttribute(),eagleChoose1.getLife());
+					if(eagleChoose1.getLife() <= 0)
 					{
 						controller.doMovement(tileItem);
-						view.updateLife(tileItem.getAttribute(),eagleChoose1.getLife());
 					}
 				}
 			}
