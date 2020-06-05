@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -131,7 +133,7 @@ public class Controller {
 		view.getMnuNew().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				doNew();
+				doOjectsLists();
 			}
 		});		
 
@@ -185,8 +187,10 @@ public class Controller {
 		JOptionPane.showMessageDialog(null,"Current game was saved.");
 	}
 
-	private void doNew() {
-		JOptionPane.showMessageDialog(null,"New.");
+	private void doOjectsLists() {
+		String s;
+		s = "Egales : \n" + model.getEglesList() + "\n" + "Sharks : \n" + model.getSharksList();
+		JOptionPane.showMessageDialog(null,s);
 	}
 
 	private void doExit() {

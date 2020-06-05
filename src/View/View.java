@@ -57,7 +57,7 @@ public class View {
 	private JLabel lbltigershark;
 	private JLabel lbTtigersharkLife;	
 	private Timer timer;
-	private JMenu mnuNew;
+	private JMenu mnuObectsLists;
 	private JPanel tileStatusPanel;
 	private JPanel currentAnimalPanel;
 	private JPanel pnlTimer;
@@ -285,7 +285,7 @@ public class View {
 	}
 
 	public JMenu getMnuNew() {
-		return mnuNew;
+		return mnuObectsLists;
 	}
 
 	public Timer getTimer() {
@@ -336,9 +336,9 @@ public class View {
 		menuBar = new JMenuBar();
 		frmOodsAssignment.setJMenuBar(menuBar);
 
-		mnuNew = new JMenu("New Game");
-		mnuNew.setMnemonic('P');
-		menuBar.add(mnuNew);
+		mnuObectsLists = new JMenu("Objects List");
+		mnuObectsLists.setMnemonic('P');
+		menuBar.add(mnuObectsLists);
 
 		mnuSave = new JMenu("Save Game");
 		mnuSave.setMnemonic('P');

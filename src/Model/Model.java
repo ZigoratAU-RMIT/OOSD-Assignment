@@ -19,6 +19,8 @@ import Patterns.Chain.EagleLogger;
 import Patterns.Chain.SharkAttackLogger;
 import Patterns.Chain.SharkLogger;
 import Patterns.Command.UndoRedoManager;
+import Patterns.Composite.CompositeEagles;
+import Patterns.Composite.CompositeSharks;
 import Patterns.Decorator.EagleDecorator;
 import Patterns.Decorator.SharkDecorator;
 import Patterns.State.*;
@@ -38,6 +40,26 @@ public class Model
 	private AbstractGameLogger loggerChain ;
 	private UndoRedoManager undoRedoManager;
 	private Tile attacker;
+	
+	private CompositeEagles EglesList = new CompositeEagles("Eagles",0,0);
+	
+	public String getEglesList() {
+		List<String> list = new ArrayList<String>();
+		for (CompositeEagles egles : EglesList.getSubordinates()) {
+			list.add(egles.toString());
+	      }	
+		return String.valueOf(list);
+	}
+
+
+	private CompositeSharks SharksList = new CompositeSharks("Sharks",0,0);
+	public String getSharksList() {
+		List<String> list = new ArrayList<String>();
+		for (CompositeSharks sharks : SharksList.getSubordinates()) {
+			list.add(sharks.toString());
+	      }	
+		return String.valueOf(list);
+	}
 	
 	public UndoRedoManager getUndoRedoManager() {
 		return undoRedoManager;
@@ -137,10 +159,27 @@ public class Model
 		sharks.add(new SharkDecorator("white shark"));
 		sharks.add(new SharkDecorator("blue shark"));
 		sharks.add(new SharkDecorator("tiger shark"));
+		for(int i=0; i < sharks.size(); i++) {
+			CompositeSharks Sharks = new CompositeSharks(
+					sharks.get(i).getName(), 
+					sharks.get(i).getLife(),
+					sharks.get(i).getLifeAbility());
+			SharksList.add(Sharks);
+		}
+		
 		eagles = new ArrayList<EagleDecorator>();
 		eagles.add(new EagleDecorator("Bateleur"));
 		eagles.add(new EagleDecorator("Bald"));
 		eagles.add(new EagleDecorator("Black"));
+		
+		for(int i=0; i < sharks.size(); i++) {
+			CompositeEagles Egles = new CompositeEagles(
+					eagles.get(i).getName(), 
+					eagles.get(i).getLife(),
+					eagles.get(i).getLifeAbility());
+			EglesList.add(Egles);
+		}
+
 		context.setGameState(Enum.valueOf(GameStatus.class, applicationConfiguration.getGameStatus()));
 		if(loadingGame) {
 			loadGame();
