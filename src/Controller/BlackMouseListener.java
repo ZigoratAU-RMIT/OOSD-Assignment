@@ -24,10 +24,12 @@ public class BlackMouseListener implements MouseListener
 		JLabel eagleName = new JLabel(this.eagle.getName());
 		JLabel eagleLife = new JLabel("Life: " + String.valueOf(this.eagle.getLife()));
 		JLabel movementType = new JLabel("Movement: in 3 tiles");
+		JLabel abilityShown = new JLabel("When the life is 1, it can kill any shark");
 		((Container) view.getCurrentAnimalPanel().getComponent(0)).add(currentLabel);
 		((Container) view.getCurrentAnimalPanel().getComponent(0)).add(eagleName);
 		((Container) view.getCurrentAnimalPanel().getComponent(0)).add(eagleLife);
 		((Container) view.getCurrentAnimalPanel().getComponent(0)).add(movementType);
+		((Container) view.getCurrentAnimalPanel().getComponent(0)).add(abilityShown);
 		((Container) view.getCurrentAnimalPanel().getComponent(0)).validate();
 		
 	}
