@@ -104,8 +104,6 @@ public class EgaleMouseActionListener implements MouseListener
 			JOptionPane.showMessageDialog(null,"It is Shark turn");
 			break;
 		case SHARKATTACK:
-			//Tile tileItem = (Tile) e.getSource();
-			//Tile tileItem =  model.getAttacker();
 			SharkDecorator sharkChoose = new SharkDecorator("");
 			for(SharkDecorator shark : model.getSharks())
 			{

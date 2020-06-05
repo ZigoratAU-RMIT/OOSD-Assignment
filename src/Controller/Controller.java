@@ -253,9 +253,6 @@ public class Controller {
 					String destinationAttribute = destinationTile.getAttribute();
 
 					String sourceAttributeChange = "";
-//					if(destinationAttribute.equalsIgnoreCase("Black") || 
-//							destinationAttribute.equalsIgnoreCase("Bateleur") || 
-//							destinationAttribute.equalsIgnoreCase("Bald"))
 					if(model.isContaingEagle(destinationAttribute))
 					{
 						sourceAttributeChange = "island";
@@ -267,9 +264,6 @@ public class Controller {
 
 					if(destinationTile.getCurrentTileAttribute() == null)
 					{
-//						if(destinationAttribute.equalsIgnoreCase("Black") || 
-//								destinationAttribute.equalsIgnoreCase("Bateleur") || 
-//								destinationAttribute.equalsIgnoreCase("Bald"))
 						if(model.isContaingEagle(destinationAttribute))
 						{
 							model.getTiles().get(destination).setCurrentTileAttribute("EagleIsland");
@@ -302,16 +296,10 @@ public class Controller {
 					}
 
 					if(sourceAttribute.equalsIgnoreCase("ocean") && model.isContaingEagle(destinationAttribute))
-//							(destinationAttribute.equalsIgnoreCase("Black") || 
-//							destinationAttribute.equalsIgnoreCase("Bateleur") || 
-//							destinationAttribute.equalsIgnoreCase("Bald")))
 					{
 						destinationTile.setCurrentTileAttribute("EagleOcean");
 					}
 					else if(sourceAttribute.equalsIgnoreCase("island") && model.isContaingEagle(destinationAttribute))
-//							(destinationAttribute.equalsIgnoreCase("Black") || 
-//							destinationAttribute.equalsIgnoreCase("Bateleur") || 
-//							destinationAttribute.equalsIgnoreCase("Bald")))
 					{
 						destinationTile.setCurrentTileAttribute("EagleIsland");
 					}
@@ -372,43 +360,7 @@ public class Controller {
 					}
 					if((model.getContext().getGameState() == GameStatus.SHARK) || (model.getContext().getGameState() == GameStatus.EGALE))
 						view.changeGameStateTimer(model.getContext().getGameState());
-//					if(model.getContext().getGameState() == GameStatus.SHARK) {
-//						//Shark log show in right side of panel
-//						model.getLoggerChain().setwMessage(AbstractLogger.SHARK, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
-//						view.updateSharkLog(model.getLoggerChain().message);
-//						//scored the Shark
-//						view.UpdateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
-//						model.getLoggerChain().setwMessage(AbstractLogger.SHARK, "Scoreed");
-//						view.updateSharkLog(model.getLoggerChain().message);
-//						//Change state to Eagle turn
-//						model.getGameState().doEgaleAction(model.getContext());
-//						
-//						//save command for doing UNDO and REDO
-//						model.getUndoRedoManager().addUndoRedoManager(new CommandLineChanger(
-//							 	model.getContext().getGameState(),
-//							  	source,
-//							  	destination,
-//							  	model.getTiles()));
-//					}
-//					else {
-//						//Eagle log show in right side of panel
-//						model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, destinationAttribute + " Moved ( " +x1+ "," +y1 + " )");
-//						view.updateEagleLog(model.getLoggerChain().message);
-//						//scored the Eagle
-//						view.UpdateScore(model.getContext().getGameState() == GameStatus.EGALE,1);
-//						model.getLoggerChain().setwMessage(AbstractLogger.EAGLE, "Scoreed");
-//						view.updateEagleLog(model.getLoggerChain().message);
-//						//Change state to Shark turn
-//						model.getGameState().doSharkAction(model.getContext());
-//						
-//						//save command for doing UNDO and REDO
-//						model.getUndoRedoManager().addUndoRedoManager(new CommandLineChanger(
-//							 	model.getContext().getGameState(),
-//							  	source,
-//							  	destination,
-//							  	model.getTiles()));
-//					}
-//					view.changeGameStateTimer(model.getContext().getGameState());
+					view.changeGameStateTimer(model.getContext().getGameState());
 				}
 				else
 				{

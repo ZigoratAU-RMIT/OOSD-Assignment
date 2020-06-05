@@ -7,6 +7,10 @@ import javax.swing.*;
 
 public class Board extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int row;
 	private int column;
 	private int selectedRow;
