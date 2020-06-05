@@ -6,9 +6,10 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import Entity.*;
 import Model.Model;
 import Patterns.Chain.AbstractGameLogger;
+import Patterns.Decorator.EagleDecorator;
+import Patterns.Decorator.SharkDecorator;
 import View.Board;
 import View.Tile;
 import View.View;
@@ -45,8 +46,8 @@ public class SharkMouseActionListener  implements MouseListener
 			JOptionPane.showMessageDialog(null,"It is Eagle turn");
 			break;
 		case EGALEATTACK:
-			Eagle eagleChooseAttack = new Eagle("");
-			for(Eagle eagle : model.getEagles())
+			EagleDecorator eagleChooseAttack = new EagleDecorator("");
+			for(EagleDecorator eagle : model.getEagles())
 			{
 				if(eagle.getName().equalsIgnoreCase(model.getAttacker().getAttribute()))
 				{
@@ -55,11 +56,11 @@ public class SharkMouseActionListener  implements MouseListener
 				}
 			}
 			Tile tileItemAttack = (Tile) e.getSource();
-			Shark sharkChooseAttack = new Shark("");
+			SharkDecorator sharkChooseAttack = new SharkDecorator("");
 			if(tileItemAttack != null && controller.checkMovement(tileItemAttack.getRow()-view.getBoard().getSelectedRow(),
 					tileItemAttack.getColumn()-view.getBoard().getSelectedColumn()))
 			{
-				for(Shark shark : model.getSharks())
+				for(SharkDecorator shark : model.getSharks())
 				{
 					if(shark.getName().contains(tileItemAttack.getAttribute()))
 					{
@@ -88,10 +89,10 @@ public class SharkMouseActionListener  implements MouseListener
 			break;
 		case SHARK:
 			Tile tile = (Tile) e.getSource();
-			Shark sharkChoose1 = new Shark("");
+			SharkDecorator sharkChoose1 = new SharkDecorator("");
 			if(tile != null) 
 			{
-				for(Shark shark : model.getSharks())
+				for(SharkDecorator shark : model.getSharks())
 				{
 					if(shark.getName().contains(tile.getAttribute()))
 					{

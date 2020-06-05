@@ -5,14 +5,14 @@ import java.awt.event.*;
 
 import javax.swing.JLabel;
 
-import Entity.*;
+import Patterns.Decorator.SharkDecorator;
 import View.*;
 
 public class TigerSharkMouseListener implements MouseListener
 {
-	private Shark shark;
+	private SharkDecorator shark;
 	private View view;
-	public TigerSharkMouseListener(Shark shark, View view)
+	public TigerSharkMouseListener(SharkDecorator shark, View view)
 	{
 		this.shark = shark;
 		this.view = view;

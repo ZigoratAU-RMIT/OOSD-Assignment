@@ -4,15 +4,14 @@ import java.awt.Container;
 import java.awt.event.*;
 
 import javax.swing.JLabel;
-
-import Entity.*;
+import Patterns.Decorator.SharkDecorator;
 import View.View;
 
 public class WhiteSharkMouseListener implements MouseListener
 {
-	private Shark shark;
+	private SharkDecorator shark;
 	private View view;
-	public WhiteSharkMouseListener(Shark shark, View view)
+	public WhiteSharkMouseListener(SharkDecorator shark, View view)
 	{
 		this.shark = shark;
 		this.view = view;

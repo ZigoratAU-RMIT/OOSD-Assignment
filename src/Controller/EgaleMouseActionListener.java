@@ -6,9 +6,10 @@ import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import Entity.*;
 import Model.Model;
 import Patterns.Chain.AbstractGameLogger;
+import Patterns.Decorator.EagleDecorator;
+import Patterns.Decorator.SharkDecorator;
 import View.Tile;
 import View.View;
 
@@ -39,7 +40,7 @@ public class EgaleMouseActionListener implements MouseListener
 			break;
 		case EGALE:
 			Tile tile = (Tile) e.getSource();
-			Eagle eagleChoose = new Eagle("");
+			EagleDecorator eagleChoose = new EagleDecorator("");
 			if(tile != null) 
 			{
 				if(Arrays.asList(model.eagles()).contains(tile.getAttribute()))
@@ -54,7 +55,7 @@ public class EgaleMouseActionListener implements MouseListener
 					}	
 				}
 
-				for(Eagle eagle : model.getEagles())
+				for(EagleDecorator eagle : model.getEagles())
 				{
 					if(eagle.getName().contains(tile.getAttribute()))
 					{
@@ -105,8 +106,8 @@ public class EgaleMouseActionListener implements MouseListener
 		case SHARKATTACK:
 			//Tile tileItem = (Tile) e.getSource();
 			//Tile tileItem =  model.getAttacker();
-			Shark sharkChoose = new Shark("");
-			for(Shark shark : model.getSharks())
+			SharkDecorator sharkChoose = new SharkDecorator("");
+			for(SharkDecorator shark : model.getSharks())
 			{
 				if(shark.getName().equalsIgnoreCase(model.getAttacker().getAttribute()))
 				{
@@ -115,11 +116,11 @@ public class EgaleMouseActionListener implements MouseListener
 				}
 			}
 			Tile tileItem = (Tile) e.getSource();
-			Eagle eagleChoose1 = new Eagle("");
+			EagleDecorator eagleChoose1 = new EagleDecorator("");
 			if(tileItem != null && controller.checkMovement(tileItem.getRow()-view.getBoard().getSelectedRow(),
 					tileItem.getColumn()-view.getBoard().getSelectedColumn()))
 			{
-				for(Eagle eagle : model.getEagles())
+				for(EagleDecorator eagle : model.getEagles())
 				{
 					if(eagle.getName().contains(tileItem.getAttribute()))
 					{

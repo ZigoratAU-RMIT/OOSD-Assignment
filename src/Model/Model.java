@@ -12,15 +12,15 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 import Configuration.ApplicationConfiguration;
 import View.*;
-import Entity.*;
 import Patterns.Chain.AbstractGameLogger;
 import Patterns.Chain.EagleLogger;
 import Patterns.Chain.SharkAttackLogger;
 import Patterns.Chain.SharkLogger;
 import Patterns.Command.UndoRedoManager;
+import Patterns.Decorator.EagleDecorator;
+import Patterns.Decorator.SharkDecorator;
 import Patterns.State.*;
 import Patterns.State.Context.GameStatus;
 
@@ -29,8 +29,8 @@ import Patterns.State.Context.GameStatus;
 public class Model 
 {	
 	private List<Tile> tiles;
-	private ArrayList<Shark> sharks;
-	private ArrayList<Eagle> eagles;
+	private ArrayList<SharkDecorator> sharks;
+	private ArrayList<EagleDecorator> eagles;
 	private ApplicationConfiguration applicationConfiguration;
 	private boolean loadingGame;
 	private Context context;
@@ -38,8 +38,6 @@ public class Model
 	private AbstractGameLogger loggerChain ;
 	private UndoRedoManager undoRedoManager;
 	private Tile attacker;
-	
-
 	
 	public UndoRedoManager getUndoRedoManager() {
 		return undoRedoManager;
@@ -135,14 +133,14 @@ public class Model
 	{
 		tiles = new ArrayList<>();
 		
-		sharks = new ArrayList<Shark>();
-		sharks.add(new Shark("white shark"));
-		sharks.add(new Shark("blue shark"));
-		sharks.add(new Shark("tiger shark"));
-		eagles = new ArrayList<Eagle>();
-		eagles.add(new Eagle("Bateleur"));
-		eagles.add(new Eagle("Bald"));
-		eagles.add(new Eagle("Black"));
+		sharks = new ArrayList<SharkDecorator>();
+		sharks.add(new SharkDecorator("white shark"));
+		sharks.add(new SharkDecorator("blue shark"));
+		sharks.add(new SharkDecorator("tiger shark"));
+		eagles = new ArrayList<EagleDecorator>();
+		eagles.add(new EagleDecorator("Bateleur"));
+		eagles.add(new EagleDecorator("Bald"));
+		eagles.add(new EagleDecorator("Black"));
 		context.setGameState(Enum.valueOf(GameStatus.class, applicationConfiguration.getGameStatus()));
 		if(loadingGame) {
 			loadGame();
@@ -214,11 +212,11 @@ public class Model
 		return tiles;
 	}
 	
-	public ArrayList<Shark> getSharks() {
+	public ArrayList<SharkDecorator> getSharks() {
 		return sharks;
 	}
 
-	public ArrayList<Eagle> getEagles() {
+	public ArrayList<EagleDecorator> getEagles() {
 		return eagles;
 	}
 	

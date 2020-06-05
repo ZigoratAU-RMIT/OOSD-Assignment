@@ -2,17 +2,15 @@ package Controller;
 
 import java.awt.Container;
 import java.awt.event.*;
-
 import javax.swing.JLabel;
-
-import Entity.*;
+import Patterns.Decorator.EagleDecorator;
 import View.View;
 
 public class BaldMouseListener implements MouseListener
 {
-	private Eagle eagle;
+	private EagleDecorator eagle;
 	private View view;
-	public BaldMouseListener(Eagle eagle, View view)
+	public BaldMouseListener(EagleDecorator eagle, View view)
 	{
 		this.eagle = eagle;
 		this.view = view;
